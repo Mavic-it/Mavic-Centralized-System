@@ -43,6 +43,7 @@ export type SessionValidationResult = {
 };
 
 export class SessionService {
+  constructor() { signingSecret(); }
   private readonly sessions = new Map<string, SessionRecord>();
 
   createSession(payload: SessionPayload): SessionRecord {
