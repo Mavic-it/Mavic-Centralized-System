@@ -169,7 +169,7 @@ describe('MSPACES foundation modules', () => {
     )?.[1];
     expect(cookieValue).toBeDefined();
 
-    controller.logout(
+    await controller.logout(
       { headers: { cookie: `mspaces_session=${cookieValue}` } } as any,
       res,
     );
@@ -216,7 +216,7 @@ describe('MSPACES foundation modules', () => {
       expect.stringContaining('SET last_login_at = now()'),
       ['usr-db-1'],
     );
-    expect(auth.validateSession(token)).toMatchObject({
+    expect(await auth.validateSession(token)).toMatchObject({
       valid: true,
       payload: { sub: 'usr-db-1', role: 'SUPER_ADMIN', scope: 'ALL' },
     });
