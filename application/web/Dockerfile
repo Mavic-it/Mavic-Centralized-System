@@ -10,7 +10,7 @@ RUN npm ci --workspace web --include-workspace-root=false --no-audit --no-fund
 FROM dependencies AS build
 COPY application/web application/web
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV AUTH_API_URL=http://api:4000
+# AUTH_API_URL is supplied at runtime by the Compose admin service.
 RUN npm run build --workspace web
 
 FROM node:24-bookworm-slim AS runtime
