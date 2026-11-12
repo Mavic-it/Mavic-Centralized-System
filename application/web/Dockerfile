@@ -5,7 +5,9 @@ COPY package.json package-lock.json ./
 COPY application/web/package.json application/web/package.json
 COPY application/client-booking/package.json application/client-booking/package.json
 COPY application/api/package.json application/api/package.json
-RUN npm ci --workspace web --include-workspace-root=false --no-audit --no-fund
+RUN npm ci --workspace web --include-workspace-root=false --include=optional --no-audit --no-fund
+# Load the actual Linux binding before Next.js processes any CSS.
+RUN node -e "const assert = require('node:assert/strict'); const r = require('node:module').createRequire('/app/application/web/package.json'); const oxide = r('@tailwindcss/oxide/package.json'); const native = '@tailwindcss/oxide-linux-x64-gnu'; assert.equal(r(native + '/package.json').version, oxide.version); r(native); r('@tailwindcss/oxide'); r('@tailwindcss/postcss'); console.log('Tailwind Linux native binding verified:', r.resolve(native), oxide.version);"
 
 FROM dependencies AS build
 COPY application/web application/web
