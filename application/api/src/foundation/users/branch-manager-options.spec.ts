@@ -70,7 +70,7 @@ describe('role updates for assigned branch managers', () => {
     const query = vi.fn(async (sql: string, parameters: unknown[] = []) => {
       if (sql.includes('FROM users WHERE')) return [{ id: 'hr', role: 'HR_ADMIN' }];
       if (sql.includes('WHERE manager_user_id')) return [{ branchId: 'branch-1' }];
-      if (sql.includes('FROM employees')) return [{ name: 'HR User', email: 'hr@example.test' }];
+      if (sql.includes('FROM employees')) return [{ name: 'HR User', email: 'hr@example.test', branchId: 'branch-1' }];
       if (sql.includes('FROM branches') && sql.includes('FOR SHARE')) return [{ isActive: true }];
       if (sql.includes('UPDATE users')) return [{ id: 'hr', role: parameters[1], branchId: parameters[3] }];
       return [];
@@ -82,7 +82,7 @@ describe('role updates for assigned branch managers', () => {
     return new UserService(dataSource);
   }
 
-  it('preserves a company-wide HR role while the account manages a branch', async () => {
+  it('retains an HR role when the account is linked to an active primary branch', async () => {
     await expect(setup().updateRole('hr', 'HR_ADMIN', 'employee-1', null))
       .resolves.toMatchObject({ role: 'HR_ADMIN' });
   });
@@ -96,8 +96,8 @@ describe('role updates for assigned branch managers', () => {
       .rejects.toThrow('Remove this account from all branch manager assignments');
   });
 
-  it('allows a deliberate primary-branch change while retaining a valid management role', async () => {
+  it('uses the employee primary branch instead of allowing role edits to silently transfer employees', async () => {
     await expect(setup().updateRole('hr', 'HR_ADMIN', 'employee-1', 'branch-2'))
-      .resolves.toMatchObject({ role: 'HR_ADMIN', branchId: 'branch-2' });
+      .resolves.toMatchObject({ role: 'HR_ADMIN', branchId: 'branch-1' });
   });
 });
