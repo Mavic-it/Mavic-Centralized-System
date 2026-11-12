@@ -5,15 +5,15 @@ import { Asset, AssetService } from './asset.service.js';
 export class AssetController {
   constructor(private readonly service: AssetService) {}
 
-  create(input: Asset): Asset {
+  create(input: Asset): Promise<Asset> {
     return this.service.create(input);
   }
 
-  list(branchId?: string): Asset[] {
+  list(branchId?: string): Promise<Asset[]> {
     return this.service.list(branchId);
   }
 
-  get(id: string): Asset | undefined {
+  get(id: string): Promise<Asset | undefined> {
     return this.service.findById(id);
   }
 }
