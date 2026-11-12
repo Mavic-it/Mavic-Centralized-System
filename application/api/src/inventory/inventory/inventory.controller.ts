@@ -5,19 +5,19 @@ import { InventoryItem, InventoryService } from './inventory.service.js';
 export class InventoryController {
   constructor(private readonly service: InventoryService) {}
 
-  create(input: InventoryItem): InventoryItem {
+  create(input: InventoryItem): Promise<InventoryItem> {
     return this.service.create(input);
   }
 
-  stockIn(id: string, quantity: number): InventoryItem | undefined {
+  stockIn(id: string, quantity: number): Promise<InventoryItem | undefined> {
     return this.service.stockIn(id, quantity);
   }
 
-  stockOut(id: string, quantity: number): InventoryItem | undefined {
+  stockOut(id: string, quantity: number): Promise<InventoryItem | undefined> {
     return this.service.stockOut(id, quantity);
   }
 
-  list(branchId?: string): InventoryItem[] {
+  list(branchId?: string): Promise<InventoryItem[]> {
     return this.service.list(branchId);
   }
 }
