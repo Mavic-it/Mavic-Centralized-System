@@ -1,0 +1,16 @@
+{
+  "name": "mspaces-system",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "application/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:web": "bun run --filter web dev",
+    "dev:api": "bun run --filter api start:dev",
+    "dev:booking": "bun run --filter client-booking dev",
+    "build": "bun run --filter web build && bun run --filter api build && bun run --filter client-booking build",
+    "lint": "bun run --filter web lint && bun run --filter api lint && bun run --filter client-booking lint"
+  }
+}

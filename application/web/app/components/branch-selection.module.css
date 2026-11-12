@@ -1,0 +1,20 @@
+.control { position:relative;display:flex;align-items:center;gap:8px;min-width:0; }
+.label { color:#667085;font-size:11px;white-space:nowrap; }
+.trigger { display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:220px;min-height:40px;border:1px solid #d8dfe8;border-radius:7px;background:#fff;padding:8px 12px;color:#263244;font:inherit;font-size:12px;cursor:pointer;overflow-wrap:anywhere; }
+.popover { position:absolute;z-index:100;right:0;top:calc(100% + 8px);width:320px;max-width:calc(100vw - 24px);padding:16px;background:white;border:1px solid #d8dfe8;border-radius:12px;box-shadow:0 8px 30px #17232d26;color:#263244;text-align:left; }
+.popover p { margin:8px 0;color:#667085;font-size:12px;line-height:1.5; }
+.options { max-height:260px;overflow:auto;border-top:1px solid #e2e7ed;margin-top:8px;padding-top:8px; }
+.choice.choice { display:flex;align-items:center;gap:10px;min-height:44px;padding:8px 4px;font-size:13px;line-height:1.5;overflow-wrap:anywhere;cursor:pointer; }
+.choice input[type="checkbox"] { flex-shrink:0;width:17px;height:17px;accent-color:#b42332; }
+.actions { display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:14px; }
+.actions button { min-height:40px;padding:8px 14px;border:1px solid #d8dfe8;border-radius:7px;background:white;color:#263244;font:inherit;font-size:12px;cursor:pointer; }
+.actions button:last-child { background:#b42332;color:white;border-color:#b42332; }
+.actions button:disabled,.trigger:disabled { opacity:.55;cursor:not-allowed; }
+.control button:focus-visible,.control input:focus-visible { outline:2px solid #b42332;outline-offset:3px; }
+@media(max-width:640px){.label{display:none}.trigger{max-width:150px;min-height:42px;font-size:11px;padding:7px 8px}.popover{position:fixed;top:68px;right:12px;max-height:calc(100dvh - 85px);overflow:auto}.options{max-height:40dvh}}
+
+.trigger svg { flex-shrink:0; }
+.accessForm.accessForm { grid-template-columns:minmax(0,1fr);gap:16px; }
+.accessForm > p { margin:0;font-size:13px;line-height:1.6;color:#475467; }
+.accessForm > fieldset { min-width:0;border:1px solid #d8dfe8;border-radius:8px;padding:12px; }
+.accessForm legend { font-size:12px;font-weight:600;color:#344054;padding:0 4px; }

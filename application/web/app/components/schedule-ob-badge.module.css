@@ -1,0 +1,29 @@
+.badges {
+  display: grid;
+  gap: 5px;
+  margin: 6px 0;
+  min-width: 0;
+}
+.badge {
+  display: grid;
+  gap: 3px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  border: 1px solid #e8dcba;
+  background: #fff8e8;
+  color: #805c16;
+  border-radius: 7px;
+  padding: 6px 8px;
+  font-size: 10px;
+  text-decoration: none;
+  line-height: 1.5;
+}
+.badge[data-approved="true"] {
+  background: #eaf5ff;
+  border-color: #cfe3f5;
+  color: #275b85;
+}
+.badge:focus-visible {
+  outline: 2px solid #b42332;
+  outline-offset: 2px;
+}

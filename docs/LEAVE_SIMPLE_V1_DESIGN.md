@@ -1,0 +1,12 @@
+# Simple leave v1 component design
+
+This user-directed leave slice supersedes the older three-page, two-stage flow. Main HRIS Phase 1 remains active; payroll and other later phases remain closed.
+
+1. Component tree: AuthorizedWorkspacePage > PeopleWorkspace > LeaveManagementWorkspace > requests table/drawer, LeaveCreditReports (balances mode), policy editor, or LeaveCreditReports (analytics mode). My Leave retains its balance cards, request dialog and history.
+2. Responsibilities: workspace owns permission-aware orchestration; request drawer owns a single final decision and historical events; balance view owns employee credits, ledger and confirmed adjustments; analytics owns filtered summaries and accessible charts. Existing API owns all scope, credit and state transitions.
+3. Contracts: existing typed request/balance/policy API records; new PENDING status with legacy pending values accepted during rollout; report component accepts mode: balances | analytics. API errors remain actionable inline messages. No client-calculated credits are trusted.
+4. State: React Query owns server state; filters and pagination remain local; requestId deep links remain URL state. Existing loading, empty, retry, unauthorized, saving, success and confirmation states are reused. A final decision cannot reopen a second approval stage.
+5. Visual system: existing workspace tokens, restrained status badges, clear page titles, filter toolbar, summary cards, scrollable tables and responsive chart grid. Balances emphasize adjustment/history; reports emphasize metrics and drilldown. No invented metrics.
+6. Accessibility: semantic buttons, labelled filters, textual chart values, visible focus, existing modal focus trap/restoration, Escape and busy guards; responsive single-column content on narrow screens; no added motion.
+7. Files: leave-sections.ts and workspace routes define four destinations; leave-management-workspace.tsx orchestrates the modes; leave-request-presentation.tsx removes stage actions and preserves history; leave-policy-editor.tsx and leave-configuration-ui.tsx remove approval-chain/self-approval switches; leave-credit-reports.tsx owns balance/report modes; API leave service/controller and a migration establish PENDING and single-step transitions.
+8. Verification: focused API authorization/decision/ledger tests, UI navigation/timeline/report tests, TypeScript, lint and production builds. Migration reviewed/tested without destructive resets. Signed-in browser and database execution reported separately if unavailable.

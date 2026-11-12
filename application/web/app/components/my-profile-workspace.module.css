@@ -1,0 +1,727 @@
+.page {
+  display: grid;
+  gap: 24px;
+  margin: 0 auto;
+  max-width: 1600px;
+  width: 100%;
+  min-width: 0;
+}
+
+.pageHeader {
+  align-items: flex-end;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.pageHeader .pageEyebrow {
+  color: var(--ws-brand);
+  font-size: 10px;
+  font-weight: 670;
+  letter-spacing: 0.11em;
+  margin: 0;
+  text-transform: uppercase;
+}
+.panel.profilePanel {
+  border-top: 3px solid var(--ws-brand);
+  box-shadow: var(--ws-shadow);
+}
+.loadingContent {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+.page :is(button, input, textarea, a):focus-visible {
+  outline: 2px solid var(--ws-brand);
+  outline-offset: 3px;
+}
+.profileIdentity .photoHint {
+  font-size: 12px;
+  margin-top: 10px;
+  color: var(--ws-muted);
+}
+.groupHint {
+  color: var(--ws-muted);
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 0 0 18px;
+}
+.statusPill {
+  display: inline-flex;
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.statusActive {
+  color: var(--ws-success);
+  background: var(--ws-success-soft);
+}
+.statusNeutral {
+  color: var(--ws-muted);
+  background: var(--ws-subtle);
+}
+
+.pageHeader h1 {
+  color: var(--ws-text);
+  font-size: 25px;
+  font-weight: 650;
+  line-height: 1.25;
+  margin: 7px 0 5px;
+}
+
+.pageEyebrow {
+  color: var(--ws-brand);
+  font-size: 10px;
+  font-weight: 670;
+  letter-spacing: 0.11em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.pageHeader > div > p:not(.pageEyebrow),
+.profileIdentity > p:last-child,
+.sectionHeading p {
+  color: var(--ws-muted);
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.panel {
+  background: var(--ws-surface);
+  border: 1px solid var(--ws-border);
+  border-radius: var(--ws-radius);
+  min-width: 0;
+  padding: 28px;
+}
+
+.profileHeader {
+  align-items: center;
+  border-bottom: 1px solid var(--ws-border);
+  display: flex;
+  gap: 16px;
+  padding-bottom: 20px;
+}
+
+.avatarWrap {
+  align-items: center;
+  background: var(--ws-subtle);
+  border: 1px solid var(--ws-border);
+  border-radius: 50%;
+  color: var(--ws-brand-hover);
+  display: flex;
+  flex: 0 0 88px;
+  height: 88px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  width: 88px;
+}
+
+.avatarControl {
+  flex: 0 0 auto;
+}
+
+.avatarButton {
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  display: block;
+  height: 88px;
+  overflow: visible;
+  padding: 0;
+  position: relative;
+  width: 88px;
+}
+
+.avatarButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.avatarButton:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--ws-brand) 60%, transparent);
+  outline-offset: 3px;
+}
+
+.avatarUploadBadge {
+  align-items: center;
+  background: var(--ws-brand);
+  border: 2px solid var(--ws-surface);
+  border-radius: 50%;
+  bottom: -2px;
+  color: var(--ws-surface);
+  display: inline-flex;
+  height: 28px;
+  justify-content: center;
+  position: absolute;
+  right: -2px;
+  width: 28px;
+}
+
+.avatarUploadOverlay {
+  align-items: center;
+  background: rgb(32 36 33 / 72%);
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  font-size: 9px;
+  gap: 4px;
+  inset: 0;
+  justify-content: center;
+  line-height: 1.15;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  transition: opacity 140ms ease;
+}
+
+.avatarButton:hover .avatarUploadOverlay,
+.avatarButton:focus-visible .avatarUploadOverlay,
+.avatarButton[aria-busy="true"] .avatarUploadOverlay {
+  opacity: 1;
+}
+
+.avatarButton:hover .avatarUploadBadge,
+.avatarButton:focus-visible .avatarUploadBadge,
+.avatarButton[aria-busy="true"] .avatarUploadBadge {
+  opacity: 0;
+}
+
+.hiddenFileInput {
+  display: none;
+}
+
+.avatar,
+.avatarFallback {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar {
+  height: 100%;
+  width: 100%;
+}
+
+.avatarFallback {
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: var(--ws-brand-soft);
+  display: flex;
+  font-size: 23px;
+  font-weight: 700;
+  justify-content: center;
+}
+
+.profileIdentity {
+  flex: 1;
+  min-width: 0;
+}
+
+.profileIdentity h2 {
+  color: var(--ws-text);
+  font-size: 24px;
+  font-weight: 650;
+  line-height: 1.3;
+  margin: 2px 0 5px;
+  overflow-wrap: anywhere;
+}
+
+.eyebrow {
+  color: var(--ws-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  margin: 0;
+}
+
+.profileForm {
+  display: grid;
+  gap: 22px;
+  padding-top: 20px;
+}
+
+.profileForm fieldset {
+  border: 0;
+  border-bottom: 1px solid var(--ws-border);
+  margin: 0;
+  min-width: 0;
+  padding: 0 0 20px;
+}
+
+.profileForm legend,
+.readOnlySection h3 {
+  color: var(--ws-text);
+  font-size: 14px;
+  font-weight: 650;
+  margin: 0 0 14px;
+  padding: 0;
+}
+
+.profileForm legend span {
+  color: var(--ws-muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.profileForm legend b,
+.field b {
+  color: var(--ws-danger);
+  font-weight: 600;
+}
+
+.formGrid,
+.detailGrid,
+.accountGrid {
+  display: grid;
+  gap: 22px 28px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.field,
+.readOnlyField {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.field > span,
+.readOnlyField > span {
+  color: var(--ws-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.field input,
+.field textarea {
+  background: var(--ws-surface);
+  border: 1px solid var(--ws-border);
+  border-radius: var(--ws-control-radius);
+  color: var(--ws-text);
+  font: inherit;
+  font-size: 14px;
+  min-height: 42px;
+  min-width: 0;
+  padding: 9px 11px;
+  width: 100%;
+}
+
+.field textarea {
+  line-height: 1.5;
+  min-height: 78px;
+  resize: vertical;
+}
+
+.field input:focus-visible,
+.field textarea:focus-visible {
+  border-color: var(--ws-brand);
+  outline: 3px solid color-mix(in srgb, var(--ws-brand) 24%, transparent);
+  outline-offset: 1px;
+}
+
+.field input:disabled,
+.field textarea:disabled {
+  background: var(--ws-subtle);
+  color: var(--ws-muted);
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.readOnlyField {
+  align-content: start;
+  background: var(--ws-subtle);
+  border: 1px solid var(--ws-border);
+  border-radius: var(--ws-control-radius);
+  min-height: 64px;
+  padding: 9px 11px;
+}
+
+.readOnlyField strong {
+  color: var(--ws-text);
+  font-size: 14px;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.readOnlyField small,
+.detailGrid small {
+  color: var(--ws-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.pictureActions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+}
+
+.primaryButton,
+.secondaryButton,
+.textButton {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  gap: 7px;
+  justify-content: center;
+  min-height: 42px;
+  text-decoration: none;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease;
+}
+
+.primaryButton,
+.secondaryButton {
+  border-radius: var(--ws-control-radius);
+  padding: 10px 16px;
+}
+
+.secondaryButton {
+  background: var(--ws-surface);
+  border: 1px solid var(--ws-border);
+  color: var(--ws-text);
+}
+
+.secondaryButton:hover:not(:disabled) {
+  background: var(--ws-subtle);
+  border-color: var(--ws-border);
+}
+
+.primaryButton {
+  background: var(--ws-brand);
+  border: 1px solid var(--ws-brand);
+  color: var(--ws-surface);
+}
+
+.primaryButton:hover:not(:disabled) {
+  background: var(--ws-brand-hover);
+  border-color: var(--ws-brand-hover);
+}
+
+.secondaryButton:disabled,
+.primaryButton:disabled,
+.textButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.textButton {
+  background: transparent;
+  border: 0;
+  color: var(--ws-danger);
+  padding: 4px 0;
+}
+
+.textButton:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.muted,
+.fieldHint,
+.savingNote {
+  color: var(--ws-muted);
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.fieldHint {
+  margin-top: 8px;
+}
+
+.formActions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.inlineError,
+.errorState {
+  color: var(--ws-danger);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.inlineError {
+  margin: -8px 0 0;
+}
+
+.errorState {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.errorState p {
+  margin: 0;
+}
+
+.savingNote {
+  align-items: center;
+  display: flex;
+  gap: 7px;
+}
+
+.readOnlySection {
+  padding-top: 20px;
+}
+
+.readOnlySection + .readOnlySection {
+  border-top: 1px solid var(--ws-border);
+  margin-top: 20px;
+}
+
+.readOnlySection h3 {
+  margin-bottom: 14px;
+}
+
+.detailGrid,
+.accountGrid {
+  margin: 0;
+}
+
+.detailGrid > div,
+.accountGrid > div {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.detailGrid dt,
+.accountGrid dt {
+  color: var(--ws-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.detailGrid dd,
+.accountGrid dd {
+  color: var(--ws-text);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.detailGrid dd small {
+  display: block;
+  margin-top: 3px;
+}
+
+.sectionHeading {
+  align-items: flex-start;
+  border-bottom: 1px solid var(--ws-border);
+  color: var(--ws-brand-hover);
+  display: flex;
+  gap: 10px;
+  padding-bottom: 14px;
+}
+
+.sectionHeading svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+.sectionHeading h2 {
+  color: var(--ws-text);
+  font-size: 14px;
+  font-weight: 650;
+  margin: 0 0 4px;
+}
+
+.accountGrid {
+  padding-top: 24px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  flex: 0 0 auto;
+}
+
+.skeletonTitle,
+.skeletonAction,
+.skeletonAvatar,
+.skeletonLine,
+.skeletonLineShort,
+.skeletonSection,
+.skeletonField {
+  animation: shimmer 1.5s ease-in-out infinite;
+  background: linear-gradient(90deg, #f0f2f0 25%, #e3e7e3 50%, #f0f2f0 75%);
+  background-size: 200% 100%;
+  border-radius: var(--ws-control-radius);
+}
+
+.skeletonTitle {
+  height: 25px;
+  width: 180px;
+}
+
+.skeletonAction {
+  height: 42px;
+  width: 112px;
+}
+
+.skeletonAvatar {
+  border-radius: 50%;
+  flex: 0 0 88px;
+  height: 88px;
+}
+
+.skeletonIdentity {
+  display: grid;
+  gap: 9px;
+  width: min(320px, 100%);
+}
+
+.skeletonLine {
+  height: 17px;
+  width: 65%;
+}
+
+.skeletonLineShort {
+  height: 12px;
+  width: 90%;
+}
+
+.skeletonSection {
+  height: 15px;
+  margin: 20px 0 14px;
+  width: 150px;
+}
+
+.skeletonGrid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.skeletonField {
+  height: 60px;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 720px) {
+  .panel {
+    padding: 17px;
+  }
+
+  .pageHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .formGrid,
+  .detailGrid,
+  .accountGrid,
+  .skeletonGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fullWidth {
+    grid-column: auto;
+  }
+
+  .profileHeader {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .profileHeader > .secondaryButton {
+    margin-left: auto;
+  }
+  .accountGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 420px) {
+  .panel {
+    padding: 14px;
+  }
+
+  .avatarWrap,
+  .avatarFallback,
+  .skeletonAvatar {
+    flex-basis: 68px;
+    height: 68px;
+    width: 68px;
+  }
+
+  .avatarFallback {
+    font-size: 24px;
+  }
+
+  .avatarButton {
+    height: 68px;
+    width: 68px;
+  }
+
+  .formActions > button {
+    flex: 1;
+  }
+  .accountGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pageHeader h1 {
+    font-size: 25px;
+  }
+  .profileIdentity h2 {
+    font-size: 22px;
+  }
+  .profileHeader {
+    gap: 14px;
+  }
+  .profileIdentity {
+    flex-basis: 160px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner,
+  .skeletonTitle,
+  .skeletonAction,
+  .skeletonAvatar,
+  .skeletonLine,
+  .skeletonLineShort,
+  .skeletonSection,
+  .skeletonField {
+    animation: none;
+  }
+
+  .avatarUploadOverlay,
+  .primaryButton,
+  .secondaryButton,
+  .textButton {
+    transition: none;
+  }
+}

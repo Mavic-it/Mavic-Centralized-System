@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="184" height="184" viewBox="0 0 184 184">
+  <title>MSPACES</title>
+  <circle cx="92" cy="92" r="92" fill="#fff"/>
+  <g transform="translate(27.6 27.6) scale(.7)">
+  <path fill="#f2111b" d="M25 121V14h23l44 80 45-80h22v107h-21V44l-39 77H86L45 44v77Z"/>
+  <g fill="none" stroke="#111" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M37 143c-3-3-11-3-11 2 0 6 12 3 12 10 0 6-10 7-13 2"/>
+    <path d="M48 160v-18h6c9 0 9 10 0 10h-6"/>
+    <path d="m69 160 7-18 8 18m-12-6h9"/>
+    <path d="M108 144c-7-6-16-1-16 7s9 12 16 6"/>
+    <path d="M132 142h-13v18h13m-13-9h11"/>
+    <path d="M155 143c-3-3-11-3-11 2 0 6 12 3 12 10 0 6-10 7-13 2"/>
+  </g>
+  </g>
+</svg>

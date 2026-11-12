@@ -1,0 +1,111 @@
+.wrap {
+  border: 2px solid #a8b4c4;
+  border-radius: 10px;
+  max-width: 100%;
+  min-width: 0;
+  overflow: auto;
+  background: #fff;
+  scrollbar-color: #8c98a8 #edf1f6;
+}
+.wrap:focus-visible { outline: 2px solid #b42332; outline-offset: 3px; }
+.table {
+  --employee-width: 180px;
+  --day-width: 176px;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  width: 100%;
+  min-width: calc(var(--employee-width) + 7 * var(--day-width));
+  color: #263244;
+  font-size: 12px;
+}
+.table[data-editable] { --day-width: 224px; }
+.employeeColumn { width: var(--employee-width); }
+.table th, .table td {
+  box-sizing: border-box;
+  border: 0;
+  border-right: 2px solid #b5bfcd;
+  border-bottom: 1px solid #dbe2eb;
+}
+.table tr > :last-child { border-right: 0; }
+.table thead th {
+  background: #f3f6fa;
+  color: #344054;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 12px 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+.table thead .dateHead { font-size: 11px; color: #667085; padding: 8px; }
+.table thead .timeHead { background: #fff; font-size: 10px; padding: 7px; color: #667085; border-bottom: 2px solid #a8b4c4; }
+.timeHead span { display: inline-block; width: 50%; }
+.table .employeeHead, .table .employeeName {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: #fff;
+  text-align: left;
+  width: var(--employee-width);
+  border-right: 2px solid #8c98a8;
+  box-shadow: 3px 0 6px rgb(32 41 54 / 6%);
+}
+.table .employeeHead { z-index: 2; background: #f3f6fa; border-bottom: 2px solid #a8b4c4; }
+.table .employeeName { padding: 16px 12px; vertical-align: top; }
+.employeeName strong, .employeeName small { display: block; overflow-wrap: anywhere; }
+.employeeName strong { font-size: 13px; line-height: 1.5; font-weight: 700; }
+.employeeName small { font-size: 11px; color: #667085; margin-top: 4px; }
+.table tbody tr:not(:last-child) > * { border-bottom: 2px solid #8c98a8; }
+.table tbody tr:last-child > * { border-bottom: 0; }
+.table .dayCell { background: #fff; padding: 12px 8px; vertical-align: top; }
+.dayHeading { display: none; }
+.timePair { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 6px; }
+.timePair input, .timePair span, .assignment, .assignmentInput {
+  box-sizing: border-box;
+  background: #fff;
+  border: 1px solid #cdd5df;
+  border-radius: 6px;
+  color: #344054;
+  font: inherit;
+  font-size: 12px;
+  min-width: 0;
+  min-height: 40px;
+  padding: 8px 6px;
+  width: 100%;
+}
+.timePair span { display: flex; align-items: center; justify-content: center; }
+.assignment, .assignmentInput { display: block; margin-top: 8px; }
+.assignment { color: #16634c; overflow-wrap: anywhere; }
+.assignmentInput::placeholder { color: #667085; }
+.assignmentInput:focus-visible, .timePair input:focus-visible { outline: 2px solid #b42332; outline-offset: 2px; }
+.restDay, .markRest {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  padding: 8px;
+  min-height: 36px;
+}
+.restDay { display: block; width: fit-content; margin: 0 auto; border-radius: 6px; font-weight: 700; background: #eaf7f0; color: #16634c; }
+.markRest { display: block; margin-left: auto; color: #667085; background: transparent; }
+@media (max-width: 760px) {
+  .wrap { border: 0; overflow: visible; border-radius: 0; background: transparent; }
+  .table, .table tbody { display: block; width: 100%; min-width: 0; }
+  .table colgroup, .table thead { display: none; }
+  .table tbody tr { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); border: 2px solid #a8b4c4; border-radius: 10px; margin-bottom: 16px; overflow: hidden; }
+  .table tbody tr:last-child { margin-bottom: 0; }
+  .table .employeeName { position: static; grid-column: 1 / -1; width: auto; background: #f3f6fa; box-shadow: none; padding: 12px; border-right: 0; border-bottom: 2px solid #a8b4c4; }
+  .table .dayCell { min-width: 0; border-right: 0; border-bottom: 0; border-top: 2px solid #b5bfcd; padding: 12px; }
+  .table .dayCell:nth-child(2), .table .dayCell:nth-child(3) { border-top: 0; }
+  .table .dayCell:nth-child(even) { border-right: 2px solid #b5bfcd; }
+  .table tbody tr:not(:last-child) > * { border-bottom: 0; }
+  .table tbody tr:not(:last-child) > .employeeName { border-bottom: 2px solid #a8b4c4; }
+  .dayHeading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 4px 8px; color: #344054; font-size: 12px; font-weight: 700; margin-bottom: 10px; }
+  .dayHeading small { color: #667085; font-size: 11px; font-weight: 500; }
+  .timePair input, .assignmentInput { min-height: 44px; }
+}
+@media (max-width: 480px) {
+  .table tbody tr { grid-template-columns: minmax(0,1fr); }
+  .table .dayCell:nth-child(even) { border-right: 0; }
+  .table .dayCell:nth-child(3) { border-top: 2px solid #b5bfcd; }
+}

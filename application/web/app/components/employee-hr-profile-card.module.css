@@ -1,0 +1,487 @@
+.panel {
+  background: #fff;
+  border: 1px solid #e3e6e3;
+  border-radius: 5px;
+  min-width: 0;
+  padding: 18px 19px;
+}
+
+.embedded {
+  border-top: 1px solid #eceeec;
+  margin-top: 18px;
+  padding-top: 18px;
+}
+
+.modalEditor {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.sectionTitle {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  margin-bottom: 13px;
+  min-width: 0;
+}
+
+.sectionTitle h2 {
+  color: #252a26;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.textButton {
+  background: transparent;
+  border: 0;
+  color: #a51e27;
+  cursor: pointer;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 620;
+  padding: 5px 0;
+  white-space: nowrap;
+}
+
+.textButton:hover {
+  color: #7f171e;
+  text-decoration: underline;
+}
+
+.textButton:disabled {
+  color: #929a94;
+  cursor: wait;
+}
+
+.profileSections {
+  display: grid;
+  gap: 17px 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.profileSection {
+  min-width: 0;
+}
+
+.profileSection:first-child {
+  grid-column: 1 / -1;
+}
+
+.profileSection h3,
+.fieldGroup legend {
+  color: #626a64;
+  font-size: 9px;
+  font-weight: 650;
+  margin: 0 0 10px;
+}
+
+.detailGrid {
+  display: grid;
+  gap: 14px 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+}
+
+.detailItem {
+  min-width: 0;
+}
+
+.detailItem dt {
+  color: #626a64;
+  font-size: 9px;
+  margin-bottom: 4px;
+}
+
+.detailItem dd {
+  color: #343a36;
+  font-size: 10px;
+  line-height: 1.45;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.embedded .profileSection h3 {
+  font-size: 11px;
+}
+
+.embedded .detailGrid dt {
+  font-size: 11px;
+}
+
+.embedded .detailGrid dd {
+  font-size: 12px;
+}
+
+.profileForm {
+  border-top: 1px solid #eceeec;
+  margin-top: 14px;
+  padding-top: 3px;
+}
+
+.modalEditorForm {
+  border-top: 0;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.fieldGroup {
+  border: 0;
+  border-bottom: 1px solid #eceeec;
+  margin: 0;
+  min-width: 0;
+  padding: 13px 0 15px;
+}
+
+.fieldGroup legend {
+  padding: 0 8px 0 0;
+}
+
+.formGrid {
+  display: grid;
+  gap: 11px 13px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.personalFields {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.formGrid label {
+  color: #59615b;
+  display: grid;
+  font-size: 9px;
+  gap: 5px;
+  min-width: 0;
+}
+
+.formGrid input,
+.formGrid select,
+.formGrid textarea {
+  background: #fff;
+  border: 1px solid #dfe3df;
+  border-radius: 4px;
+  color: #343a36;
+  font: inherit;
+  font-size: 10px;
+  min-height: 34px;
+  min-width: 0;
+  padding: 7px 8px;
+  width: 100%;
+}
+
+.formGrid textarea {
+  min-height: 58px;
+  resize: vertical;
+}
+
+.formWide {
+  grid-column: 1 / -1;
+}
+
+.primaryButton,
+.secondaryButton {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 9px;
+  font-weight: 620;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0 9px;
+}
+
+.primaryButton {
+  background: #c22d32;
+  border-color: #c22d32;
+  color: #fff;
+}
+
+.primaryButton:hover:not(:disabled) {
+  background: #a51e27;
+}
+
+.secondaryButton {
+  background: #fff;
+  border-color: #dfe3df;
+  color: #515954;
+}
+
+.secondaryButton:hover:not(:disabled) {
+  background: #f5f6f5;
+}
+
+.primaryButton:disabled,
+.secondaryButton:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.formActions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 13px;
+}
+
+.formError,
+.queryError p {
+  color: #a51e27;
+  font-size: 10px;
+  line-height: 1.45;
+  margin: 10px 0;
+}
+
+.queryError {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+
+.emptyState,
+.mutedNote {
+  color: #626a64;
+  font-size: 10px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.emptyState {
+  border-top: 1px solid #eceeec;
+  padding-top: 13px;
+}
+
+.panel button:focus-visible,
+.panel input:focus-visible,
+.panel select:focus-visible,
+.panel textarea:focus-visible {
+  outline: 2px solid #b4232a;
+  outline-offset: 2px;
+}
+
+.modalEditor .formGrid label {
+  font-size: 11px;
+}
+
+.modalEditor .formGrid input,
+.modalEditor .formGrid select,
+.modalEditor .formGrid textarea {
+  font-size: 12px;
+  min-height: 40px;
+  padding: 8px 10px;
+}
+
+.modalEditor .formGrid textarea {
+  min-height: 68px;
+}
+
+@media (max-width: 900px) {
+  .detailGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .personalFields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .panel {
+    padding: 15px 13px;
+  }
+
+  .sectionTitle {
+    align-items: flex-start;
+  }
+
+  .profileSections,
+  .detailGrid,
+  .formGrid,
+  .personalFields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .profileSection:first-child,
+  .formWide {
+    grid-column: auto;
+  }
+}
+
+.profileSections:has(.collapsibleSection) {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+}
+.profileToolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.profileToolbar label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex: 1 1 230px;
+  border: 1px solid #e2e8f0;
+  border-radius: 11px;
+  padding: 0 12px;
+  color: #64748b;
+  background: #f8fafc;
+}
+.profileToolbar input {
+  border: 0;
+  background: transparent;
+  outline: 0;
+  min-height: 42px;
+  width: 100%;
+  min-width: 0;
+  font: inherit;
+  font-size: 13px;
+  color: #172033;
+}
+.profileToolbar label:focus-within {
+  outline: 2px solid #c22d32;
+  outline-offset: 2px;
+}
+.profileToolbar button {
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  border-radius: 10px;
+  min-height: 42px;
+  padding: 8px 14px;
+  color: #526177;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.groupIcon {
+  display: grid;
+  place-items: center;
+  height: 34px;
+  width: 34px;
+  flex: 0 0 34px;
+  border-radius: 10px;
+  background: #edf1f6;
+  color: #526177;
+}
+.disclosureIcon {
+  transition: transform 0.2s;
+}
+.collapsibleSection.collapsibleSection {
+  border-radius: 14px;
+  transition:
+    border-color 0.18s,
+    box-shadow 0.18s;
+}
+.collapsibleSection.collapsibleSection:hover {
+  border-color: #c5ceda;
+  box-shadow: 0 3px 12px #17203305;
+}
+.collapsibleSection.collapsibleSection summary {
+  background: #fff;
+  padding: 15px 18px;
+}
+.collapsibleSection.collapsibleSection summary::after {
+  display: none;
+}
+.collapsibleSection[open] summary .groupIcon {
+  background: #fff0f2;
+  color: #c22d32;
+}
+.collapsibleSection[open] .disclosureIcon {
+  transform: rotate(180deg);
+}
+.collapsibleSection[open] summary {
+  border-bottom: 1px solid #edf1f6;
+}
+.collapsibleSection .detailItem {
+  padding: 10px 12px;
+  border-radius: 9px;
+  transition: background 0.15s;
+}
+.collapsibleSection .detailItem:hover {
+  background: #f5f7fa;
+}
+@media (prefers-reduced-motion: reduce) {
+  .disclosureIcon,
+  .collapsibleSection.collapsibleSection,
+  .collapsibleSection .detailItem {
+    transition: none;
+  }
+}
+.collapsibleSection {
+  border: 1px solid var(--ws-border, #e2e7ed);
+  border-radius: 10px;
+  min-width: 0;
+  overflow: hidden;
+}
+.collapsibleSection summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  list-style: none;
+  padding: 16px 18px;
+  color: var(--ws-text, #202936);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 550;
+  background: var(--ws-subtle, #f6f8fa);
+}
+.collapsibleSection summary::-webkit-details-marker {
+  display: none;
+}
+.collapsibleSection summary small {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ws-muted, #606b7b);
+}
+.collapsibleSection summary::after {
+  content: "+";
+  font-size: 18px;
+  color: var(--ws-muted, #606b7b);
+}
+.collapsibleSection[open] summary::after {
+  content: "-";
+}
+.collapsibleSection summary:focus-visible {
+  outline: 2px solid var(--ws-brand, #b42332);
+  outline-offset: -3px;
+}
+.collapsibleSection .detailGrid {
+  padding: 20px;
+  gap: 20px;
+}
+.emergencyContent {
+  padding: 20px;
+}
+.collapsibleSection .detailItem dt {
+  font-size: 12px;
+  color: var(--ws-muted, #606b7b);
+  margin-bottom: 6px;
+}
+.collapsibleSection .detailItem dd {
+  font-size: 14px;
+  color: var(--ws-text, #202936);
+  line-height: 1.6;
+}
+@media (max-width: 650px) {
+  .collapsibleSection .detailGrid {
+    grid-template-columns: 1fr 1fr;
+    padding: 16px;
+    gap: 18px;
+  }
+}
+@media (max-width: 420px) {
+  .collapsibleSection .detailGrid {
+    grid-template-columns: 1fr;
+  }
+}

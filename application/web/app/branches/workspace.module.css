@@ -1,0 +1,426 @@
+.scope {
+  max-width: 100%;
+  min-width: 0;
+  width: 100%;
+  gap: 24px;
+}
+.scope :global(.branch-toolbar) {
+  flex-wrap: wrap;
+}
+.scope :global(.branch-heading h1) {
+  letter-spacing: -0.035em;
+}
+.scope :global(.branch-contact-actions) {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.scope :global(.branch-contact-actions a) {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  background: white;
+  border: 1px solid var(--ws-border);
+}
+.scope :global(.branch-department-search) {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid var(--ws-border);
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 0 12px;
+  margin: 14px 0;
+  color: var(--ws-muted);
+}
+.scope :global(.branch-department-search input) {
+  width: 100%;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  min-height: 42px;
+  font: inherit;
+  font-size: 13px;
+  outline: 0;
+}
+.scope :global(.branch-department-search:focus-within) {
+  outline: 2px solid var(--ws-brand);
+  outline-offset: 2px;
+}
+.scope :global(.branch-details > div) {
+  border-radius: 10px;
+  padding: 12px;
+  transition: background 0.15s;
+}
+.scope :global(.branch-details > div:hover) {
+  background: #f6f8fb;
+}
+.scope :global(.branch-departments li) {
+  border: 1px solid var(--ws-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  background: #fff;
+}
+.scope :global(.branch-stats > div) {
+  border: 1px solid var(--ws-border);
+  border-radius: 12px;
+  background: linear-gradient(125deg, #fff8f9, #fff);
+}
+.scope :global(.branch-modal) {
+  border-radius: 18px;
+}
+.scope :global(.branch-modal input),
+.scope :global(.branch-modal select),
+.scope :global(.branch-modal textarea) {
+  border-radius: 9px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scope :global(.branch-details > div) {
+    transition: none;
+  }
+}
+.eyebrow {
+  color: var(--ws-brand);
+  font-size: 10px;
+  font-weight: 670;
+  letter-spacing: 0.11em;
+  margin: 0;
+  text-transform: uppercase;
+}
+.scope :global(.branch-heading) {
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.scope :global(.branch-heading h1) {
+  color: var(--ws-text);
+  font-size: 25px;
+  font-weight: 650;
+  line-height: 1.25;
+  margin: 7px 0 5px;
+  letter-spacing: 0;
+}
+.scope :global(.page-description) {
+  color: var(--ws-muted);
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+}
+.scope :global(.branch-list) {
+  border: 1px solid var(--ws-border);
+  border-radius: var(--ws-radius);
+  background: var(--ws-surface);
+  box-shadow: var(--ws-shadow);
+  overflow: hidden;
+}
+.scope :global(.branch-toolbar) {
+  border: 0;
+  border-radius: 0;
+  padding: 24px;
+  gap: 16px;
+  align-items: end;
+}
+.scope :global(.branch-search) {
+  border-color: var(--ws-border);
+  border-radius: var(--ws-control-radius);
+  min-height: 42px;
+  min-width: 0;
+  max-width: none;
+}
+.scope :global(.branch-search input) {
+  height: 40px;
+  font-size: 13px;
+  background: transparent;
+}
+.scope :global(.branch-filter) {
+  display: grid;
+  gap: 6px;
+  color: var(--ws-muted);
+  font-size: 12px;
+}
+.scope :global(.branch-count) {
+  font-size: 12px;
+  color: var(--ws-muted);
+  padding-bottom: 10px;
+}
+.scope :global(.branch-primary),
+.scope :global(.branch-secondary) {
+  min-height: 42px;
+  font-size: 13px;
+  padding: 9px 16px;
+  border-radius: var(--ws-control-radius);
+}
+.scope :global(.branch-primary) {
+  background: var(--ws-brand);
+}
+.scope :global(.branch-primary:hover:not(:disabled)) {
+  background: var(--ws-brand-hover);
+}
+.scope :global(.branch-secondary) {
+  color: var(--ws-text);
+  border-color: var(--ws-border);
+}
+.scope :global(.branch-table-wrap) {
+  position: relative;
+  min-width: 0;
+  max-width: 100%;
+  border: 0;
+  border-top: 1px solid var(--ws-border);
+  border-radius: 0;
+}
+.scope :global(.branch-table) {
+  min-width: 980px;
+}
+.scope :global(.branch-table .branch-column) {
+  width: 24%;
+}
+.scope :global(.branch-table .location-column) {
+  width: 23%;
+}
+.scope :global(.branch-table .manager-column) {
+  width: 18%;
+}
+.scope :global(.branch-table .status-column) {
+  width: 14%;
+}
+.scope :global(.branch-table .actions-column) {
+  width: 21%;
+}
+.scope :global(.branch-table th) {
+  font-size: 11px;
+  font-weight: 600;
+  height: 48px;
+  background: var(--ws-subtle);
+  color: var(--ws-muted);
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+.scope :global(.branch-table td) {
+  font-size: 13px;
+  height: 78px;
+  border-color: var(--ws-border);
+  color: var(--ws-text);
+}
+.scope :global(.branch-table-heading),
+.scope :global(.branch-table-cell) {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.scope :global(.branch-name-cell strong) {
+  font-size: 14px;
+  color: var(--ws-text);
+  overflow-wrap: anywhere;
+}
+.scope :global(.branch-name-cell small) {
+  font-size: 12px;
+  color: var(--ws-muted);
+}
+.scope :global(.branch-icon) {
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  color: var(--ws-muted);
+  background: var(--ws-subtle);
+}
+.scope :global(.branch-location) {
+  color: var(--ws-muted);
+}
+.scope :global(.branch-status) {
+  border-radius: 20px;
+  font-size: 12px;
+  padding: 5px 10px;
+}
+.scope :global(.branch-status.active) {
+  color: var(--ws-success);
+  background: var(--ws-success-soft);
+}
+.scope :global(.branch-status.inactive) {
+  color: var(--ws-muted);
+  background: var(--ws-subtle);
+}
+.scope :global(.branch-detail-body > .branch-status) {
+  justify-self: start;
+}
+.scope :global(.branch-pagination) {
+  border: 0;
+  border-top: 1px solid var(--ws-border);
+  padding: 16px 24px;
+  font-size: 12px;
+  color: var(--ws-muted);
+  background: var(--ws-surface);
+}
+.scope :global(.branch-empty) {
+  padding: 36px 24px;
+  text-align: center;
+}
+.scope :global(.branch-detail-panel) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+  min-width: 0;
+}
+.scope :global(.branch-related-card),
+.scope :global(.branch-info-card) {
+  background: var(--ws-surface);
+  border: 1px solid var(--ws-border);
+  border-radius: var(--ws-radius);
+  box-shadow: var(--ws-shadow);
+  padding: 24px;
+  min-width: 0;
+}
+.scope :global(.branch-related-card h2),
+.scope :global(.branch-info-card h2),
+.scope :global(.branch-modal-heading h2) {
+  font-size: 18px;
+  color: var(--ws-text);
+}
+.scope :global(.branch-stats) {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+.scope :global(.branch-stats > div) {
+  border: 1px solid var(--ws-border);
+  background: var(--ws-subtle);
+  border-radius: 10px;
+  padding: 18px;
+}
+.scope :global(.branch-stats strong) {
+  font-size: 26px;
+  color: var(--ws-text);
+}
+.scope :global(.branch-stats span) {
+  font-size: 12px;
+  color: var(--ws-muted);
+}
+.scope :global(.branch-details) {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.scope :global(.branch-details dt) {
+  font-size: 12px;
+  color: var(--ws-muted);
+  margin-bottom: 6px;
+}
+.scope :global(.branch-details dd) {
+  font-size: 14px;
+  color: var(--ws-text);
+  overflow-wrap: anywhere;
+}
+.scope :global(.branch-departments) {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-color: var(--ws-border);
+}
+.scope :global(.branch-departments h3) {
+  font-size: 16px;
+  color: var(--ws-text);
+}
+.scope :global(.branch-departments li),
+.scope :global(.branch-departments p) {
+  font-size: 13px;
+}
+.scope :global(.branch-modal) {
+  border-radius: 16px;
+  padding: 24px;
+}
+.scope :global(.branch-form fieldset) {
+  border-color: var(--ws-border);
+  border-radius: 10px;
+  padding: 20px;
+}
+.scope :global(.branch-form legend),
+.scope :global(.branch-field),
+.scope :global(.branch-form label) {
+  color: var(--ws-muted);
+  font-size: 12px;
+}
+.scope
+  :global(
+    input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"])
+  ),
+.scope :global(select),
+.scope :global(textarea) {
+  min-height: 42px;
+  min-width: 0;
+  max-width: 100%;
+  border-color: var(--ws-border);
+  border-radius: var(--ws-control-radius);
+  font-size: 13px;
+  color: var(--ws-text);
+}
+.scope :global(.branch-form-hint),
+.scope :global(.branch-form-error),
+.scope :global(.branch-modal p) {
+  font-size: 12px;
+  line-height: 1.6;
+}
+.scope :global(button),
+.scope :global(a) {
+  min-height: 32px;
+}
+.scope :global(button:focus-visible),
+.scope :global(a:focus-visible),
+.scope :global(input:focus-visible),
+.scope :global(select:focus-visible),
+.scope :global(textarea:focus-visible),
+.scope :global([tabindex]:focus-visible) {
+  outline: 2px solid var(--ws-brand);
+  outline-offset: 3px;
+}
+@media (max-width: 1024px) {
+  .scope :global(.branch-stats) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 768px) {
+  .scope :global(.branch-toolbar),
+  .scope :global(.branch-info-card),
+  .scope :global(.branch-related-card) {
+    padding: 20px;
+  }
+  .scope :global(.branch-details) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .scope :global(.branch-search) {
+    flex-basis: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .scope {
+    gap: 16px;
+  }
+  .scope :global(.branch-heading h1) {
+    font-size: 25px;
+  }
+  .scope :global(.branch-toolbar),
+  .scope :global(.branch-info-card),
+  .scope :global(.branch-related-card),
+  .scope :global(.branch-modal) {
+    padding: 20px 16px;
+  }
+  .scope :global(.branch-stats) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .scope :global(.branch-details) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .scope :global(.branch-filter) {
+    flex: 1;
+  }
+  .scope :global(.branch-count) {
+    margin-left: 0;
+    white-space: normal;
+  }
+  .scope :global(.branch-form fieldset) {
+    padding: 16px 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scope * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

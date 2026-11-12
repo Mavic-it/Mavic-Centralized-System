@@ -1,0 +1,8 @@
+.fieldset.fieldset { min-width: 0; margin: 0 0 18px; padding: 12px; border: 1px solid #d8dfe8; border-radius: 8px; }
+.fieldset legend { padding: 0 5px; font-size: 12px; font-weight: 600; }
+.fieldset p { margin: 0 0 10px; color: #667085; font-size: 12px; line-height: 1.6; }
+.options { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); max-height: 240px; overflow: auto; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+.actions button { min-height: 36px; padding: 6px 10px; border: 1px solid #d8dfe8; border-radius: 6px; background: white; color: #344054; font: inherit; font-size: 12px; cursor: pointer; }
+.fieldset .choice { display: flex; align-items: center; gap: 10px; min-height: 40px; font-size: 13px; cursor: pointer; }
+.fieldset .choice input[type="checkbox"] { flex: 0 0 17px; width: 17px; height: 17px; min-height: 0; margin: 0; padding: 0; accent-color: #b42332; }

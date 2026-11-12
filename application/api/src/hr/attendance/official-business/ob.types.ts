@@ -1,0 +1,33 @@
+import type { WorkScheduleDefinition } from '../attendance.types.js';
+export type ApprovedOb = {
+  id: string;
+  start: string;
+  end: string;
+  destination: string;
+  officeContinuity: boolean;
+  schedule: WorkScheduleDefinition;
+};
+export type ObRequest = {
+  id: string;
+  employeeId: string;
+  employeeName: string;
+  branchId: string;
+  branchName: string;
+  filedBy: string;
+  workDate: string;
+  startsAt: string;
+  endsAt: string;
+  timeZone: string;
+  destination: string;
+  destinationBranchId: string | null;
+  reason: string;
+  retrospectiveReason: string;
+  status: 'PENDING' | 'APPROVED' | 'REJECTED' | 'CANCELLED';
+  version: number;
+  schedule: WorkScheduleDefinition;
+  officeContinuity: boolean;
+  cancellationPending: boolean;
+  submissionKey: string;
+  createdAt: string;
+  decidedBy: string | null;
+};

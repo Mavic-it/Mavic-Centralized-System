@@ -1,0 +1,11 @@
+# My Leave refinement - 2026-10-22
+
+Audience: employees monitoring paid and unpaid leave, plus Super Admins viewing their own account. Main HRIS Phase 1 and existing leave permissions remain unchanged.
+
+- Component tree: Workspace > personal header, account information panel when applicable, Mine > leave overview header, paid credit cards, unpaid usage cards, request history; RequestDrawer reuses the native Modal with the password-reset drawer positioning.
+- Contracts: GET /leave/me/overview?year returns existing paid balances and eligible/historical unpaid types with approved/pending request counts and chargeable days. Identity comes from the linked account. No new ledger rows, allocation or unpaid credit balances are introduced.
+- State: React Query owns the year-scoped overview, with loading/error/retry/empty states and existing mutation invalidation. Selection opens details in the right drawer. An unlinked account has no request action; Super Admin receives explanatory account status and permitted navigation links. Linked administrators retain their real personal history and standard approval rules.
+- Visual system: existing Mavic red and neutral tokens, prominent available-day totals, compact paid/unpaid badges, scannable statistics, and a credit-free explanation on unpaid cards. Cards stack on mobile. The full-height drawer sits against the right viewport edge, like password-reset details, with a dimmed backdrop, fixed header/footer and independently scrolling content.
+- Accessibility: semantic card sections and definition lists, text alongside icons/color, labelled year controls, close button, native dialog focus containment/Escape/backdrop behavior and focus restoration. Respect reduced motion and narrow viewports.
+- Files: API leave overview types/controller/service and isolated database acceptance; web leave workspace, account/overview components, drawer, types and CSS. Reuse shared role context, icons, Button, Modal and QueryClient.
+- Verification: own-only unpaid aggregates and cancellation in PostgreSQL; paid/unpaid and Super Admin UI states; type/lint/build; Chrome at 390px/1440px for cards, drawer geometry, backdrop, scroll, keyboard dismissal and restored focus.

@@ -1,0 +1,322 @@
+.card {
+  background: #fff;
+  border: 1px solid #e2e6e2;
+  border-radius: 6px;
+  margin-top: 16px;
+  min-width: 0;
+  padding: 16px;
+}
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 8px 0 20px;
+}
+.toolbar p {
+  color: #64748b;
+  font-size: 13px;
+  margin: 0;
+}
+.toolbar label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #64748b;
+  font-size: 12px;
+}
+.toolbar select {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #172033;
+  font: inherit;
+}
+.event.event {
+  padding: 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  transition:
+    border-color 0.18s,
+    box-shadow 0.18s;
+}
+.event.event:hover {
+  border-color: #c5ceda;
+  box-shadow: 0 4px 14px #17203306;
+}
+.event summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 18px;
+  background: #f8fafc;
+  align-items: center;
+}
+.event summary::-webkit-details-marker {
+  display: none;
+}
+.event summary::after {
+  content: "+";
+  color: #64748b;
+  font-size: 22px;
+  margin-left: auto;
+}
+.event details[open] summary::after {
+  content: "−";
+}
+.event .eventHeading h3 {
+  font-size: 14px;
+}
+.event .eventHeading p {
+  font-size: 12px;
+  margin-top: 6px;
+}
+.event .assignmentGrid {
+  margin: 0;
+  padding: 20px;
+  gap: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.event .assignmentGrid dt {
+  font-size: 12px;
+}
+.event .assignmentGrid dd {
+  font-size: 14px;
+}
+.event .actor {
+  margin: 0;
+  padding: 0 20px 18px;
+  font-size: 11px;
+}
+.event summary:focus-visible,
+.toolbar select:focus-visible {
+  outline: 2px solid #c22d32;
+  outline-offset: -3px;
+}
+@media (max-width: 640px) {
+  .event .assignmentGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 16px;
+  }
+}
+@media (max-width: 400px) {
+  .event .assignmentGrid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .event.event {
+    transition: none;
+  }
+}
+
+.cardHeader {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  margin-bottom: 13px;
+}
+
+.cardHeader h2 {
+  color: #303632;
+  font-size: 14px;
+  font-weight: 650;
+  margin: 0;
+}
+
+.count {
+  background: #f4f6f4;
+  border-radius: 20px;
+  color: #59615b;
+  flex: 0 0 auto;
+  font-size: 10px;
+  padding: 5px 9px;
+}
+
+.list {
+  display: grid;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.event {
+  border-top: 1px solid #edf0ed;
+  min-width: 0;
+  padding: 14px 0 12px;
+}
+
+.event:first-child {
+  border-top: 0;
+  padding-top: 3px;
+}
+
+.eventHeader {
+  align-items: flex-start;
+  display: flex;
+  gap: 10px;
+  min-width: 0;
+}
+
+.marker {
+  background: #b4232a;
+  border: 3px solid #f8e8e7;
+  border-radius: 50%;
+  flex: 0 0 12px;
+  height: 12px;
+  margin-top: 3px;
+  width: 12px;
+}
+
+.eventHeading {
+  min-width: 0;
+}
+
+.eventHeading h3 {
+  color: #343a36;
+  font-size: 11px;
+  font-weight: 650;
+  margin: 0;
+}
+
+.eventHeading p,
+.actor {
+  color: #777f79;
+  font-size: 9px;
+  line-height: 1.5;
+  margin: 4px 0 0;
+}
+
+.assignmentGrid,
+.skeletonGrid {
+  display: grid;
+  gap: 10px 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 12px 0 0 22px;
+}
+
+.assignmentGrid > div {
+  min-width: 0;
+}
+
+.assignmentGrid dt {
+  color: #858c87;
+  font-size: 9px;
+  margin-bottom: 3px;
+}
+
+.assignmentGrid dd {
+  color: #343a36;
+  font-size: 10px;
+  line-height: 1.45;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.actor {
+  margin-left: 22px;
+}
+
+.empty {
+  background: #f8f9f8;
+  border-radius: 4px;
+  color: #69716b;
+  font-size: 10px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 13px;
+}
+
+.error {
+  align-items: center;
+  background: #fff7f6;
+  border: 1px solid #efd8d6;
+  border-radius: 4px;
+  color: #8f2026;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 9px 11px;
+}
+
+.error p {
+  font-size: 10px;
+  line-height: 1.5;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.error :global(.ui-icon-button) {
+  color: #8f2026;
+  flex: 0 0 40px;
+}
+
+.skeleton {
+  border-top: 1px solid #edf0ed;
+  display: grid;
+  gap: 9px;
+  padding-top: 14px;
+}
+
+.skeletonTitle,
+.skeletonMeta,
+.skeletonGrid span {
+  animation: shimmer 1.4s ease-in-out infinite;
+  background: linear-gradient(90deg, #eef0ee, #f7f8f7, #eef0ee);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  display: block;
+}
+
+.skeletonTitle {
+  height: 12px;
+  width: min(220px, 60%);
+}
+
+.skeletonMeta {
+  height: 9px;
+  width: min(300px, 78%);
+}
+
+.skeletonGrid {
+  margin-left: 22px;
+}
+
+.skeletonGrid span {
+  height: 27px;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeletonTitle,
+  .skeletonMeta,
+  .skeletonGrid span {
+    animation: none;
+    background: #eef0ee;
+  }
+}
+
+@media (max-width: 560px) {
+  .card {
+    padding: 13px;
+  }
+
+  .assignmentGrid,
+  .skeletonGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .error {
+    align-items: flex-start;
+  }
+}

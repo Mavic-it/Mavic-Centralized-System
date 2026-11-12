@@ -1,0 +1,53 @@
+/* Brief entrance cues only: no looping, bouncing or layout changes. */
+.note {
+  animation: noteEnter 420ms ease-out 100ms both;
+}
+.helpCue {
+  animation: helpHighlight 3200ms ease-out 500ms 1;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    color 140ms ease;
+}
+.guideEnter {
+  animation: guideReveal 260ms ease-out both;
+}
+@keyframes noteEnter {
+  from {
+    opacity: 0.65;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes helpHighlight {
+  0%,
+  100% {
+    box-shadow: 0 1px 2px rgb(15 23 42 / 3%);
+  }
+  15%,
+  75% {
+    box-shadow: 0 0 0 4px rgb(180 35 50 / 16%);
+    border-color: #b42332;
+    background-color: #fff1f2;
+    color: #b42332;
+  }
+}
+@keyframes guideReveal {
+  from {
+    opacity: 0.75;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .note,
+  .helpCue,
+  .guideEnter {
+    animation: none !important;
+    transition: none !important;
+  }
+}

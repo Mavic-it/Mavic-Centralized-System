@@ -1,0 +1,23 @@
+# Employment defaults and evaluation dates — 2026-11-06
+
+## Contract and component design
+
+1. **Tree:** employee creation and employee detail editor → shared EmploymentFields → existing RequiredMark; HR profile editor → Job level select. Read-only employee details use the existing profile display mapper.
+2. **Responsibilities:** EmploymentFields owns the selected employment type and conditional provisionary dates. Form owners keep submission and authorization state. API employee DTOs/services validate and persist employment data; branch creation seeds department defaults transactionally; existing department management remains available.
+3. **Contract:** new employment choices are PROBATIONARY (displayed as Provisionary), REGULAR, PROJECT_BASED and CONTRACTUAL. Legacy FULL_TIME/PART_TIME/CONTRACT remain readable and editable without conversion. Employee status adds RETIRED and TERMINATED to ACTIVE/INACTIVE/RESIGNED. Employment JSON adds probationEndDate/evaluationDueDate (date-only strings), both required when provisionary and not before the employment start date. Due evaluation means a saved evaluation due date, with a derived due indicator; no notification worker or performance-review workflow. Job level uses RANK_AND_FILE/SUPERVISORY/MANAGERIAL; an existing historical job level may be retained unchanged.
+4. **State:** server queries own employee, profile and branch departments. The employment primitive owns selection only, starts with an explicit placeholder for creation, and resets naturally when the form mounts. Existing loading/error/retry, disabled save, success and permissions remain feature-owned. Conditional dates use native required and server validation.
+5. **Visual system:** existing form grids, labels and spacing; conditional dates follow employment type. Selects use descriptive placeholders; required fields have the shared red marker. Responsive columns use the existing grid without added motion.
+6. **Accessibility:** native labelled selects and date inputs, keyboard navigation, visible focus from existing controls, required markers and native constraints. Server errors use existing error notices. No new dialog or focus trap.
+7. **Files:** add web `employee-employment-fields.tsx` and `employee-employment-options.ts`; modify `people-workspace.tsx`, `employee-directory-utils.ts`, `people-workspace-types.ts`, `people-workspace-services.ts`, `data/people.ts`, `employee-hr-profile-card.tsx`, display mappers and focused tests. Add API `employee-options.ts`, `default-departments.ts` and additive migration `1794528000000-EmployeeEmploymentDefaults.ts`; update employee create/update DTO/controller/service, HR profile service, branch creation and the regular-leave eligibility compatibility check. Maintain this design and `HRIS_IMPLEMENTATION_PLAN.md`.
+8. **Verification:** create/update success and invalid dates/choices; profile legacy-job-level retention; default departments in existing/new branches; migration idempotence and no replacement of custom departments; permissions stay on existing endpoints. Run focused web/API tests, TypeScript/build and changed-file lint.
+
+## Compatibility and rollout
+
+The migration widens the assignment-history employment-type constraint and adds six default departments to existing branches with case-insensitive conflict handling. No employee type, status, department assignment or historical record is rewritten. New branches receive Executive Department, Admin, Marketing, Accounting, IT and Maintenance in the branch creation transaction. Apply the additive migration before submitting the new employment types against a database. Rollback preserves populated data. Main HRIS Phase 1 remains active; no later phase begins.
+
+## Validation
+
+- API: 64 tests passed across employee DTO/service/controller, job-level service, branch/departments and leave policy checks. API production build and changed-file type-aware lint passed.
+- Web: 28 focused tests passed, including required-field audit, conditional employment dates, job-level choices/legacy retention, employee payload mapping and due evaluation display. Frontend TypeScript and changed-file ESLint passed.
+- Migration: ran `up` twice inside a transaction and verified every branch has the six defaults, then rolled back verification. The local development database reports the migration recorded and no pending migration in this helper's migration set. No employee records were changed by verification. Other environments require the normal migration rollout.
+- No signed-in browser submission was performed. Evaluation due is a displayed date/status; automatic reminders and performance review workflows are outside this requested employee-core change.

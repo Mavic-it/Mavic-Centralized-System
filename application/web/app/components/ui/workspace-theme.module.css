@@ -1,0 +1,25 @@
+.scope {
+  --ws-brand: #b42332;
+  --ws-brand-hover: #941d2a;
+  --ws-brand-soft: #fdf0f1;
+  --ws-text: #202936;
+  --ws-muted: #606b7b;
+  --ws-subtle: #f6f8fa;
+  --ws-surface: #ffffff;
+  --ws-border: #e2e7ed;
+  --ws-success: #176346;
+  --ws-success-soft: #edf8f1;
+  --ws-warning: #84580c;
+  --ws-warning-soft: #fff8e9;
+  --ws-danger: #a12632;
+  --ws-danger-soft: #fff1f2;
+  --ws-radius: 12px;
+  --ws-control-radius: 8px;
+  --ws-control-height: 42px;
+  --ws-shadow: 0 2px 8px rgb(32 41 54 / 3%);
+  --ws-space: 24px;
+  color: var(--ws-text);
+  font-size: 14px;
+  line-height: 1.55;
+  min-width: 0;
+}

@@ -1,0 +1,344 @@
+.trigger {
+  position: relative;
+}
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -5px;
+  background: #bc2830;
+  color: white;
+  border-radius: 12px;
+  padding: 2px 5px;
+  font-size: 10px;
+  pointer-events: none;
+}
+.panel {
+  position: fixed;
+  inset: auto 20px auto auto;
+  margin: 0;
+  width: min(420px, calc(100vw - 24px));
+  padding: 0;
+  border: 1px solid #dce2eb;
+  border-radius: 16px;
+  background: #fff;
+  color: #20324b;
+  box-shadow:
+    0 16px 60px #14243a26,
+    0 3px 12px #14243a14;
+  overflow: hidden;
+  font-family: inherit;
+}
+.panel:popover-open {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100dvh - 16px);
+}
+.panel::backdrop {
+  background: transparent;
+}
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px 10px;
+}
+.heading h2 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+.heading h2:focus {
+  outline: none;
+}
+.heading p {
+  margin: 5px 0 0;
+  font-size: 12px;
+  color: #62748d;
+}
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 12px 9px;
+  border-bottom: 1px solid #e7ecf2;
+}
+.filters {
+  display: flex;
+  gap: 5px;
+}
+.panel button {
+  font-family: inherit;
+  cursor: pointer;
+}
+.filters button {
+  border: 0;
+  border-radius: 22px;
+  padding: 6px 10px;
+  color: #52647b;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 600;
+}
+.filters button[aria-pressed="true"] {
+  color: #ad2030;
+  background: #fcecef;
+}
+.filters span {
+  margin-left: 3px;
+  font-size: 11px;
+}
+.readAll {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 0;
+  background: transparent;
+  color: #ad2030;
+  padding: 8px 4px;
+  font-size: 11px;
+}
+.content {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  min-height: 140px;
+  min-width: 0;
+}
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 8px;
+}
+.item {
+  border-radius: 12px;
+  padding: 0 0 4px;
+  margin-bottom: 4px;
+  overflow-wrap: anywhere;
+}
+.unread {
+  background: #f3f6fb;
+}
+.destination {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 9px 10px 3px;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 12px;
+}
+a.destination:hover {
+  background: #eaf0f7;
+}
+.avatar {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #e9edf4;
+  color: #536b89;
+}
+.success {
+  background: #e5f3eb;
+  color: #276546;
+}
+.warning {
+  background: #fff1d6;
+  color: #865a12;
+}
+.error {
+  color: #b12638;
+}
+.avatar.error {
+  background: #fbe8ed;
+}
+.copy {
+  flex: 1;
+  min-width: 0;
+}
+.copy strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.35;
+}
+.message {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #596b81;
+}
+.message + .message {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.copy time {
+  display: block;
+  color: #697e99;
+  font-size: 11px;
+  margin-top: 3px;
+}
+.unread time {
+  color: #af2333;
+  font-weight: 600;
+}
+.dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #b72537;
+  margin-top: 8px;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0 10px 0 49px;
+}
+.actions button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 0;
+  background: transparent;
+  padding: 4px 0;
+  color: #546983;
+  font-size: 11px;
+}
+.actions button:hover {
+  color: #b12638;
+}
+.actions span {
+  font-size: 11px;
+  color: #62748d;
+}
+.confirm {
+  margin: 8px 12px;
+  padding: 12px;
+  border: 1px solid #eed8df;
+  border-radius: 9px;
+  background: white;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+.confirm p {
+  width: 100%;
+  margin: 0 0 5px;
+  font-size: 12px;
+}
+.confirm button {
+  border: 1px solid #dce2eb;
+  background: #fff;
+  border-radius: 7px;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+.confirm .deleteConfirm {
+  background: #b12638;
+  color: white;
+  border-color: #b12638;
+}
+.state {
+  padding: 24px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.state button {
+  border: 0;
+  background: transparent;
+  color: #b12638;
+  text-decoration: underline;
+}
+.content > .error {
+  padding: 10px 20px;
+  font-size: 12px;
+}
+.empty {
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  color: #71829a;
+}
+.empty strong {
+  margin-top: 14px;
+  font-size: 14px;
+  color: #354b67;
+}
+.empty p {
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 6px 0 0;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-top: 1px solid #e7ecf2;
+  font-size: 11px;
+  color: #62748d;
+}
+.paging {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.paging button {
+  display: grid;
+  place-items: center;
+  border: 1px solid #dce2eb;
+  border-radius: 7px;
+  background: white;
+  width: 28px;
+  height: 28px;
+  color: #405a78;
+}
+.panel button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+.panel :is(button, a):focus-visible {
+  outline: 2px solid #b12638;
+  outline-offset: 2px;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@media (max-width: 520px) {
+  .panel {
+    right: 8px;
+    width: calc(100vw - 16px);
+  }
+  .heading {
+    padding: 18px 16px 14px;
+  }
+  .toolbar {
+    padding-inline: 12px;
+    flex-wrap: wrap;
+  }
+  .filters button,
+  .readAll {
+    min-height: 40px;
+  }
+}

@@ -1,0 +1,718 @@
+﻿.page {
+  display: grid;
+  gap: 20px;
+  margin: 0;
+  width: 100%;
+  min-width: 0;
+}
+.page [hidden] {
+  display: none !important;
+}
+.sectionSwitcherLayout {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+.sectionSwitcherContent {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+  max-width: 100%;
+}
+.sectionSwitcherContent > * {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+}
+.sectionSwitcherNav {
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  border: 1px solid var(--ws-border);
+  border-radius: var(--ws-radius);
+  background: var(--ws-surface);
+  box-shadow: var(--ws-shadow);
+  min-width: 0;
+}
+.sectionSwitcherButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ws-muted);
+  cursor: pointer;
+  font: inherit;
+  padding: 12px;
+  text-align: left;
+  min-width: 0;
+}
+.sectionSwitcherButton svg {
+  flex-shrink: 0;
+}
+.sectionSwitcherButton span {
+  display: grid;
+  gap: 2px;
+}
+.sectionSwitcherButton strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+.sectionSwitcherButton small {
+  font-size: 11px;
+}
+.sectionSwitcherButton:hover {
+  background: var(--ws-subtle);
+  color: var(--ws-text);
+}
+.sectionSwitcherButton[aria-pressed="true"] {
+  background: var(--ws-brand-soft);
+  color: var(--ws-brand);
+  border-color: transparent;
+}
+.sectionSwitcherHeading {
+  color: var(--ws-muted);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+.header,
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.header {
+  padding: 4px 0 8px;
+  align-items: flex-end;
+}
+.header h1 {
+  color: var(--ws-text);
+  font-size: 25px;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: 0;
+  margin: 7px 0 5px;
+}
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.branchContext {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ws-muted);
+  font-size: 12px;
+}
+.eyebrow {
+  color: var(--ws-brand);
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  margin: 0;
+  text-transform: uppercase;
+}
+.description,
+.subtle {
+  color: var(--ws-muted);
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+}
+.branchPicker,
+.dateFilters label,
+.scheduleForm > label,
+.correctionForm > label,
+.overtimeForm > label,
+.rosterWeekPicker {
+  display: grid;
+  gap: 7px;
+  color: var(--ws-muted);
+  font-size: 12px;
+  font-weight: 500;
+  min-width: 0;
+}
+.branchPicker select,
+.dateFilters input,
+.dateFilters select,
+.scheduleForm input:not([type="checkbox"]),
+.correctionForm input,
+.correctionForm select,
+.overtimeForm input,
+.rosterWeekPicker input {
+  background: var(--ws-surface);
+  border: 1px solid var(--ws-border);
+  border-radius: var(--ws-control-radius);
+  color: var(--ws-text);
+  font: inherit;
+  font-size: 13px;
+  min-height: var(--ws-control-height);
+  padding: 8px 12px;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.page :is(button, input, select, a):focus-visible {
+  outline: 2px solid var(--ws-brand);
+  outline-offset: 3px;
+}
+.todayPanel,
+.panel,
+.metric {
+  background: var(--ws-surface);
+  border: 1px solid var(--ws-border);
+  border-radius: var(--ws-radius);
+  min-width: 0;
+  box-shadow: var(--ws-shadow);
+}
+.todayPanel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 28px;
+  border-top: 3px solid var(--ws-brand);
+}
+.todayCopy h2 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  margin: 8px 0;
+}
+.todayCopy > p:last-child {
+  color: var(--ws-muted);
+  font-size: 13px;
+  margin: 0;
+  max-width: 65ch;
+}
+.clockActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+.metric {
+  padding: 20px;
+  display: grid;
+  gap: 8px;
+  min-height: 128px;
+  align-content: start;
+}
+.metric > span,
+.metric small {
+  color: var(--ws-muted);
+  font-size: 12px;
+}
+.metric strong {
+  color: var(--ws-text);
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+.metric small {
+  font-size: 11px;
+  line-height: 1.5;
+}
+.panel {
+  padding: 24px;
+}
+.sectionHeader {
+  margin-bottom: 20px;
+}
+.sectionHeader h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+.dateFilters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
+  padding: 20px 0 0;
+}
+.dateFilters .subtle {
+  flex-basis: 100%;
+  font-size: 12px;
+}
+.scheduleForm {
+  display: grid;
+  align-items: end;
+  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.daysFieldset {
+  border: 1px solid var(--ws-border);
+  border-radius: 8px;
+  grid-column: 1/-1;
+  margin: 0;
+  padding: 16px;
+}
+.daysFieldset legend {
+  color: var(--ws-muted);
+  font-size: 12px;
+  padding: 0 6px;
+}
+.daysGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.daysGrid label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ws-subtle);
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: var(--ws-text);
+  font-size: 13px;
+}
+.daysGrid input {
+  accent-color: var(--ws-brand);
+  width: 16px;
+  height: 16px;
+}
+.scheduleForm > button,
+.correctionForm button {
+  justify-self: start;
+}
+.detailLine {
+  display: block;
+  margin-top: 5px;
+  color: var(--ws-muted);
+  font-size: 11px;
+}
+.tableWrap {
+  max-width: 100%;
+  overflow: auto;
+  border: 1px solid var(--ws-border);
+  border-radius: 10px;
+}
+.table {
+  border-collapse: collapse;
+  min-width: 960px;
+  text-align: left;
+  width: 100%;
+}
+.table th {
+  background: var(--ws-subtle);
+  color: var(--ws-muted);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 13px 16px;
+  white-space: nowrap;
+}
+.table td {
+  border-top: 1px solid var(--ws-border);
+  color: var(--ws-text);
+  font-size: 13px;
+  padding: 16px;
+  white-space: nowrap;
+}
+.table tbody tr:hover {
+  background: var(--ws-subtle);
+}
+.rosterToolbar {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.rosterTitle {
+  color: var(--ws-muted);
+  display: grid;
+  gap: 4px;
+  font-size: 12px;
+  margin: 16px 0;
+}
+.rosterTitle strong {
+  color: var(--ws-text);
+  font-size: 15px;
+  font-weight: 600;
+}
+.rosterTitle span {
+  color: var(--ws-muted);
+  font-weight: 500;
+}
+.source,
+.statusBadge {
+  background: var(--ws-subtle);
+  border: 1px solid var(--ws-border);
+  border-radius: 6px;
+  color: var(--ws-muted);
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 8px;
+}
+.primaryButton,
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--ws-border);
+  border-radius: var(--ws-control-radius);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 550;
+  min-height: var(--ws-control-height);
+  padding: 9px 16px;
+}
+.primaryButton {
+  background: var(--ws-brand);
+  border-color: var(--ws-brand);
+  color: white;
+}
+.primaryButton:hover:not(:disabled) {
+  background: var(--ws-brand-hover);
+}
+.secondaryButton {
+  background: var(--ws-surface);
+  color: var(--ws-text);
+}
+.secondaryButton:hover:not(:disabled) {
+  background: var(--ws-subtle);
+}
+.primaryButton:disabled,
+.secondaryButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.textButton {
+  background: transparent;
+  border: 0;
+  color: var(--ws-brand);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 550;
+  padding: 6px;
+  min-height: 28px;
+}
+.textButton:hover {
+  text-decoration: underline;
+}
+.correctionForm {
+  display: grid;
+  align-items: end;
+  background: var(--ws-subtle);
+  border: 1px solid var(--ws-border);
+  border-radius: 10px;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 20px;
+  padding: 20px;
+}
+.correctionForm h3,
+.correctionForm .reasonLabel,
+.correctionForm .error {
+  grid-column: 1/-1;
+}
+.correctionForm h3 {
+  font-size: 16px;
+  margin: 0;
+}
+.correctionHistory {
+  background: var(--ws-surface);
+  border: 1px solid var(--ws-border);
+  border-radius: 10px;
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 20px;
+}
+.correctionHistory h4 {
+  font-size: 13px;
+  margin: 0;
+}
+.correctionHistory ul {
+  display: grid;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.correctionHistory li {
+  border-top: 1px solid var(--ws-border);
+  display: grid;
+  font-size: 13px;
+  gap: 5px;
+  padding-top: 12px;
+}
+.correctionHistory li strong,
+.correctionHistory li small {
+  color: var(--ws-muted);
+  font-size: 12px;
+}
+.overtimeForm {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 20px;
+  margin-top: 16px;
+  background: var(--ws-warning-soft);
+  border: 1px solid var(--ws-border);
+  border-radius: 10px;
+}
+.overtimeForm h3 {
+  color: var(--ws-warning);
+  flex: 1 1 100%;
+  font-size: 15px;
+  margin: 0;
+}
+.overtimeForm label {
+  flex: 1 1 260px;
+}
+.error,
+.notice,
+.empty {
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 12px 0;
+  padding: 14px 16px;
+}
+.error {
+  background: var(--ws-danger-soft);
+  color: var(--ws-danger);
+  border: 1px solid #f2d3d8;
+}
+.notice,
+.empty {
+  background: var(--ws-subtle);
+  border: 1px solid var(--ws-border);
+  color: var(--ws-muted);
+}
+.notice a {
+  color: var(--ws-brand);
+  font-weight: 600;
+  text-decoration: underline;
+}
+.empty {
+  text-align: center;
+  padding: 32px 20px;
+}
+.srOnly {
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+.skeletonLine,
+.skeletonTitle,
+.skeletonButton,
+.skeletonMetric,
+.skeletonRow {
+  background: var(--ws-border);
+  border-radius: 6px;
+  display: block;
+}
+.skeletonLine {
+  height: 12px;
+  margin: 8px 0;
+  max-width: 100%;
+  width: 210px;
+}
+.skeletonTitle {
+  height: 30px;
+  max-width: 100%;
+  width: 270px;
+}
+.skeletonButton {
+  height: 42px;
+  width: 140px;
+}
+.skeletonMetric {
+  height: 30px;
+  width: 90px;
+}
+.skeletonRow {
+  height: 48px;
+  margin-top: 6px;
+  width: 100%;
+}
+.metricSkeleton {
+  background: var(--ws-surface);
+  border: 1px solid var(--ws-border);
+  border-radius: 12px;
+  display: grid;
+  gap: 14px;
+  min-height: 128px;
+  padding: 20px;
+}
+.tableSkeleton {
+  display: grid;
+  gap: 6px;
+}
+@media (max-width: 1100px) {
+  .sectionSwitcherButton {
+    padding: 10px;
+    gap: 8px;
+  }
+  .sectionSwitcherButton small {
+    display: none;
+  }
+  .sectionSwitcherButton strong {
+    font-size: 12px;
+  }
+}
+@media (max-width: 768px) {
+  .sectionSwitcherNav {
+    flex-wrap: wrap;
+  }
+  .sectionSwitcherButton {
+    flex: 1 1 28%;
+    min-height: 44px;
+  }
+  .scheduleForm {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .headerActions {
+    width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .page,
+  .sectionSwitcherLayout {
+    gap: 16px;
+  }
+  .sectionSwitcherButton {
+    flex-basis: 40%;
+  }
+  .panel,
+  .todayPanel {
+    padding: 20px 16px;
+  }
+  .scheduleForm,
+  .correctionForm {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .daysFieldset,
+  .correctionForm h3,
+  .correctionForm .reasonLabel,
+  .correctionForm .error {
+    grid-column: auto;
+  }
+  .metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .metric {
+    min-height: 116px;
+    padding: 14px;
+  }
+  .metric strong {
+    font-size: 26px;
+  }
+  .metric small {
+    font-size: 11px;
+  }
+  .todayPanel,
+  .rosterToolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .clockActions > * {
+    flex: 1;
+  }
+  .branchPicker {
+    flex: 1;
+  }
+  .headerActions > .primaryButton {
+    width: 100%;
+  }
+  .dateFilters label {
+    flex: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Compact section navigation: task labels without a second row of cards. */
+.sectionSwitcherNav {
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--ws-border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  scrollbar-width: thin;
+}
+.sectionSwitcherNav .sectionSwitcherButton {
+  flex: 0 0 auto;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 8px 8px 0 0;
+  padding: 13px 18px;
+  gap: 8px;
+  min-height: 48px;
+  white-space: nowrap;
+}
+.sectionSwitcherNav .sectionSwitcherButton small {
+  display: none;
+}
+.sectionSwitcherNav .sectionSwitcherButton[aria-pressed="true"] {
+  border-bottom-color: var(--ws-brand);
+  background: transparent;
+}
+.sectionSwitcherNav .sectionSwitcherButton strong {
+  font-size: 13px;
+  font-weight: 550;
+}
+@media (max-width: 600px) {
+  .sectionSwitcherNav .sectionSwitcherButton {
+    padding: 12px;
+  }
+  .headerActions .branchPicker {
+    width: 100%;
+  }
+}
+
+/* History employee filter uses the same control geometry as the date fields. */
+.dateFilters select {
+  width: 100%;
+  min-width: 0;
+}
+.dateFilters label:has(select) {
+  min-width: min(200px, 100%);
+  flex: 1;
+}
+.sectionHeader .dateFilters {
+  padding-top: 0;
+  flex: 0 1 520px;
+  width: 100%;
+}
+
+.notice { composes: note from '../components/ui/guidance-motion.module.css'; }
