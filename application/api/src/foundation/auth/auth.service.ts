@@ -94,7 +94,7 @@ export class AuthService {
   async login(input: AuthLoginInput, sourceIp = 'unknown'): Promise<string> {
     // Account and source-IP limits are atomic across all API replicas.
     // Count attempts before password verification to close concurrent-request races.
-    const loginKey = input.email?.trim().toLowerCase();
+    const loginKey = typeof input?.email === 'string' ? input.email.trim().toLowerCase() : undefined;
     if (!loginKey || typeof input.password !== 'string' ||
         loginKey.length > 320 || input.password.length > 1024) {
       throw new UnauthorizedException('Invalid email or password');
