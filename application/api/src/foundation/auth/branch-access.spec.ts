@@ -43,7 +43,7 @@ describe('automatic database branch scope', () => {
     expect(payload.branchIds).not.toContain(other.id);
     expect(payload.scope).toBe('BRANCH');
     expect(payload.allBranches).toBe(true);
-    expect(auth.validateSession(token).payload?.branchIds).toBeUndefined();
+    expect((await auth.validateSession(token)).payload?.branchIds).toBeUndefined();
   });
 
   it.each(['SUPER_ADMIN', 'IT_ADMIN'])('loads every active branch for the global %s role', async role => {
@@ -69,9 +69,9 @@ describe('automatic database branch scope', () => {
 
   it('ignores a legacy manually narrowed cookie and uses the database assignment', async () => {
     const { auth, user, first, second, sessions } = await setup();
-    const token = sessions.createSession({ sub: user.id, email: user.email, role: user.role,
+    const token = (await sessions.createSession({ sub: user.id, email: user.email, role: user.role,
       branchId: first.id, branchIds: [first.id], allBranches: false, scope: 'BRANCH',
-      jti: 'legacy', expiresAt: new Date(Date.now() + 60000).toISOString() }).token;
+      jti: 'legacy', expiresAt: new Date(Date.now() + 60000).toISOString() })).token;
     expect((await auth.validateWorkspaceSession(token)).payload?.branchIds).toEqual([first.id, second.id]);
   });
 
@@ -89,7 +89,7 @@ describe('automatic database branch scope', () => {
     const { auth, first, second, other, login } = await setup();
     const original = await login();
     const rotated = await auth.switchBranch(original, second.id);
-    expect(auth.validateSession(original).valid).toBe(false);
+    expect((await auth.validateSession(original)).valid).toBe(false);
     expect((await auth.validateWorkspaceSession(rotated)).payload).toMatchObject({ branchId: first.id, branchIds: [first.id, second.id], allBranches: true });
     await expect(auth.switchBranch(rotated, other.id)).rejects.toThrow(ForbiddenException);
     await expect(auth.switchBranchSelection(rotated, { branchIds: [] })).rejects.toThrow(ForbiddenException);
@@ -138,7 +138,7 @@ describe('automatic database branch scope', () => {
     await branches.saveAdminBranchAccess(user.id, { mode: 'SELECTED', branchIds: ids }, 'actor');
     const token = await login();
     expect(token.length).toBeLessThan(3800);
-    expect(auth.validateSession(token).payload?.branchIds).toBeUndefined();
+    expect((await auth.validateSession(token)).payload?.branchIds).toBeUndefined();
     expect((await auth.validateWorkspaceSession(token)).payload?.branchIds).toHaveLength(ids.length);
   });
 
