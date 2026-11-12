@@ -80,7 +80,11 @@ describe('Employment classifications and provisionary dates', () => {
       status: 'ACTIVE',
       employment,
     });
-    expect(created.employment).toEqual(employment);
+    expect(created.employment).toMatchObject({
+      ...employment,
+      workBranchIds: ['branch'],
+      allWorkBranches: false,
+    });
     await expect(
       service.updateEmployee(created.id, {
         employment: { ...employment, probationEndDate: '2026-10-01' },
@@ -90,6 +94,10 @@ describe('Employment classifications and provisionary dates', () => {
       status: 'RETIRED',
     });
     expect(retired?.status).toBe('RETIRED');
-    expect(retired?.employment).toEqual(employment);
+    expect(retired?.employment).toMatchObject({
+      ...employment,
+      workBranchIds: ['branch'],
+      allWorkBranches: false,
+    });
   });
 });
