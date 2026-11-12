@@ -3,11 +3,11 @@ import { ReportController } from './reports/report.controller.js';
 import { ReportService } from './reports/report.service.js';
 
 describe('MSPACES reporting module', () => {
-  it('builds a branch-aware summary across HR, rooms, and inventory', () => {
+  it('builds a branch-aware summary across HR, rooms, and inventory', async () => {
     const reports = new ReportService();
     const controller = new ReportController(reports);
 
-    controller.record('hr', {
+    await controller.record('hr', {
       branchId: 'branch-1',
       amount: 12,
       label: 'Active employees',
@@ -23,7 +23,7 @@ describe('MSPACES reporting module', () => {
       label: 'Inventory units',
     });
 
-    const summary = controller.summary('branch-1');
+    const summary = await controller.summary('branch-1');
 
     expect(summary.total).toBe(260);
     expect(summary.modules).toEqual(['hr', 'rooms', 'inventory']);
