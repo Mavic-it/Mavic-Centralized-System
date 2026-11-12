@@ -10,7 +10,7 @@ export class AuthMiddleware {
     const token = this.authService.readSessionCookie(cookieHeader);
 
     if (!token) {
-      res.clearCookie('mspaces_session', { path: '/', httpOnly: true, sameSite: 'lax' });
+      res.clearCookie('mspaces_session', { path: '/', httpOnly: true, sameSite: 'lax', secure: process.env.NODE_ENV === 'production' });
       next();
       return;
     }
@@ -24,7 +24,7 @@ export class AuthMiddleware {
     }
 
     if (!validation.valid) {
-      res.clearCookie('mspaces_session', { path: '/', httpOnly: true, sameSite: 'lax' });
+      res.clearCookie('mspaces_session', { path: '/', httpOnly: true, sameSite: 'lax', secure: process.env.NODE_ENV === 'production' });
       next();
       return;
     }

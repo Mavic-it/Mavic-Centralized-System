@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { fileURLToPath } from 'node:url';
+import { readFileSync } from 'node:fs';
 import { DatabaseHealthController } from './database-health.controller.js';
 
 @Module({
@@ -24,7 +25,12 @@ import { DatabaseHealthController } from './database-health.controller.js';
         migrations: [fileURLToPath(new URL('./migrations/*.js', import.meta.url)).replaceAll('\\', '/')],
         ssl:
           config.get<string>('DB_SSL', 'false') === 'true'
-            ? { rejectUnauthorized: false }
+            ? {
+                rejectUnauthorized: true,
+                ...(config.get<string>('DB_SSL_CA_PATH')
+                  ? { ca: readFileSync(config.get<string>('DB_SSL_CA_PATH')!, 'utf8') }
+                  : {}),
+              }
             : false,
         retryAttempts: 3,
         retryDelay: 3000,

@@ -73,11 +73,8 @@ export class AuthService {
   }
 
   createSessionCookie(token: string): string {
-    const session = this.sessions.validateSession(token);
-    const maxAge = session.valid && session.payload?.expiresAt
-      ? Math.max(0, Math.ceil((Date.parse(session.payload.expiresAt) - Date.now()) / 1000))
-      : 0;
-    return `mspaces_session=${token}; HttpOnly; Path=/; SameSite=Lax; Max-Age=${maxAge}`;
+    const maxAge = this.sessions.cookieMaxAge(token);
+    return `mspaces_session=${token}; HttpOnly; Path=/; SameSite=Lax; Max-Age=${maxAge}${process.env.NODE_ENV === 'production' ? '; Secure' : ''}`;
   }
 
   readSessionCookie(header?: string): string | undefined {
@@ -151,7 +148,7 @@ export class AuthService {
       jti: randomUUID(),
     };
 
-    const session = this.sessions.createSession(payload);
+    const session = await this.sessions.createSession(payload);
     await this.users.recordSuccessfulLogin(user.id);
     return session.token;
   }
@@ -183,7 +180,7 @@ export class AuthService {
   }
 
   async validateWorkspaceSession(token: string): Promise<SessionValidationResult> {
-    const validation = this.validateSession(token);
+    const validation = await this.validateSession(token);
     if (!validation.valid || !validation.payload) return validation;
     const payload = validation.payload;
     if (!['SUPER_ADMIN', 'IT_ADMIN', 'BRANCH_MANAGER', 'HR_ADMIN', 'EMPLOYEE', 'STAFF'].includes(payload.role)) return validation;
@@ -218,17 +215,17 @@ export class AuthService {
     if (!access.canSwitch || !ids.length || new Set(ids).size !== ids.length || ids.some(id => !access.branches.some(branch => branch.id === id))) throw new ForbiddenException('Select authorized active branches.');
     // Compatibility for older clients: validate the requested branches, but
     // never persist a second access selection alongside the database assignment.
-    const session = this.sessions.createSession({ ...validation.payload, branchIds: undefined, allBranches: true, jti: randomUUID() });
-    this.sessions.revokeSession(validation.sessionId);
+    const session = await this.sessions.createSession({ ...validation.payload, branchIds: undefined, allBranches: true, jti: randomUUID() });
+    await this.sessions.revokeSession(validation.sessionId);
     return session.token;
   }
   async switchBranch(token: string, branchId: string): Promise<string> {
     return this.switchBranchSelection(token, { branchId });
   }
 
-  revokeSessionToken(token: string): void {
-    const validation = this.validateSession(token);
-    if (validation.sessionId) this.sessions.revokeSession(validation.sessionId);
+  async revokeSessionToken(token: string): Promise<void> {
+    const validation = await this.validateSession(token);
+    if (validation.sessionId) await this.sessions.revokeSession(validation.sessionId);
   }
 
   canAccess(
@@ -248,7 +245,7 @@ export class AuthService {
     return this.permissions.can(role as any, module, action, scope);
   }
 
-  validateSession(token: string): SessionValidationResult {
+  validateSession(token: string): Promise<SessionValidationResult> {
     return this.sessions.validateSession(token);
   }
 
@@ -256,7 +253,7 @@ export class AuthService {
     return this.sessions.revokeSession(sessionId);
   }
 
-  revokeSessionsForUser(userId: string): void {
-    this.sessions.revokeSessionsForUser(userId);
+  revokeSessionsForUser(userId: string): Promise<void> {
+    return this.sessions.revokeSessionsForUser(userId);
   }
 }

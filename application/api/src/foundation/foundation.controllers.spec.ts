@@ -220,7 +220,7 @@ describe('MSPACES foundation controllers', () => {
     );
   });
 
-  it('returns only employee account fields to Super Admin and IT Admin', async () => {
+  it('returns account-selection and branch context without exposing sensitive employee fields', async () => {
     const employees = new EmployeeService();
     employees.create({
       id: 'emp-1',
@@ -236,20 +236,27 @@ describe('MSPACES foundation controllers', () => {
     });
     const controller = new EmployeeController(employees, new UserService());
 
-    await expect(
-      controller.accountOptions({
-        user: { role: 'IT_ADMIN' },
-      } as any),
-    ).resolves.toEqual([
-      {
+    const options = await controller.accountOptions({
+      user: { role: 'IT_ADMIN' },
+    } as any);
+    expect(options).toEqual([
+      expect.objectContaining({
         id: 'emp-1',
         employeeNumber: 'EMP001',
         name: 'Maria Santos',
         email: 'maria@mspaces.test',
         branchId: 'branch-1',
         hasUserAccount: false,
-      },
+        employment: expect.objectContaining({
+          employeeType: 'FULL_TIME',
+          startDate: '2024-01-15',
+        }),
+      }),
     ]);
+    // New account-selection fields can be added without leaking sensitive payroll/PII.
+    expect(options[0]).not.toHaveProperty('salary');
+    expect(options[0]).not.toHaveProperty('governmentIds');
+    expect(options[0]).not.toHaveProperty('passwordHash');
     await expect(
       controller.accountOptions({ user: { role: 'HR_ADMIN' } } as any),
     ).rejects.toThrow(ForbiddenException);

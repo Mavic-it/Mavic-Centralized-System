@@ -118,7 +118,7 @@ export class AccountProvisioningService {
           );
       },
     );
-    this.auth.revokeSessionsForUser(id);
+    await this.auth.revokeSessionsForUser(id);
     const delivery = await this.email.sendCredential({
       name: account.name,
       email: account.email,

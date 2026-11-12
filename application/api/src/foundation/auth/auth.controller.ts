@@ -90,7 +90,7 @@ export class AuthController {
   ): Promise<{ ok: boolean; message: string; mustChangePassword: boolean }> {
     const token = await this.authService.login(input);
     res.setHeader('Set-Cookie', this.authService.createSessionCookie(token));
-    const session = this.authService.validateSession(token);
+    const session = await this.authService.validateSession(token);
     const security = session.payload ? await this.authService.getPasswordSecurityState(session.payload.sub) : { mustChangePassword: false };
 
     return {
@@ -102,21 +102,22 @@ export class AuthController {
 
   @Post('logout')
   @Public()
-  logout(
+  async logout(
     @Req() req: Request & { headers?: { cookie?: string } },
     @Res({ passthrough: true }) res: Response,
-  ): { ok: boolean; message: string } {
+  ): Promise<{ ok: boolean; message: string }> {
     const cookieHeader = req.headers?.cookie;
     const token = this.authService.readSessionCookie(cookieHeader);
 
     if (token) {
-      this.authService.revokeSessionToken(token);
+      await this.authService.revokeSessionToken(token);
     }
 
     res.clearCookie('mspaces_session', {
       path: '/',
       httpOnly: true,
       sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
     });
 
     return {
