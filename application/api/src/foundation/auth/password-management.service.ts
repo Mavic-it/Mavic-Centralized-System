@@ -114,7 +114,7 @@ export class PasswordManagementService {
       return { email: user.email, name: user.name, userId: user.id, failed: false as const, expiresAt: expiresAt.toISOString() };
     });
     if (accountEmail.failed) throw new ServiceUnavailableException('Email could not be accepted. The account password was not changed; retry to generate a new temporary password.');
-    this.auth.revokeSessionsForUser(accountEmail.userId);
+    await this.auth.revokeSessionsForUser(accountEmail.userId);
     return { ok: true, email: maskEmail(accountEmail.email), expiresAt: accountEmail.expiresAt, delivery: 'ACCEPTED_BY_PROVIDER' };
   }
 
@@ -137,7 +137,7 @@ export class PasswordManagementService {
       if (!changed[0]) throw new UnauthorizedException('Your credential changed or expired. Sign in again.');
       await manager.query(`INSERT INTO audit_logs(id,user_id,branch_id,action,resource,details,created_at) VALUES($1,$2,$3,'PASSWORD_CHANGED','users',$4::jsonb,now())`, [randomUUID(), user.userId, user.branchId, JSON.stringify({ forced: Boolean(extended.mustChangePassword) })]);
     });
-    this.auth.revokeSessionsForUser(user.userId);
+    await this.auth.revokeSessionsForUser(user.userId);
     this.changeAttempts.delete(user.userId);
     void this.sendPasswordChangedNotice(account.email, account.name);
     return { ok: true, requireLogin: true };
