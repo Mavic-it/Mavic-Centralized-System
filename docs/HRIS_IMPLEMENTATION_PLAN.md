@@ -2,6 +2,8 @@
 
 # Mspaces HRIS Implementation Plan
 
+Docker/Actions Phase 1 (2026-11-12): added three non-root multi-stage application images, Next.js standalone packaging, a root-context Docker ignore, and application-only Compose topology pointing to an externally supplied existing PostgreSQL instance. GitHub-hosted Ubuntu validates configuration and builds/checks all three images on main pushes and PRs, without publishing, deployment, application bootstrap, migrations or database access. No local Docker installation required. Local YAML/static/lockfile checks passed; full image validation awaits the first GitHub run. Main HRIS Phase 1 remains active. Inventory, configuration, workflow instructions and verification limits: [DOCKER_PHASE_1.md](DOCKER_PHASE_1.md).
+
 Official Business list UI refinement (2026-11-12): request cards now use clearer date, time, destination and status hierarchy, with a full-card detail action and visible hover/focus response. The filter bar offers a contextual Clear filters action; the results heading identifies the current request view and page count, and the empty state responds to active filters. Existing server filtering, paging, drawer actions and permissions remain; main HRIS Phase 1 stays active.
 
 Official Business request card interaction (2026-11-12): each existing request card now opens its detail drawer from the full card surface through one native button with a descriptive accessible name. Hover and keyboard focus show a clear card state, and reduced-motion preference is respected. Existing filters, requests, permissions and approval flow remain; main HRIS Phase 1 stays active.

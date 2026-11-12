@@ -1,6 +1,8 @@
 import path from 'node:path';
 import type { NextConfig } from 'next';
 const config: NextConfig = {
+  output: 'standalone',
+  outputFileTracingRoot: path.resolve(process.cwd(), '../..'),
   experimental: { proxyClientMaxBodySize: '16mb' },
   allowedDevOrigins: ['192.168.110.9', '192.168.1.14'],
   turbopack: { root: path.resolve(process.cwd(), '../..') },

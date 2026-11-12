@@ -1,0 +1,44 @@
+# Phase 1: build validation only. CI never runs these services.
+name: mavic-mspaces
+services:
+  admin:
+    image: mavic-admin:phase1
+    build:
+      context: .
+      dockerfile: application/web/Dockerfile
+    ports: ["3000:3000"]
+    environment:
+      AUTH_API_URL: http://api:4000
+    depends_on: [api]
+  booking:
+    image: mavic-client-reservation:phase1
+    build:
+      context: .
+      dockerfile: application/client-booking/Dockerfile
+      args:
+        API_BASE_URL: ${BOOKING_API_BASE_URL:-http://api:4000}
+    ports: ["3005:3005"]
+    depends_on: [api]
+  api:
+    image: mavic-api:phase1
+    build:
+      context: .
+      dockerfile: application/api/Dockerfile
+    ports: ["4000:4000"]
+    environment:
+      PORT: "4000"
+      DB_HOST: ${DB_HOST:-host.docker.internal}
+      DB_PORT: ${DB_PORT:-5432}
+      DB_USERNAME: ${DB_USERNAME:-ci_placeholder}
+      DB_PASSWORD: ${DB_PASSWORD:-ci_placeholder_not_a_secret}
+      DB_DATABASE: ${DB_DATABASE:-ci_placeholder}
+      DB_SSL: ${DB_SSL:-false}
+      DB_SYNCHRONIZE: "false"
+      DB_MIGRATIONS_RUN: "false"
+      PAYMENT_ACCESS_SECRET: ${PAYMENT_ACCESS_SECRET:-ci-placeholder-do-not-use-in-production-123456789}
+      CLIENT_BOOKING_URL: http://localhost:3005
+      CORS_ORIGINS: http://localhost:3000,http://localhost:3005
+      LEAVE_ALLOCATION_SCHEDULER_ENABLED: "false"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
