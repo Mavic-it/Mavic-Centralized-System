@@ -87,8 +87,9 @@ export class AuthController {
   async login(
     @Body() input: AuthLoginInput,
     @Res({ passthrough: true }) res: Response,
+    @Req() request?: Request,
   ): Promise<{ ok: boolean; message: string; mustChangePassword: boolean }> {
-    const token = await this.authService.login(input);
+    const token = await this.authService.login(input, request?.ip ?? 'unknown');
     res.setHeader('Set-Cookie', this.authService.createSessionCookie(token));
     const session = await this.authService.validateSession(token);
     const security = session.payload ? await this.authService.getPasswordSecurityState(session.payload.sub) : { mustChangePassword: false };
