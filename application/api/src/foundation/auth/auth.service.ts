@@ -224,8 +224,8 @@ export class AuthService {
   }
 
   async revokeSessionToken(token: string): Promise<void> {
-    const validation = this.validateSession(token);
-    if (validation.sessionId) this.sessions.revokeSession(validation.sessionId);
+    const validation = await this.validateSession(token);
+    if (validation.sessionId) await this.sessions.revokeSession(validation.sessionId);
   }
 
   canAccess(
@@ -254,6 +254,6 @@ export class AuthService {
   }
 
   revokeSessionsForUser(userId: string): Promise<void> {
-    this.sessions.revokeSessionsForUser(userId);
+    return this.sessions.revokeSessionsForUser(userId);
   }
 }
