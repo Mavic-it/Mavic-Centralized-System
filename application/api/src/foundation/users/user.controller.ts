@@ -107,7 +107,7 @@ export class UserController {
     if (target.role === 'BRANCH_MANAGER' && request.user?.role !== 'SUPER_ADMIN')
       throw new ForbiddenException('Only a Super Admin can grant Branch Manager access to multiple branches.');
     await this.branches.saveAdminBranchAccess(id, input, request.user!.userId);
-    this.auth.revokeSessionsForUser(id);
+    await this.auth.revokeSessionsForUser(id);
     return { success: true };
   }
 
@@ -122,7 +122,7 @@ export class UserController {
       const account = await this.service.updateAccessBranch(id, input.branchId, {
         userId: request.user!.userId, allowedBranchIds: scope,
       }, input.department);
-      this.auth.revokeSessionsForUser(id);
+      await this.auth.revokeSessionsForUser(id);
       return { success: true, data: account, message: 'Employee and account branch updated.' };
     } catch (error) {
       if (error instanceof Error && error.message === 'Account branch access denied.') throw new ForbiddenException(error.message);
@@ -205,7 +205,7 @@ export class UserController {
     }
     const account = await this.service.updateStatus(id, input.status);
     if (!account) throw new BadRequestException('User account not found.');
-    if (input.status === 'INACTIVE') this.auth.revokeSessionsForUser(id);
+    if (input.status === 'INACTIVE') await this.auth.revokeSessionsForUser(id);
     return {
       success: true,
       data: account,
@@ -253,7 +253,7 @@ export class UserController {
         actor?.userId,
       );
       if (!account) throw new BadRequestException('User account not found.');
-      this.auth.revokeSessionsForUser(id);
+      await this.auth.revokeSessionsForUser(id);
       return {
         success: true,
         data: account,
