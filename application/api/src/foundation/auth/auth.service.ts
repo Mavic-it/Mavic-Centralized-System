@@ -77,7 +77,7 @@ export class AuthService {
     const maxAge = session.valid && session.payload?.expiresAt
       ? Math.max(0, Math.ceil((Date.parse(session.payload.expiresAt) - Date.now()) / 1000))
       : 0;
-    return `mspaces_session=${token}; HttpOnly; Path=/; SameSite=Lax; Max-Age=${maxAge}`;
+    return `mspaces_session=${token}; HttpOnly; Path=/; SameSite=Lax; Max-Age=${maxAge}${process.env.NODE_ENV === 'production' ? '; Secure' : ''}`;
   }
 
   readSessionCookie(header?: string): string | undefined {
