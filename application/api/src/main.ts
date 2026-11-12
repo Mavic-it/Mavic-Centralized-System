@@ -7,6 +7,9 @@ import { AuthService } from './foundation/auth/auth.service.js';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bodyParser: false });
+  // Trust only explicitly configured reverse proxies; never trust arbitrary X-Forwarded-For.
+  const trustedProxyIps = (process.env.TRUSTED_PROXY_IPS ?? '').split(',').map(ip => ip.trim()).filter(Boolean);
+  if (trustedProxyIps.length) app.getHttpAdapter().getInstance().set('trust proxy', trustedProxyIps);
   app.use('/public/booking/reservations',json({limit:'15mb'}));
   app.use('/reservations/payment-accounts',json({limit:'2mb'}));
   app.use(json({limit:'256kb'}));
