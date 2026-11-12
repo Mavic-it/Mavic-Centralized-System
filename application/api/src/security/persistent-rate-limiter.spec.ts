@@ -4,6 +4,8 @@ import { PostgresRateLimiter } from './persistent-rate-limiter.js';
 import { AuthService } from '../foundation/auth/auth.service.js';
 import { UserService } from '../foundation/users/user.service.js';
 import { UserController } from '../foundation/users/user.controller.js';
+import { PublicBookingGuard } from '../operations/reservations/public-booking.guard.js';
+import type { ExecutionContext } from '@nestjs/common';
 import { BranchService } from '../foundation/branches/branches.service.js';
 
 describe('shared persistent rate limiting and password resets', () => {
@@ -33,6 +35,24 @@ describe('shared persistent rate limiting and password resets', () => {
     expect(String(firstArgs[0])).toHaveLength(64);
     await second.reset('auth-account','person@example.test');
     expect(await first.consume('auth-account','person@example.test',2,60)).toBe(true);
+  });
+
+
+  it('enforces the public-booking threshold across guard instances', async () => {
+    const counts = new Map<string, number>();
+    const db = {query: async (_sql: string, args: unknown[]) => {
+      const key = String(args[0]);
+      const count = (counts.get(key) ?? 0) + 1;
+      counts.set(key, count);
+      return [{count}];
+    }} as unknown as DataSource;
+    const first = new PublicBookingGuard(new PostgresRateLimiter(db));
+    const second = new PublicBookingGuard(new PostgresRateLimiter(db));
+    const context = {switchToHttp:()=>({getRequest:()=>({ip:'192.0.2.8',method:'POST',socket:{remoteAddress:'192.0.2.8'}})})} as unknown as ExecutionContext;
+    for (let i = 0; i < 8; i++) {
+      expect(await (i % 2 ? first : second).canActivate(context)).toBe(true);
+    }
+    await expect(second.canActivate(context)).rejects.toMatchObject({status:429});
   });
 
   it('invalidates existing sessions after successful admin password reset', async () => {
