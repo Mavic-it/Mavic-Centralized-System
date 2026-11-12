@@ -37,13 +37,15 @@ describe('shared persistent rate limiting and password resets', () => {
 
   it('invalidates existing sessions after successful admin password reset', async () => {
     const userService = new UserService();
-    const auth = new AuthService(userService);
+    const branches = new BranchService();
+    const branch = await branches.create({name:'Branch A',code:'B-A',address:'Test',city:'Makati'});
+    const auth = new AuthService(userService, undefined, undefined, branches);
     userService.create({
       id:'target',name:'Account',email:'target@example.test',
-      role:'EMPLOYEE',branchId:'branch-a',status:'ACTIVE',
+      role:'EMPLOYEE',branchId:branch.id,status:'ACTIVE',
       passwordHash:auth.hashPassword('OriginalPass123!'),
     });
-    const controller = new UserController(userService,new BranchService(),auth);
+    const controller = new UserController(userService,branches,auth);
     const token = await auth.login({email:'target@example.test',password:'OriginalPass123!'});
     expect((await auth.validateSession(token)).valid).toBe(true);
     const result = await controller.resetPassword(
