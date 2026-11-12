@@ -47,9 +47,10 @@ describe('MSPACES system module', () => {
     });
     const dataSource = { query } as unknown as DataSource;
     const audit = new AuditService(dataSource);
+    // Only trusted backend services may persist events. HTTP has no POST /audit.
     const auditController = new AuditController(audit);
 
-    const log = await auditController.record({
+    const log = await audit.record({
       id: 'audit-1',
       userId: 'u-1',
       branchId: 'branch-1',
@@ -60,13 +61,14 @@ describe('MSPACES system module', () => {
     });
 
     expect(log.action).toBe('APPROVE_LEAVE');
-    expect(await auditController.list('branch-1')).toHaveLength(1);
+    expect(await auditController.list({user:{userId:'it-1',role:'IT_ADMIN',branchId:null}} as any, 'branch-1')).toHaveLength(1);
 
     const settings = new SettingsService(dataSource);
     const settingsController = new SettingsController(settings);
-    await settingsController.set('branch-1', 'leaveApprovalMode', 'manager_hr');
+    const admin = {user:{userId:'it-1',role:'IT_ADMIN',branchId:null}} as any;
+    await settingsController.set(admin, 'branch-1', 'leaveApprovalMode', {value:'manager_hr'});
 
-    expect(await settingsController.get('branch-1', 'leaveApprovalMode')).toBe(
+    expect(await settingsController.get(admin, 'branch-1', 'leaveApprovalMode')).toBe(
       'manager_hr',
     );
     expect(query).toHaveBeenCalledWith(
