@@ -1,23 +1,22 @@
-import { HttpException, Injectable, type CanActivate, type ExecutionContext } from '@nestjs/common';
+import { HttpException, Injectable, Inject, type CanActivate, type ExecutionContext } from '@nestjs/common';
 import type { Request } from 'express';
+import type { RateLimiter } from '../../security/persistent-rate-limiter.js';
+import { PostgresRateLimiter } from '../../security/persistent-rate-limiter.js';
 
-/** Bounded per-process limiter; configure an upstream shared limiter for multiple API replicas. */
+/** Atomic shared booking limits; do not rely on per-process counters. */
 @Injectable()
 export class PublicBookingGuard implements CanActivate {
-  private readonly buckets = new Map<string, { count: number; expires: number }>();
-  canActivate(context: ExecutionContext): boolean {
+  constructor(@Inject(PostgresRateLimiter) private readonly limiter: RateLimiter) {}
+
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest<Request>();
-    const now = Date.now();
-    for (const [key, bucket] of this.buckets) if (bucket.expires <= now) this.buckets.delete(key);
+    // Express's req.ip uses the configured trusted-proxy policy (not untrusted headers).
+    const source = req.ip || req.socket?.remoteAddress || 'unknown';
     const write = req.method === 'POST';
-    const key = `${req.ip ?? req.socket.remoteAddress}:${write}`;
-    let bucket = this.buckets.get(key);
-    if (!bucket) {
-      if (this.buckets.size >= 10000) throw new HttpException('Booking is busy. Please try again shortly.', 429);
-      bucket = { count: 0, expires: now + 60000 };
-      this.buckets.set(key, bucket);
+    const allowed = await this.limiter.consume('public-booking-' + (write ? 'write' : 'read'), source, write ? 8 : 90, 60);
+    if (!allowed) {
+      throw new HttpException('Too many requests. Please try again in one minute.', 429);
     }
-    if (++bucket.count > (write ? 8 : 90)) throw new HttpException('Too many requests. Please try again in one minute.', 429);
     return true;
   }
 }

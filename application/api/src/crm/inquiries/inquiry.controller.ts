@@ -5,15 +5,15 @@ import { Inquiry, InquiryService } from './inquiry.service.js';
 export class InquiryController {
   constructor(private readonly service: InquiryService) {}
 
-  create(input: Inquiry): Inquiry {
+  create(input: Inquiry): Promise<Inquiry> {
     return this.service.create(input);
   }
 
-  followUp(id: string, note: string): Inquiry | undefined {
+  followUp(id: string, note: string): Promise<Inquiry | undefined> {
     return this.service.followUp(id, note);
   }
 
-  list(): Inquiry[] {
+  list(): Promise<Inquiry[]> {
     return this.service.list();
   }
 }

@@ -318,6 +318,8 @@ export class UserController {
       this.auth.hashPassword(input.password),
     );
     if (!account) throw new BadRequestException('User account not found.');
+    // A reset must immediately invalidate all previously authenticated devices.
+    await this.auth.revokeSessionsForUser(id);
     return {
       success: true,
       data: account,

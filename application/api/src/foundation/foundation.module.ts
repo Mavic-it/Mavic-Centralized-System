@@ -5,6 +5,7 @@ import { AuthController } from './auth/auth.controller.js';
 import { AuthService } from './auth/auth.service.js';
 import { SessionService } from './auth/session.service.js';
 import { PostgresSessionStorage } from './auth/session.storage.js';
+import { PostgresRateLimiter } from '../security/persistent-rate-limiter.js';
 import { PasswordManagementController } from './auth/password-management.controller.js';
 import { PasswordManagementService } from './auth/password-management.service.js';
 import { BranchesController } from './branches/branches.controller.js';
@@ -71,8 +72,9 @@ import { AccountProvisioningService } from './users/account-provisioning.service
         permissions: PermissionService,
         branches: BranchService,
         sessions: SessionService,
-      ) => new AuthService(users, roles, permissions, branches, sessions),
-      inject: [UserService, RoleService, PermissionService, BranchService, SessionService],
+        db: DataSource,
+      ) => new AuthService(users, roles, permissions, branches, sessions, new PostgresRateLimiter(db)),
+      inject: [UserService, RoleService, PermissionService, BranchService, SessionService, getDataSourceToken()],
     },
     {
       provide: AccountProvisioningService,

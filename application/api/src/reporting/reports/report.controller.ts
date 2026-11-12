@@ -9,11 +9,11 @@ import {
 export class ReportController {
   constructor(private readonly service: ReportService) {}
 
-  record(module: string, metric: ReportMetric): void {
-    this.service.record(module, metric);
+  record(module: string, metric: ReportMetric): Promise<void> {
+    return this.service.record(module, metric);
   }
 
-  summary(branchId: string): BranchSummary {
+  summary(branchId: string): Promise<BranchSummary> {
     return this.service.summary(branchId);
   }
 }

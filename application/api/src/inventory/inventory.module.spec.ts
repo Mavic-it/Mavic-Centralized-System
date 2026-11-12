@@ -5,11 +5,11 @@ import { InventoryController } from './inventory/inventory.controller.js';
 import { InventoryService } from './inventory/inventory.service.js';
 
 describe('MSPACES inventory module', () => {
-  it('tracks stock movement and asset assignment', () => {
+  it('tracks stock movement and asset assignment', async () => {
     const inventory = new InventoryService();
     const inventoryController = new InventoryController(inventory);
 
-    const item = inventoryController.create({
+    const item = await inventoryController.create({
       id: 'inv-1',
       branchId: 'branch-1',
       category: 'OFFICE_SUPPLIES',
@@ -21,14 +21,14 @@ describe('MSPACES inventory module', () => {
     });
 
     expect(item.stockOnHand).toBe(50);
-    expect(inventoryController.stockIn('inv-1', 10)).toMatchObject({
+    expect(await inventoryController.stockIn('inv-1', 10)).toMatchObject({
       stockOnHand: 60,
     });
 
     const assets = new AssetService();
     const assetController = new AssetController(assets);
 
-    const asset = assetController.create({
+    const asset = await assetController.create({
       id: 'asset-1',
       branchId: 'branch-1',
       assetType: 'LAPTOP',

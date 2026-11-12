@@ -4,6 +4,7 @@ import { ManualPaymentService } from './reservations/manual-payment.service.js';
 import { ManualPaymentWorker } from './reservations/manual-payment.worker.js';
 import { PublicBookingService } from './reservations/public-booking.service.js';
 import { PublicBookingGuard } from './reservations/public-booking.guard.js';
+import { PostgresRateLimiter } from '../security/persistent-rate-limiter.js';
 import { ClientBookingMailService } from './reservations/client-booking-mail.service.js';
 import { Module } from '@nestjs/common';
 import { ReservationController } from './reservations/reservation.controller.js';
@@ -21,6 +22,7 @@ import { EmailService } from '../email/email.service.js';
     { provide: ManualPaymentService,useFactory:(db: DataSource,r: ReservationManagementService)=>new ManualPaymentService(db,r),inject:[getDataSourceToken(),ReservationManagementService] },
     { provide: ManualPaymentWorker,useFactory:(db: DataSource,p: ManualPaymentService,r: ReservationManagementService,e: EmailService)=>new ManualPaymentWorker(db,p,r,e),inject:[getDataSourceToken(),ManualPaymentService,ReservationManagementService,EmailService] },
     { provide: ClientBookingMailService, useFactory: (db: DataSource, email: EmailService) => new ClientBookingMailService(db,email), inject: [getDataSourceToken(),EmailService] },
+    { provide: PostgresRateLimiter, useFactory: (db: DataSource) => new PostgresRateLimiter(db), inject: [getDataSourceToken()] },
     PublicBookingGuard,
     { provide: PublicBookingService, useFactory: (db: DataSource, service: ReservationManagementService) => new PublicBookingService(db, service), inject: [getDataSourceToken(), ReservationManagementService] },
     {

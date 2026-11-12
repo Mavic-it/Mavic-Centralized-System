@@ -1,4 +1,5 @@
 import { ForbiddenException, UnauthorizedException } from '@nestjs/common';
+import { InMemoryRateLimiter, type RateLimiter } from '../../security/persistent-rate-limiter.js';
 import { compare as compareBcrypt } from 'bcryptjs';
 import {
   pbkdf2Sync,
@@ -23,13 +24,13 @@ export type AuthLoginInput = {
 };
 
 export class AuthService {
-  private readonly loginFailures = new Map<string, number[]>();
   constructor(
     private readonly users = new UserService(),
     private readonly roles = new RoleService(),
     private readonly permissions = new PermissionService(this.roles),
     private readonly branches = new BranchService(),
     private readonly sessions = new SessionService(),
+    private readonly rateLimiter: RateLimiter = new InMemoryRateLimiter(),
   ) {}
 
   hashPassword(password: string): string {
@@ -90,35 +91,42 @@ export class AuthService {
     return match ? match.replace('mspaces_session=', '') : undefined;
   }
 
-  async login(input: AuthLoginInput): Promise<string> {
-    const loginKey = input.email.trim().toLowerCase();
-    const recentFailures = (this.loginFailures.get(loginKey) ?? []).filter((time) => Date.now() - time < 15 * 60 * 1000);
-    if (recentFailures.length >= 10) throw new UnauthorizedException('Invalid email or password');
+  async login(input: AuthLoginInput, sourceIp = 'unknown'): Promise<string> {
+    // Account and source-IP limits are atomic across all API replicas.
+    // Count attempts before password verification to close concurrent-request races.
+    const loginKey = typeof input?.email === 'string' ? input.email.trim().toLowerCase() : undefined;
+    if (!loginKey || typeof input.password !== 'string' ||
+        loginKey.length > 320 || input.password.length > 1024) {
+      throw new UnauthorizedException('Invalid email or password');
+    }
+    const [allowedAccount, allowedSource] = await Promise.all([
+      this.rateLimiter.consume('auth-account', loginKey, 10, 15 * 60),
+      this.rateLimiter.consume('auth-source', sourceIp, 50, 15 * 60),
+    ]);
+    if (!allowedAccount || !allowedSource) {
+      throw new UnauthorizedException('Invalid email or password');
+    }
     const user = await this.users.findByEmail(input.email);
 
     if (!user || user.status !== 'ACTIVE') {
-      this.recordLoginFailure(loginKey, recentFailures);
       throw new UnauthorizedException('Invalid email or password');
     }
 
     const passwordMatches = user.passwordHash
       ? await this.verifyPassword(input.password, user.passwordHash)
       : false;
-
     if (!passwordMatches) {
-      this.recordLoginFailure(loginKey, recentFailures);
       throw new UnauthorizedException('Invalid email or password');
     }
 
     if (user.temporaryPasswordExpiresAt && new Date(user.temporaryPasswordExpiresAt).getTime() <= Date.now()) {
-      this.recordLoginFailure(loginKey, recentFailures);
       throw new UnauthorizedException('Invalid email or password');
     }
     if (user.credentialEmailStatus && ['PENDING', 'PROCESSING', 'FAILED'].includes(user.credentialEmailStatus)) {
-      this.recordLoginFailure(loginKey, recentFailures);
       throw new UnauthorizedException('Invalid email or password');
     }
-    this.loginFailures.delete(loginKey);
+    // Do not reset the IP counter on success; it protects against rotating accounts.
+    await this.rateLimiter.reset('auth-account', loginKey);
 
     let branchId: string | null = null;
     if (user.role === 'BRANCH_MANAGER' || (user.role === 'HR_ADMIN' && user.branchId)) {
@@ -151,11 +159,6 @@ export class AuthService {
     const session = await this.sessions.createSession(payload);
     await this.users.recordSuccessfulLogin(user.id);
     return session.token;
-  }
-
-  private recordLoginFailure(key: string, recent: number[]) {
-    recent.push(Date.now());
-    this.loginFailures.set(key, recent);
   }
 
   async getPasswordSecurityState(userId: string) {
