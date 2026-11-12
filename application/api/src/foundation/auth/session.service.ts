@@ -1,4 +1,17 @@
-import { randomUUID } from 'node:crypto';
+import { createHmac, randomBytes, randomUUID, timingSafeEqual } from 'node:crypto';
+
+// Production must configure a stable, high-entropy SESSION_SIGNING_SECRET.
+const developmentSecret = randomBytes(32).toString('hex');
+function signingSecret(): string {
+  const secret = process.env.SESSION_SIGNING_SECRET;
+  if (process.env.NODE_ENV === 'production' && (!secret || Buffer.byteLength(secret) < 32)) {
+    throw new Error('SESSION_SIGNING_SECRET must be at least 32 bytes in production');
+  }
+  return secret || developmentSecret;
+}
+function sign(data: string): string {
+  return createHmac('sha256', signingSecret()).update(data).digest('base64url');
+}
 
 export const SESSION_LIFETIME_SECONDS = 24 * 60 * 60;
 
@@ -43,7 +56,7 @@ export class SessionService {
     };
 
     const header = Buffer.from(
-      JSON.stringify({ typ: 'mspaces.session', alg: 'none' }),
+      JSON.stringify({ typ: 'mspaces.session', alg: 'HS256' }),
     ).toString('base64url');
     const body = Buffer.from(
       JSON.stringify({
@@ -52,7 +65,7 @@ export class SessionService {
         iat: issuedAt,
       }),
     ).toString('base64url');
-    const signature = Buffer.from('mspaces-session').toString('base64url');
+    const signature = sign(`${header}.${body}`);
     const token = `${header}.${body}.${signature}`;
 
     const session: SessionRecord = {
@@ -86,7 +99,13 @@ export class SessionService {
   validateSession(token: string): SessionValidationResult {
     try {
       const segments = token.split('.');
-      const body = segments.length === 3 ? segments[1] : token;
+      if (segments.length !== 3) return { valid: false, reason: 'session_invalid_token' };
+      const [header, body, signature] = segments;
+      const parsedHeader = JSON.parse(Buffer.from(header, 'base64url').toString('utf8')) as {alg?: string; typ?: string};
+      if (parsedHeader.alg !== 'HS256' || parsedHeader.typ !== 'mspaces.session') return { valid: false, reason: 'session_invalid_token' };
+      const expected = Buffer.from(sign(`${header}.${body}`));
+      const supplied = Buffer.from(signature);
+      if (expected.length !== supplied.length || !timingSafeEqual(expected, supplied)) return { valid: false, reason: 'session_invalid_token' };
       const decoded = JSON.parse(
         Buffer.from(body, 'base64url').toString('utf8'),
       ) as SessionPayload & {
