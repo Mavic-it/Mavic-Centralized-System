@@ -3,6 +3,8 @@ import { getDataSourceToken } from '@nestjs/typeorm';
 import type { DataSource } from 'typeorm';
 import { AuthController } from './auth/auth.controller.js';
 import { AuthService } from './auth/auth.service.js';
+import { SessionService } from './auth/session.service.js';
+import { PostgresSessionStorage } from './auth/session.storage.js';
 import { PasswordManagementController } from './auth/password-management.controller.js';
 import { PasswordManagementService } from './auth/password-management.service.js';
 import { BranchesController } from './branches/branches.controller.js';
@@ -60,6 +62,7 @@ import { AccountProvisioningService } from './users/account-provisioning.service
         new UserProfileService(dataSource),
       inject: [getDataSourceToken()],
     },
+    { provide: SessionService, useFactory: (db: DataSource) => new SessionService(new PostgresSessionStorage(db)), inject: [getDataSourceToken()] },
     {
       provide: AuthService,
       useFactory: (
@@ -67,8 +70,9 @@ import { AccountProvisioningService } from './users/account-provisioning.service
         roles: RoleService,
         permissions: PermissionService,
         branches: BranchService,
-      ) => new AuthService(users, roles, permissions, branches),
-      inject: [UserService, RoleService, PermissionService, BranchService],
+        sessions: SessionService,
+      ) => new AuthService(users, roles, permissions, branches, sessions),
+      inject: [UserService, RoleService, PermissionService, BranchService, SessionService],
     },
     {
       provide: AccountProvisioningService,
