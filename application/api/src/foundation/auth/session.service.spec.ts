@@ -36,6 +36,10 @@ describe('MSPACES hardened auth session service', () => {
     payload.branchId = 'other-branch';
     parts[1] = Buffer.from(JSON.stringify(payload)).toString('base64url');
     expect(service.validateSession(parts.join('.')).valid).toBe(false);
+    expect(JSON.parse(Buffer.from(session.token.split('.')[0], 'base64url').toString('utf8')).alg).toBe('HS256');
+    const signatureParts = session.token.split('.');
+    signatureParts[2] = Buffer.from('invalid-signature').toString('base64url');
+    expect(service.validateSession(signatureParts.join('.')).valid).toBe(false);
     expect(new SessionService().validateSession(session.token).valid).toBe(false);
   });
   it('creates a valid session and rejects expired or revoked sessions', () => {
