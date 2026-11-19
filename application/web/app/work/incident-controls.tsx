@@ -1,7 +1,9 @@
+import { Skeleton } from "../components/loading-ui";
 ﻿import { incidentCategories, type IncidentSummary } from "./types";
 import css from "./workspace.module.css";
 type IncidentControlProps = {
   summary?: IncidentSummary;
+  loading?: boolean;
   status: string;
   onStatus: (value: string) => void;
   queue: string;
@@ -14,9 +16,10 @@ type IncidentControlProps = {
 };
 export function IncidentControls({
   summary,
+  loading = false,
   status,
   onStatus,
-}: Pick<IncidentControlProps, "summary" | "status" | "onStatus">) {
+}: Pick<IncidentControlProps, "summary" | "status" | "onStatus" | "loading">) {
   return (
     <section
       className={css.incidentControls}
@@ -41,7 +44,7 @@ export function IncidentControls({
             aria-pressed={status === item.filter}
             onClick={() => onStatus(item.filter)}
           >
-            <strong>{summary ? summary[item.key] : "…"}</strong>
+            <strong>{loading ? <Skeleton className="loading-card-value" /> : summary ? summary[item.key] : "Unavailable"}</strong>
             <span>{item.title}</span>
           </button>
         ))}

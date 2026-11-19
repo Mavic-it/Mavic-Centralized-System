@@ -1,4 +1,5 @@
 "use client";
+import { LoadingList } from "./content-loading";
 
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -40,7 +41,7 @@ export function EmployeeWorkBranches({
         Access, directory filters and manager branch access. Existing role
         permissions still apply.
       </p>
-      {branches.isPending && <p role="status">Loading work branches...</p>}
+      {branches.isPending && <LoadingList label="Loading work branches" items={3} />}
       {branches.isError && (
         <p role="alert">
           Unable to load work branches.{" "}

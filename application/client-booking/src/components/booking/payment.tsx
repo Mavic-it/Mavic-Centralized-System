@@ -1,4 +1,5 @@
 "use client";
+import { PaymentSkeleton } from "./loading";
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { copyText } from "@/lib/clipboard";
@@ -339,7 +340,7 @@ export function PaymentWorkspace() {
           payment.
         </p>
       </div>
-      {!access && (
+      {!access && !loading && (
         <div className="notice">
           <p>
             Open the private payment link in your booking email, or continue
@@ -366,8 +367,8 @@ export function PaymentWorkspace() {
           <RefreshCw size={16} /> {loading ? "Refreshing…" : "Refresh status"}
         </button>
       )}
-      {loading && !info && access && (
-        <p role="status">Loading secure payment details…</p>
+      {loading && !info && (
+        <PaymentSkeleton />
       )}
       {info && receipt && receipt.reference === info.reference && (
         <div className="receipt-actions">

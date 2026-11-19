@@ -1,4 +1,6 @@
 "use client";
+import { LoadingTable } from "../components/content-loading";
+import { RequiredMark } from "../components/required-mark";
 import Image from "next/image";
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { Modal } from "../components/ui/modal";
@@ -119,7 +121,7 @@ export function PaymentAccountSettings({
       )}
       {message && <p role="status">{message}</p>}
       {loading ? (
-        <p role="status">Loading payment settings…</p>
+        <LoadingTable label="Loading payment accounts" headers={["Method", "Account", "Branch", "Status", "Actions"]} wrapClassName={s.tableWrap} />
       ) : (
         <>
           <div className={s.tableWrap}>
@@ -234,7 +236,7 @@ export function PaymentAccountSettings({
                   ] as const
                 ).map(([key, label, min, max]) => (
                   <label key={key}>
-                    {label} <span className={s.required}>*</span>
+                    {label} <RequiredMark />
                     <input
                       required
                       type="number"
@@ -282,7 +284,7 @@ export function PaymentAccountSettings({
             <fieldset disabled={busy}>
               <div className={s.grid}>
                 <label>
-                  Branch <span className={s.required}>*</span>
+                  Branch {caps?.canGlobal ? null : <RequiredMark />}
                   <select
                     name="branch"
                     defaultValue={editing?.branchId ?? branchId}
@@ -299,9 +301,10 @@ export function PaymentAccountSettings({
                   </select>
                 </label>
                 <label>
-                  Method <span className={s.required}>*</span>
+                  Method <RequiredMark />
                   <select
                     name="method"
+                    required
                     defaultValue={editing?.paymentMethod ?? "BANK_TRANSFER"}
                   >
                     <option value="BANK_TRANSFER">Bank Transfer</option>
@@ -317,7 +320,7 @@ export function PaymentAccountSettings({
                   />
                 </label>
                 <label>
-                  Account name <span className={s.required}>*</span>
+                  Account name <RequiredMark />
                   <input
                     name="name"
                     required
@@ -328,7 +331,7 @@ export function PaymentAccountSettings({
                 </label>
                 <label>
                   Account number / GCash mobile{" "}
-                  <span className={s.required}>*</span>
+                  <RequiredMark />
                   <input
                     name="number"
                     required

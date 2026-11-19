@@ -1,4 +1,6 @@
 "use client";
+import { AttendanceMetricsLoading, AttendanceRecordsLoading } from "./attendance-loading";
+import { LoadingList } from "../components/content-loading";
 import {
   loadWorkspaceBranchAccess,
 } from "../lib/branch-access";
@@ -730,9 +732,7 @@ function AttendanceContent() {
             {canManage && branchId && (
               <>
                 {attendanceQuery.isLoading && (
-                  <p className={styles.notice} role="status">
-                    Loading branch attendance records...
-                  </p>
+                  <AttendanceMetricsLoading />
                 )}
                 {attendanceQuery.isError && (
                   <p className={styles.error} role="alert">
@@ -1038,7 +1038,7 @@ function AttendanceContent() {
             </div>
             {canManage && <h3>Posted records and audited corrections</h3>}
             {attendanceQuery.isLoading ? (
-              <p className={styles.notice}>Loading attendance records…</p>
+              <AttendanceRecordsLoading canManage={canManage} />
             ) : attendanceQuery.isError ? (
               <div className={styles.error} role="alert">
                 <span>{attendanceQuery.error.message}</span>
@@ -1249,9 +1249,7 @@ function AttendanceContent() {
                         <div className={styles.correctionHistory}>
                           <h4>Audited correction records</h4>
                           {correctionHistoryQuery.isLoading ? (
-                            <p className={styles.notice}>
-                              Loading correction history…
-                            </p>
+                            <LoadingList label="Loading correction history" items={2} />
                           ) : correctionHistoryQuery.isError ? (
                             <p className={styles.error} role="alert">
                               Unable to load correction history.

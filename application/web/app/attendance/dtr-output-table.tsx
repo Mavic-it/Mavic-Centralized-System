@@ -1,4 +1,5 @@
 "use client";
+import { LoadingRows } from "../components/content-loading";
 
 import { useMemo, useState } from "react";
 import { displayTime, type RecordRow } from "./dtr-client";
@@ -9,11 +10,13 @@ export function DtrOutputTable({
   onReview,
   preview = false,
   compact = false,
+  loading = false,
 }: {
   rows: RecordRow[];
   onReview?: (row: RecordRow) => void;
   preview?: boolean;
   compact?: boolean;
+  loading?: boolean;
 }) {
   const [page, setPage] = useState(1);
   const groups = useMemo(() => {
@@ -149,6 +152,7 @@ export function DtrOutputTable({
               </tr>
             </thead>
           )}
+          {loading && <tbody><LoadingRows columns={(compact ? 10 : 15) + (onReview ? 1 : 0)} /></tbody>}
           {groups.slice(current - 1, current).map((group) => {
             const ready = group.filter(
               (row) => row.data.calculation.payrollReady,

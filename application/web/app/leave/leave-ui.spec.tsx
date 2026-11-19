@@ -15,6 +15,7 @@ import {
 import type { Context } from "./types";
 vi.mock("next/navigation", () => ({
   useSearchParams: () => new URLSearchParams(),
+  usePathname: () => "/leave",
 }));
 const context: Context = {
   userId: "admin",

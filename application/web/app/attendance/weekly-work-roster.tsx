@@ -1,4 +1,5 @@
 "use client";
+import { WeeklyRosterLoading } from "./attendance-loading";
 
 import { ScheduleObBadge, type ScheduleOb } from "../components/schedule-ob-badge";
 import { useState } from "react";
@@ -222,7 +223,7 @@ export function WeeklyWorkRoster({
       {!enabled && (
         <p className={styles.notice}>Select an active branch to manage its weekly roster.</p>
       )}
-      {rosterQuery.isLoading && <p className={styles.notice}>Loading branch employees and schedules…</p>}
+      {rosterQuery.isLoading && <WeeklyRosterLoading />}
       {rosterQuery.isError && (
         <p className={styles.error} role="alert">
           {rosterQuery.error instanceof Error

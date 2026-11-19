@@ -139,19 +139,15 @@ export function EmployeeDirectoryTableSkeleton() {
       aria-label="Loading employee directory"
       aria-busy="true"
     >
-      <table className={styles.dataTable} aria-hidden="true">
+      <table className={styles.dataTable}>
         <thead>
           <tr>
-            {Array.from({ length: 6 }, (_, i) => (
-              <th key={i}>
-                <Skeleton className={styles.employeeSkeletonLine} />
-              </th>
-            ))}
+            {["Employee", "Role & department", "Work branches", "Employment", "Status", "Open profile"].map(label => <th scope="col" key={label}>{label}</th>)}
           </tr>
         </thead>
         <tbody>
           {Array.from({ length: 5 }, (_, row) => (
-            <tr key={row}>
+            <tr key={row} aria-hidden="true">
               {Array.from({ length: 6 }, (_, column) => (
                 <td key={column}>
                   <Skeleton className={styles.employeeSkeletonLine} />

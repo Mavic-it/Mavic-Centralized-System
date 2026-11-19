@@ -1,4 +1,5 @@
 "use client";
+import { LeavePageLoading, LeaveContentLoading, LeaveRequestsLoading } from "./leave-loading";
 import { PageHeading, PageHeader } from "../components/page-heading";
 import { RealtimeQueryProvider } from "../components/realtime-query-provider";
 import { Suspense, useState } from "react";
@@ -10,7 +11,6 @@ import {
   Empty,
   ErrorState,
   Filters,
-  Loading,
   Pagination,
   Status,
   params,
@@ -55,7 +55,7 @@ export default function LeaveWorkspace({ section }: { section: Section }) {
   );
   return (
     <RealtimeQueryProvider client={client}>
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<LeavePageLoading section={section} />}>
         <Workspace section={section} />
       </Suspense>
     </RealtimeQueryProvider>
@@ -113,7 +113,7 @@ export function Workspace({ section }: { section: Section }) {
         )}
       </PageHeader>
       {context.isPending ? (
-        <Loading />
+        <LeaveContentLoading section={section} />
       ) : context.isError ? (
         <ErrorState
           error={context.error}
@@ -125,7 +125,7 @@ export function Workspace({ section }: { section: Section }) {
             {section === "mine" && !c.ownEmployee ? (
               <PersonalAccountInfo context={c} role={role} />
             ) : types.isPending ? (
-              <Loading />
+              <LeaveContentLoading section={section} />
             ) : types.isError ? (
               <ErrorState
                 error={types.error}
@@ -296,7 +296,7 @@ function Requests({
         />
       )}
       {q.isPending ? (
-        <Loading />
+        <LeaveRequestsLoading own={own} />
       ) : q.isError ? (
         <ErrorState error={q.error} retry={() => void q.refetch()} />
       ) : (

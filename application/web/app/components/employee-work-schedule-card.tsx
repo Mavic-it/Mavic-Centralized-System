@@ -1,4 +1,5 @@
 "use client";
+import { CurrentScheduleLoading, EmployeeScheduleLoading } from "./employee-section-loading";
 
 import { ScheduleObBadge, type ScheduleOb } from "./schedule-ob-badge";
 import { FieldLabel } from "./field-label";
@@ -422,7 +423,7 @@ export default function EmployeeWorkScheduleCard({
       </div>
 
       {scheduleQuery.isLoading && (
-        <p className={styles.muted}>Loading schedule…</p>
+        <CurrentScheduleLoading />
       )}
       {scheduleQuery.isError && (
         <div className={styles.errorBox}>
@@ -608,7 +609,7 @@ export default function EmployeeWorkScheduleCard({
         {schedulePeriod === "month" ? (
           <>
             {monthScheduleQuery.isLoading && (
-              <p className={styles.muted}>Loading monthly schedule…</p>
+              <EmployeeScheduleLoading period="month" />
             )}
             {monthScheduleQuery.isError && (
               <div className={styles.errorBox}>
@@ -641,7 +642,7 @@ export default function EmployeeWorkScheduleCard({
         ) : (
           <>
             {weekScheduleQuery.isLoading && (
-              <p className={styles.muted}>Loading weekly schedule…</p>
+              <EmployeeScheduleLoading view={view} />
             )}
             {weekScheduleQuery.isError && (
               <div className={styles.errorBox}>

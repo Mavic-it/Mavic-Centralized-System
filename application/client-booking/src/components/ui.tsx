@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Check, ArrowRight, ShieldCheck } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 export function Field({
   label,
@@ -49,20 +49,6 @@ export function Steps({ current }: { current: number }) {
         ),
       )}
     </ol>
-  );
-}
-export function Skeleton() {
-  return (
-    <div
-      className="skeleton-grid"
-      role="status"
-      aria-label="Loading booking details"
-    >
-      <div className="skeleton block" />
-      <div className="skeleton block" />
-      <div className="skeleton block" />
-      <span className="sr-only">Loading…</span>
-    </div>
   );
 }
 export function EmptyDraft() {

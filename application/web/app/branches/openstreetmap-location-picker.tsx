@@ -1,6 +1,7 @@
 "use client";
 
 import Script from "next/script";
+import { Skeleton } from "../components/loading-ui";
 import { MapPin, Search } from "lucide-react";
 import styles from "./openstreetmap-location-picker.module.css";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -302,11 +303,20 @@ export function OpenStreetMapLocationPicker({ value, onSelect }: Props) {
           role="region"
         />
         {!ready && (
-          <div className={styles.loading} role="status">
-            {mapFailed
-              ? "Map unavailable. Enter the address below."
-              : "Loading map..."}
-          </div>
+          mapFailed ? (
+            <div className={styles.loading} role="status">
+              Map unavailable. Enter the address below.
+            </div>
+          ) : (
+            <div
+              aria-label="Loading map"
+              className={styles.loading}
+              role="status"
+            >
+              <Skeleton className={styles.mapPlaceholder} />
+              <span className="visually-hidden">Loading map</span>
+            </div>
+          )
         )}
       </div>
       <p className="branch-map-help">

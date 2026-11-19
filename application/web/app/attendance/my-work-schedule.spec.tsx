@@ -19,7 +19,8 @@ describe("My work schedule in Attendance", () => {
   });
   it("announces employee loading and provides retry on failure", () => {
     const client=new QueryClient({defaultOptions:{queries:{retry:false,gcTime:Infinity}}});
-    expect(render(client)).toContain("Loading your work schedule");
+    expect(render(client)).toContain('aria-label="Loading weekly schedule"');
+    expect(render(client)).toContain('aria-busy="true"');
     client.setQueryData(["attendance-own-employee"],null);
     client.getQueryCache().find({queryKey:["attendance-own-employee"]})!.setState({status:"error",error:new Error("Service unavailable")});
     const html=render(client);

@@ -11,6 +11,7 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type FormEvent,
   type ReactNode,
@@ -47,6 +48,8 @@ import {
   type Summary,
 } from "./types";
 import s from "./workspace.module.css";
+import { Skeleton } from "../components/loading-ui";
+import { ReservationDetailSkeleton, ReservationSectionSkeleton } from "./reservation-skeleton";
 import { SpaceImageInput } from "./space-image-input";
 import { SpaceGallery } from "./space-gallery";
 import { PaymentAccountSettings } from "./payment-account-settings";
@@ -185,7 +188,7 @@ function Modal({
   );
 }
 
-function BookingCalendar({
+export function BookingCalendar({
   date,
   view,
   items,
@@ -417,70 +420,55 @@ export default function ReservationsWorkspace({
     setBranchId(value);
     setPage(1);
   }
+  const requestKey = JSON.stringify([section, branchId, status, appliedSearch, windowRange.from, windowRange.to, page]);
+  const [loadedKey, setLoadedKey] = useState("");
+  const [loadError, setLoadError] = useState("");
+  const loadGeneration = useRef(0);
+  const contentLoading = loadedKey !== requestKey && !loadError;
   const load = useCallback(async () => {
+    const generation = ++loadGeneration.current;
+    const current = () => generation === loadGeneration.current;
     setLoading(true);
-    setError("");
+    setLoadError("");
     try {
-      if (canManage) {
-        const access = await loadWorkspaceBranchAccess();
-        setBranchAccess(access);
-      }
-      if (section === 'settings') {
-        setBranches(await reservationRequest<Branch[]>('/payment-accounts/branches'));
-        if(branchId)setSettings(await reservationRequest<typeof settings>(`/settings${qs({branchId})}`));
-        return;
-      }
-      if (section === 'payments') {
-        setBranches(await reservationRequest<Branch[]>('/branches'));
-        return;
-      }
-      const [branchRows, spaceRows, metricRows] = await Promise.all([
-        reservationRequest<Branch[]>("/branches"),
-        reservationRequest<Space[]>(`/spaces${qs({ branchId })}`),
-        reservationRequest<Summary>(`/summary${qs({ branchId })}`),
-      ]);
+      const access = canManage ? await loadWorkspaceBranchAccess() : null;
+      const branchRows = await reservationRequest<Branch[]>(section === "settings" ? "/payment-accounts/branches" : "/branches");
+      const policy = branchId && section !== "payments" ? await reservationRequest<typeof settings>(`/settings${qs({ branchId })}`) : null;
+      if (!current()) return;
+      if (access) setBranchAccess(access);
       setBranches(branchRows);
-      setSpaces(spaceRows);
-      setSummary(metricRows);
-      if (branchId)
-        setSettings(
-          await reservationRequest<typeof settings>(
-            `/settings${qs({ branchId })}`,
-          ),
-        );
-      if (section === "calendar" || section === "list") {
-        const path = section === "calendar" ? "/calendar" : "";
-        const result = await reservationRequest<Page<Booking>>(
-          `${path}${qs({ branchId, status, search: appliedSearch, from: windowRange.from, to: windowRange.to, page })}`,
-        );
-        setBookings(result);
+      if (policy) setSettings(policy);
+      if (section !== "settings" && section !== "payments") {
+        const [spaceRows, metricRows] = await Promise.all([
+          reservationRequest<Space[]>(`/spaces${qs({ branchId })}`),
+          reservationRequest<Summary>(`/summary${qs({ branchId })}`),
+        ]);
+        if (!current()) return;
+        setSpaces(spaceRows);
+        setSummary(metricRows);
+        if (section === "calendar" || section === "list") {
+          const path = section === "calendar" ? "/calendar" : "";
+          const result = await reservationRequest<Page<Booking>>(`${path}${qs({ branchId, status, search: appliedSearch, from: windowRange.from, to: windowRange.to, page })}`);
+          if (!current()) return;
+          setBookings(result);
+        }
+        if (section === "reports") {
+          const result = await reservationRequest<Record<string, unknown>[]>(`/reports${qs({ branchId, from: windowRange.from, to: windowRange.to })}`);
+          if (!current()) return;
+          setReports(result);
+        }
       }
-      if (section === "reports")
-        setReports(
-          await reservationRequest<Record<string, unknown>[]>(
-            `/reports${qs({ branchId, from: windowRange.from, to: windowRange.to })}`,
-          ),
-        );
+      setLoadedKey(requestKey);
     } catch (e) {
-      showError(
-        e instanceof Error ? e.message : "Unable to load reservations.",
-      );
+      if (current()) setLoadError(e instanceof Error ? e.message : "Unable to load reservations.");
     } finally {
-      setLoading(false);
+      if (current()) setLoading(false);
     }
-  }, [
-    canManage,
-    branchId,
-    status,
-    appliedSearch,
-    windowRange.from,
-    windowRange.to,
-    page,
-    section,
-  ]);
+  }, [canManage, branchId, status, appliedSearch, windowRange.from, windowRange.to, page, section, requestKey]);
   useEffect(() => {
     const timer = window.setTimeout(() => void load(), 0);
-    return () => window.clearTimeout(timer);
+    const generationRef = loadGeneration;
+    return () => { window.clearTimeout(timer); generationRef.current++; };
   }, [load, refresh]);
   const reload = () => setRefresh((v) => v + 1);
   const openCreate = (onDate = date) => {
@@ -789,7 +777,7 @@ export default function ReservationsWorkspace({
           </Link>
         ))}
       </nav>
-      <div className={s.metrics}>
+      {section !== "settings" && section !== "payments" && <div className={s.metrics}>
         {(
           [
             ["Today", summary.today],
@@ -816,7 +804,7 @@ export default function ReservationsWorkspace({
               );
             })()}
             <span className={s.metricLabel}>{label}</span>
-            <strong>{loading ? "—" : value}</strong>
+            <strong>{contentLoading ? <Skeleton className="loading-card-value" /> : loadedKey === requestKey ? value : "Unavailable"}</strong>
             <span className={s.metricHint}>
               {label === "Available spaces"
                 ? "View spaces"
@@ -826,7 +814,7 @@ export default function ReservationsWorkspace({
             </span>
           </button>
         ))}
-      </div>
+      </div>}
       <section className={s.panel}>
         <div className={s.panelHead}>
           <div className={s.panelTitle}>
@@ -954,10 +942,12 @@ export default function ReservationsWorkspace({
             </>
           )}
         </div>
-        {loading ? (
-          <div className={s.skeleton} aria-label="Loading reservations" />
+        {loadError && <div className={s.error} role="alert">{loadError} <button type="button" onClick={reload}>Try again</button></div>}
+        {loading && loadedKey === requestKey && <p role="status">Updating reservations...</p>}
+        {contentLoading && section !== "calendar" ? (
+          <ReservationSectionSkeleton section={section} view={view} />
         ) : null}
-        {!loading && section === "calendar" && (
+        {section === "calendar" && (
           <>
             <div className={s.calendarBar}>
               <div className={s.dateControls}>
@@ -995,7 +985,7 @@ export default function ReservationsWorkspace({
                 ))}
               </div>
             </div>
-            <BookingCalendar
+            {contentLoading ? <ReservationSectionSkeleton section="calendar" view={view} /> : !loadError && <BookingCalendar
               date={date}
               view={view}
               items={bookings.items}
@@ -1004,7 +994,7 @@ export default function ReservationsWorkspace({
               selectedDate={date}
               onDateSelect={setDate}
               showBranch={!branchId}
-            />
+            />}
             <div
               className={s.purposeLegend}
               aria-label="Reservation purpose colors"
@@ -1022,20 +1012,20 @@ export default function ReservationsWorkspace({
                 </span>
               ))}
             </div>
-            {bookings.total > bookings.items.length && (
+            {!contentLoading && !loadError && bookings.total > bookings.items.length && (
               <p className={s.notice}>
                 Showing the first {bookings.items.length} bookings. Narrow the
                 branch, space, or status filter to see the rest.
               </p>
             )}
-            {bookings.total === 0 && (
+            {!contentLoading && !loadError && bookings.total === 0 && (
               <p className={s.empty}>
                 No reservations in this period. Select a day to create one.
               </p>
             )}
           </>
         )}
-        {!loading && section === "list" && (
+        {!contentLoading && !loadError && section === "list" && (
           <>
             <div className={s.list}>
               {bookings.items.map((b) => (
@@ -1091,7 +1081,7 @@ export default function ReservationsWorkspace({
             </div>
           </>
         )}
-        {!loading && section === "spaces" && (
+        {!contentLoading && !loadError && section === "spaces" && (
           <>
             <div className={s.sectionActions}>
               {canManage && (
@@ -1117,7 +1107,7 @@ export default function ReservationsWorkspace({
             />
           </>
         )}
-        {!loading && section === "reports" && (
+        {!contentLoading && !loadError && section === "reports" && (
           <>
             <div className={s.sectionActions}>
               <button
@@ -1168,8 +1158,8 @@ export default function ReservationsWorkspace({
             )}
           </>
         )}
-        {!loading && section === "payments" && <PaymentVerificationPanel branchId={branchId} />}
-        {!loading && section === "settings" && (
+        {!contentLoading && !loadError && section === "payments" && <PaymentVerificationPanel branchId={branchId} />}
+        {!contentLoading && !loadError && section === "settings" && (
           <>
             <PaymentAccountSettings branchId={branchId} branches={branches} />
             {!branchId ? (
@@ -1759,7 +1749,7 @@ export default function ReservationsWorkspace({
           }}
         >
           {!detail ? (
-            <p className={s.empty}>Loading booking…</p>
+            <ReservationDetailSkeleton />
           ) : (
             <div className={s.detail}>
               <section className={s.detailSummary}>

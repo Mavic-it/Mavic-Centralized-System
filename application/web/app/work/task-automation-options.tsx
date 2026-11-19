@@ -1,4 +1,5 @@
 "use client";
+import { LoadingFields } from "../components/content-loading";
 
 import { FieldLabel } from "../components/field-label";
 import { BookmarkPlus, CalendarClock, RotateCcw } from "lucide-react";
@@ -128,9 +129,7 @@ export function TaskAutomationOptions({
 
       <div className={css.taskTemplateFooter}>
         {loading ? (
-          <span className={css.muted} role="status">
-            Loading templates…
-          </span>
+          <LoadingFields label="Loading task templates" labels={["Template"]} input />
         ) : error ? (
           <span className={css.taskTemplateError} role="alert">
             {error}{" "}

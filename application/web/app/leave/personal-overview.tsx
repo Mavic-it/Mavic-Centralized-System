@@ -1,4 +1,5 @@
 "use client";
+import { LeaveCardsLoading } from "./leave-loading";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
@@ -12,7 +13,7 @@ import {
 } from "lucide-react";
 import type { WorkspaceRole } from "../data/people";
 import { api } from "./api";
-import { Empty, ErrorState, Loading } from "./ui";
+import { Empty, ErrorState } from "./ui";
 import type { Context, PersonalOverview } from "./types";
 import css from "./leave.module.css";
 
@@ -144,7 +145,7 @@ export function PersonalLeave({
   return (
     <>
       {q.isPending ? (
-        <Loading />
+        <LeaveCardsLoading />
       ) : q.isError ? (
         <ErrorState error={q.error} retry={() => void q.refetch()} />
       ) : (

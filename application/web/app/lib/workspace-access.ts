@@ -31,10 +31,11 @@ export type WorkspaceArea =
   | "my-leave"
   | "leave-management"
   | "leave-settings"
-  | "reservations";
+  | "reservations"
+  | "inventory";
 
 const accessByRole: Record<WorkspaceRole, readonly WorkspaceArea[]> = {
-  SUPER_ADMIN: ["reservations", "tasks", "incidents", "my-leave", "leave-management", "leave-settings",
+  SUPER_ADMIN: ["reservations", "inventory", "tasks", "incidents", "my-leave", "leave-management", "leave-settings",
     "overview",
     "hr",
     "branches",
@@ -46,7 +47,7 @@ const accessByRole: Record<WorkspaceRole, readonly WorkspaceArea[]> = {
     "portal",
     "security",
   ],
-  HR_ADMIN: ["reservations", "tasks", "incidents", "my-leave", "leave-management", "leave-settings",
+  HR_ADMIN: ["reservations", "inventory", "tasks", "incidents", "my-leave", "leave-management", "leave-settings",
     "users",
     "overview",
     "hr",
@@ -57,7 +58,7 @@ const accessByRole: Record<WorkspaceRole, readonly WorkspaceArea[]> = {
     "portal",
     "security",
   ],
-  BRANCH_MANAGER: ["reservations", "tasks", "incidents", "my-leave", "leave-management",
+  BRANCH_MANAGER: ["reservations", "inventory", "tasks", "incidents", "my-leave", "leave-management",
     "users",
     "overview",
     "hr",
@@ -69,13 +70,14 @@ const accessByRole: Record<WorkspaceRole, readonly WorkspaceArea[]> = {
     "security",
   ],
   IT_ADMIN: [
+    "inventory",
     "branches",
     "users",
     "employee-profile",
     "portal",
     "security",
   ],
-  STAFF: ["reservations", "tasks", "incidents", "my-leave","employee-profile", "attendance", "portal", "security"],
+  STAFF: ["reservations", "inventory", "tasks", "incidents", "my-leave","employee-profile", "attendance", "portal", "security"],
   EMPLOYEE: ["tasks", "incidents", "my-leave","employee-profile", "attendance", "portal", "security"],
 };
 
@@ -92,6 +94,7 @@ export function workspaceAreaForPath(path: string): WorkspaceArea | undefined {
   const pathname = path.split(/[?#]/, 1)[0];
   if (pathname === '/attendance/official-business') return 'portal';
   if (pathname === "/reservations" || pathname.startsWith("/reservations/")) return "reservations";
+  if (pathname === "/inventory" || pathname.startsWith("/inventory/")) return "inventory";
   if (pathname === "/tasks") return "tasks";
   if (pathname === "/incidents") return "incidents";
   if (pathname === "/my-leave") return "my-leave";
@@ -122,7 +125,7 @@ export function workspaceAreaForPath(path: string): WorkspaceArea | undefined {
 
 export function permissionKeyForArea(area: WorkspaceArea): string | undefined {
   const keys: Partial<Record<WorkspaceArea,string>> = {
-    overview:"workspace.overview",hr:"hr.dashboard",employees:"hr.employees","employee-profile":"hr.employee-profile",attendance:"hr.attendance","leave-management":"hr.leave","leave-settings":"hr.leave.settings",tasks:"work.tasks",incidents:"work.incidents",reservations:"operations.reservations",users:"system.users","my-profile":"people.my-profile",portal:"people.my-portal","my-leave":"people.my-leave",
+    overview:"workspace.overview",hr:"hr.dashboard",employees:"hr.employees","employee-profile":"hr.employee-profile",attendance:"hr.attendance","leave-management":"hr.leave","leave-settings":"hr.leave.settings",tasks:"work.tasks",incidents:"work.incidents",reservations:"operations.reservations",inventory:"inventory",users:"system.users","my-profile":"people.my-profile",portal:"people.my-portal","my-leave":"people.my-leave",
   };
   return keys[area];
 }

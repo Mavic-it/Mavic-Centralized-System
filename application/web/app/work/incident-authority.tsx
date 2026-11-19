@@ -1,4 +1,5 @@
 "use client";
+import { LoadingList } from "../components/content-loading";
 
 import { FieldLabel } from "../components/field-label";
 import { useState, type FormEvent } from "react";
@@ -74,7 +75,7 @@ export function IncidentAuthority() {
         assignment, branch scope and no-self-review rules still apply.
       </p>
       {accounts.isPending && open && (
-        <p role="status">Loading eligible accounts…</p>
+        <LoadingList label="Loading eligible accounts" items={4} avatar />
       )}
       {accounts.isError && (
         <div role="alert">

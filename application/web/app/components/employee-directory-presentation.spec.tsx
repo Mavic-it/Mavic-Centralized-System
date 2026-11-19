@@ -121,7 +121,7 @@ describe("employee directory presentation", () => {
     const html = renderToStaticMarkup(<EmployeeDirectoryTableSkeleton />);
     expect(html).toContain('aria-label="Loading employee directory"');
     expect(html).toContain('aria-hidden="true"');
-    expect(html.match(/<th>/g)).toHaveLength(6);
+    expect(html.match(/scope="col"/g)).toHaveLength(6);
   });
   it("can render isolated visual fixtures from the actual employee components", () => {
     if (process.env.EMPLOYEE_VISUAL_FIXTURE !== "true") return;

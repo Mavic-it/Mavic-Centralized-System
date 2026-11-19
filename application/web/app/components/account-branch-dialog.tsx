@@ -1,4 +1,5 @@
 "use client";
+import { LoadingFields } from "./content-loading";
 
 import { FieldLabel } from "./field-label";
 import { useId, useState, type FormEvent } from "react";
@@ -77,7 +78,7 @@ export function AccountBranchDialog({
           the previous supervisor assignment.
         </p>
         {branches.isPending ? (
-          <p role="status">Loading branches…</p>
+          <LoadingFields label="Loading branches" labels={["Branch *"]} input />
         ) : branches.isError ? (
           <div role="alert">
             <p>Unable to load branches.</p>
@@ -111,7 +112,7 @@ export function AccountBranchDialog({
         )}
         {branchId &&
           (departments.isPending ? (
-            <p role="status">Loading departments…</p>
+            <LoadingFields label="Loading departments" labels={["Destination department *"]} input />
           ) : departments.isError ? (
             <div role="alert">
               <p>Unable to load departments.</p>

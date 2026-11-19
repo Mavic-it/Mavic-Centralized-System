@@ -1,5 +1,8 @@
 "use client";
 import { useCallback, useEffect, useState, type FormEvent } from "react";
+import { LoadingRows } from "../components/content-loading";
+import { RequiredMark } from "../components/required-mark";
+import { Skeleton } from "../components/loading-ui";
 import Link from "next/link";
 import { Modal } from "../components/ui/modal";
 import { reservationRequest, qs } from "./types";
@@ -223,7 +226,7 @@ export function PaymentVerificationPanel({ branchId }: { branchId: string }) {
         {status === "AWAITING_VERIFICATION"
           ? "Awaiting verification"
           : "Matching payments"}
-        : <strong>{rows[0]?.total ?? 0}</strong>
+        : <strong>{loading && !rows.length ? <Skeleton className="loading-count" /> : rows[0]?.total ?? 0}</strong>
       </p>
       <div className={s.tableWrap}>
         <table>
@@ -246,7 +249,8 @@ export function PaymentVerificationPanel({ branchId }: { branchId: string }) {
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody aria-busy={loading}>
+            {loading && !rows.length && <LoadingRows columns={11} />}
             {rows.map((row) => (
               <tr key={row.id}>
                 <td>{row.reference}</td>
@@ -282,7 +286,7 @@ export function PaymentVerificationPanel({ branchId }: { branchId: string }) {
           </tbody>
         </table>
       </div>
-      {!loading && !rows.length && <p>No matching payment submissions.</p>}
+      {!loading && !error && !rows.length && <p>No matching payment submissions.</p>}
       <div className={s.actions}>
         <button
           type="button"
@@ -492,13 +496,13 @@ export function PaymentVerificationPanel({ branchId }: { branchId: string }) {
                         )
                       }
                     />
-                    {text}
+                    {text} <RequiredMark />
                   </label>
                 ))}
                 {action === "confirm-refund" ? (
                   <label>
                     Refund transaction reference{" "}
-                    <span className={s.required}>*</span>
+                    <RequiredMark />
                     <input
                       name="refundReference"
                       required
@@ -510,7 +514,7 @@ export function PaymentVerificationPanel({ branchId }: { branchId: string }) {
                 ) : (
                   <label>
                     Amount independently received (PHP){" "}
-                    <span className={s.required}>*</span>
+                    <RequiredMark />
                     <input
                       type="number"
                       name="amount"
@@ -528,7 +532,7 @@ export function PaymentVerificationPanel({ branchId }: { branchId: string }) {
               {action === "verify"
                 ? "Verification notes"
                 : "Reason / instructions for customer"}{" "}
-              <span className={s.required}>*</span>
+              <RequiredMark />
               <textarea
                 name="notes"
                 required

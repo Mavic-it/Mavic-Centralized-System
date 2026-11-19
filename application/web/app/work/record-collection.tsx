@@ -1,3 +1,4 @@
+import { LoadingTable } from "../components/content-loading";
 import { useState, type ReactNode } from "react";
 import {
   ArrowDownWideNarrow,
@@ -53,7 +54,8 @@ export function ProgressBar({
     </div>
   );
 }
-export function CollectionSkeleton() {
+export function CollectionSkeleton({ layout = "cards", kind = "tasks" }: { layout?: "cards" | "table"; kind?: Kind }) {
+  if (layout === "table") return <LoadingTable label="Loading records" headers={["Title", "Employee / branch", kind === "tasks" ? "Due date" : "Incident date", "Status", ...(kind === "incidents" ? ["Submitted", "Last updated"] : ["Progress"]), "Open details"]} className={css.table} wrapClassName={css.tableWrap} />;
   return (
     <div className={css.cards} aria-hidden="true">
       {Array.from({ length: 6 }, (_, i) => (
@@ -322,7 +324,7 @@ export function RecordCollection({
       </div>
       {error ??
         (loading ? (
-          <CollectionSkeleton />
+          <CollectionSkeleton layout={layout} kind={kind} />
         ) : !visible.length ? (
           <div className={css.empty}>
             <span className={css.emptyIcon}>

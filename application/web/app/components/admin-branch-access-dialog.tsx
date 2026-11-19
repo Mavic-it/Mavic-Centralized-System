@@ -1,4 +1,5 @@
 "use client";
+import { LoadingFields, LoadingList } from "./content-loading";
 import { FieldLabel } from "./field-label";
 import { useId, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -73,7 +74,7 @@ export function AdminBranchAccessDialog({
           branch access. Existing role permissions still apply.
         </p>
         {(current.isPending || branches.isPending) && (
-          <p role="status">Loading branch access...</p>
+          <><LoadingFields label="Loading branch scope" labels={["Work branch scope *"]} input /><LoadingList label="Loading branch options" items={3} /></>
         )}
         {(current.isError || branches.isError) && (
           <div role="alert">

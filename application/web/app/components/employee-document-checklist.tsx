@@ -1,4 +1,5 @@
 "use client";
+import { LoadingList } from "./content-loading";
 
 import { FieldLabel } from "./field-label";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -412,6 +413,7 @@ export default function EmployeeDocumentChecklist({
                 : "Add requirement"}
             </Button>
           </form>
+          {requirementsQuery.isLoading && <LoadingList label="Loading document requirements" items={3} />}
           <ul className={styles.requirementSettings}>
             {(requirementsQuery.data ?? []).map((requirement) => (
               <li key={requirement.id}>

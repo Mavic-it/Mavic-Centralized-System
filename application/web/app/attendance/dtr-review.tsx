@@ -1,4 +1,5 @@
 "use client";
+import { LoadingList } from "../components/content-loading";
 import { RequiredMark } from "../components/required-mark";
 import { useState, type FormEvent } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -259,7 +260,7 @@ export function DtrReview({
         <details>
           <summary>Audit trail</summary>
           {detail.isPending ? (
-            <p role="status">Loading audit…</p>
+            <LoadingList label="Loading correction audit" items={3} />
           ) : detail.error ? (
             <p role="alert">{detail.error.message}</p>
           ) : (

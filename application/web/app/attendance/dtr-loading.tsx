@@ -1,9 +1,13 @@
+import { DtrOutputTable } from "./dtr-output-table";
+import { LoadingTable } from "../components/content-loading";
 import styles from "./dtr.module.css";
 
 export function DtrLoading({
   kind = "ledger",
+  canManage = false,
 }: {
-  kind?: "ledger" | "import";
+  kind?: "ledger" | "import" | "summary";
+  canManage?: boolean;
 }) {
   return (
     <section
@@ -42,15 +46,8 @@ export function DtrLoading({
           </div>
           <div className={styles.card} aria-hidden="true">
             <span className={styles.skeletonLine} />
-            <div className={styles.skeletonTable}>
-              {Array.from({ length: 4 }, (_, i) => (
-                <div key={i} className={styles.skeletonRow}>
-                  {Array.from({ length: 5 }, (_, c) => (
-                    <span className={styles.skeletonLine} key={c} />
-                  ))}
-                </div>
-              ))}
-            </div>
+            {kind === "summary" ? <LoadingTable label="Loading employee DTR totals" headers={["Employee", "Days", "Potential OT", "Approved OT", "Late", "Undertime", "Absent days", "Excluded days"]} className={styles.table} wrapClassName={styles.scroll} /> : <DtrOutputTable rows={[]} loading onReview={canManage ? () => undefined : undefined} />}
+
           </div>
         </>
       )}

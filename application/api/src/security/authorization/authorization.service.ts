@@ -56,6 +56,8 @@ export class AuthorizationService {
       { module: 'branches', action: 'DELETE', scope: 'ALL' },
       { module: 'employees', action: 'VIEW', scope: 'ALL' },
       { module: 'employees', action: 'UPDATE', scope: 'ALL' },
+      ...(['VIEW','CREATE','UPDATE','DELETE','APPROVE','EXPORT','IMPORT'] as const).flatMap(action => ['BRANCH','ALL'].map(scope => ({ module:'inventory', action, scope:scope as PermissionScope }))),
+      ...(['BRANCH','ALL'] as const).map(scope => ({module:'inventory_valuation',action:'VIEW' as const,scope})),
       { module: 'rooms', action: 'UPDATE', scope: 'ALL' },
       { module: 'profile', action: 'VIEW', scope: 'OWN' },
       { module: 'profile', action: 'UPDATE', scope: 'OWN' },
@@ -67,6 +69,7 @@ export class AuthorizationService {
       { module: 'users', action: 'VIEW', scope: 'ALL' },
       { module: 'users', action: 'CREATE', scope: 'ALL' },
       { module: 'users', action: 'UPDATE', scope: 'ALL' },
+      ...(['VIEW','CREATE','UPDATE','EXPORT','IMPORT'] as const).flatMap(action => ['BRANCH','ALL'].map(scope => ({ module:'inventory', action, scope:scope as PermissionScope }))),
       { module: 'branches', action: 'VIEW', scope: 'ALL' },
       { module: 'branches', action: 'UPDATE', scope: 'ALL' },
       { module: 'profile', action: 'VIEW', scope: 'OWN' },
@@ -77,6 +80,8 @@ export class AuthorizationService {
       { module: 'leave', action: 'CREATE', scope: 'OWN' },
       { module: 'leave', action: 'UPDATE', scope: 'ALL' },
       { module: 'leave', action: 'APPROVE', scope: 'ALL' },
+      ...(['VIEW','CREATE','UPDATE','APPROVE','EXPORT','IMPORT'] as const).flatMap(action => ['BRANCH','ALL'].map(scope => ({ module:'inventory', action, scope:scope as PermissionScope }))),
+      ...(['BRANCH','ALL'] as const).map(scope => ({module:'inventory_valuation',action:'VIEW' as const,scope})),
 
       { module: 'password_resets', action: 'VIEW', scope: 'ALL' },
       { module: 'password_resets', action: 'UPDATE', scope: 'ALL' },
@@ -99,6 +104,7 @@ export class AuthorizationService {
       { module: 'leave', action: 'VIEW', scope: 'BRANCH' },
       { module: 'leave', action: 'APPROVE', scope: 'BRANCH' },
       { module: 'leave', action: 'CREATE', scope: 'OWN' },
+      ...(['VIEW','CREATE','UPDATE','APPROVE','EXPORT'] as const).map(action => ({ module:'inventory', action, scope:'BRANCH' as const })),
 
       { module: 'password_resets', action: 'VIEW', scope: 'BRANCH' },
       { module: 'password_resets', action: 'UPDATE', scope: 'BRANCH' },
@@ -122,6 +128,7 @@ export class AuthorizationService {
       { module: 'leave', action: 'CREATE', scope: 'OWN' },
 
       { module: 'rooms', action: 'VIEW', scope: 'BRANCH' },
+      { module:'inventory', action:'VIEW', scope:'BRANCH' },
       { module: 'profile', action: 'VIEW', scope: 'OWN' },
       { module: 'profile', action: 'UPDATE', scope: 'OWN' },
     ],

@@ -1,4 +1,5 @@
 "use client";
+import { LoadingList } from "./content-loading";
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
@@ -266,9 +267,7 @@ export function WorkspaceNotifications({
         </div>
         <div className={styles.content} aria-busy={loading || busy !== null}>
           {loading && (
-            <p className={styles.state} role="status">
-              Loading notifications...
-            </p>
+            <LoadingList label="Loading notifications" items={4} avatar />
           )}
           {error && (
             <div className={styles.state} role="alert">
