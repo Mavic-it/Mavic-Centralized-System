@@ -1,4 +1,5 @@
 "use client";
+import { EmployeeHrProfileLoading } from "./employee-section-loading";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState, type FormEvent } from "react";
@@ -185,7 +186,7 @@ export default function EmployeeHrProfileCard({
       )}
 
       {profileQuery.isLoading && (
-        <p className={styles.mutedNote}>Loading HR profile…</p>
+        <EmployeeHrProfileLoading />
       )}
       {profileQuery.isError && (
         <div className={styles.queryError}>

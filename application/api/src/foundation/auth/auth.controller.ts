@@ -55,7 +55,7 @@ export class AuthController {
     for (const item of MODULE_PERMISSION_REGISTRY) {
       if (item.parentKey && modes.get(item.key) !== 'DENY' && modes.get(item.parentKey) === 'DENY' && overrides.get(item.parentKey) !== 'DENY') modes.set(item.parentKey, 'VIEW');
     }
-    return { userId:user.userId,email:user.email,role:user.role,branchId:user.branchId,branchIds:user.branchIds,allBranches:user.allBranches,expiresAt:user.expiresAt,mustChangePassword:user.mustChangePassword??false,deniedPermissionKeys:[...modes].filter(([,mode])=>mode==='DENY').map(([key])=>key),grantedPermissionKeys:[...modes].filter(([,mode])=>mode!=='DENY').map(([key])=>key) };
+    return { userId:user.userId,email:user.email,role:user.role,branchId:user.branchId,branchIds:user.branchIds,allBranches:user.allBranches,expiresAt:user.expiresAt,mustChangePassword:user.mustChangePassword??false,deniedPermissionKeys:[...modes].filter(([,mode])=>mode==='DENY').map(([key])=>key),grantedPermissionKeys:[...modes].filter(([,mode])=>mode!=='DENY').map(([key])=>key),editPermissionKeys:[...modes].filter(([,mode])=>mode==='EDIT').map(([key])=>key) };
   }
 
   @Get('branches')

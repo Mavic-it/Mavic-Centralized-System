@@ -1,4 +1,5 @@
 "use client";
+import { Skeleton } from "./loading-ui";
 
 import { PageHeading, PageHeader } from "./page-heading";
 import { FieldLabel } from "./field-label";
@@ -321,7 +322,7 @@ function PasswordResetQueueContent() {
         ].map(([title, help], index) => (
           <article key={title}>
             <span>{title}</span>
-            <strong>{loading ? "—" : counts[index]}</strong>
+            <strong>{loading ? <Skeleton className="loading-card-value" /> : counts[index]}</strong>
             <small>{help}</small>
           </article>
         ))}

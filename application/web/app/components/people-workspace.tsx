@@ -1,4 +1,6 @@
 "use client";
+import { LoadingList, LoadingRegion, LoadingLines } from "./content-loading";
+import { Skeleton } from "./loading-ui";
 import { EmployeeWorkBranches } from "./employee-work-branches";
 import { loadActiveBranches, loadWorkspaceBranchAccess } from "../lib/branch-access";
 import { PageHeading, PageHeader } from "./page-heading";
@@ -255,7 +257,7 @@ function Metric({
 }: {
   icon: LucideIcon;
   label: string;
-  value: string;
+  value: ReactNode;
   detail: string;
   tone: "red" | "green" | "amber" | "gray";
 }) {
@@ -405,7 +407,7 @@ function HrOverviewContent() {
           label="Team members"
           value={
             employeesQuery.isLoading
-              ? "Loading?"
+              ? <Skeleton className="loading-card-value" />
               : employeesQuery.isError
                 ? "Unavailable"
                 : String(employees.length)
@@ -418,7 +420,7 @@ function HrOverviewContent() {
           label="Active employees"
           value={
             employeesQuery.isLoading
-              ? "Loading?"
+              ? <Skeleton className="loading-card-value" />
               : employeesQuery.isError
                 ? "Unavailable"
                 : String(activeEmployees.length)
@@ -432,9 +434,7 @@ function HrOverviewContent() {
         <section className={styles.panel}>
           <SectionTitle title="People at a glance" />
           {employeesQuery.isLoading && (
-            <p className={styles.emptyState} role="status">
-              Loading employee records?
-            </p>
+            <LoadingList label="Loading employees" items={3} avatar className={styles.teamList} itemClassName={styles.teamRow} />
           )}
           {employeesQuery.isError && (
             <div className={styles.formError} role="alert">
@@ -888,7 +888,7 @@ function EmployeeDirectoryContent() {
                       ))}
                     </select>
                     {branchesQuery.isLoading && (
-                      <small role="status">Loading branches…</small>
+                      <LoadingRegion label="Loading branches"><LoadingLines lines={1} /></LoadingRegion>
                     )}
                     {branchesQuery.isError && (
                       <small role="alert">
@@ -934,7 +934,7 @@ function EmployeeDirectoryContent() {
                       )}
                     </select>
                     {employeeDepartmentsQuery.isLoading && (
-                      <small role="status">Loading departments…</small>
+                      <LoadingRegion label="Loading departments"><LoadingLines lines={1} /></LoadingRegion>
                     )}
                     {employeeDepartmentsQuery.isError && (
                       <small role="alert">
@@ -1024,9 +1024,7 @@ function EmployeeDirectoryContent() {
                   </p>
                 )}
                 {branchScheduleQuery.isLoading && (
-                  <p className={styles.formHint} role="status">
-                    Loading branch schedule…
-                  </p>
+                  <LoadingRegion label="Loading branch schedule"><LoadingLines lines={1} /></LoadingRegion>
                 )}
                 {branchScheduleQuery.isError && (
                   <p className={styles.formError} role="alert">
@@ -1856,7 +1854,7 @@ function EmployeeProfileContent({
                     ))}
                   </select>
                   {employeeDepartmentsQuery.isLoading && (
-                    <small role="status">Loading departments…</small>
+                    <LoadingRegion label="Loading departments"><LoadingLines lines={1} /></LoadingRegion>
                   )}
                   {employeeDepartmentsQuery.isError && (
                     <small role="alert">
@@ -3924,14 +3922,10 @@ function UserAccessContent({
                     </label>
                     {createFollowsEmployeeBranch && <input type="hidden" name="branchId" value={selectedEmployee?.branchId ?? ""} />}
                     {employeesQuery.isLoading && (
-                      <p className={styles.fieldHint} role="status">
-                        Loading employees…
-                      </p>
+                      <LoadingRegion label="Loading employees"><LoadingLines lines={1} /></LoadingRegion>
                     )}
                     {branchesQuery.isLoading && (
-                      <p className={styles.fieldHint} role="status">
-                        Loading active branches…
-                      </p>
+                      <LoadingRegion label="Loading active branches"><LoadingLines lines={1} /></LoadingRegion>
                     )}
                     {employeesQuery.isError && (
                       <div className={styles.queryError} role="alert">

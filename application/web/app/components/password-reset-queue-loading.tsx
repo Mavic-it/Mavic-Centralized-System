@@ -1,3 +1,4 @@
+import { LoadingTable } from "./content-loading";
 import { Skeleton } from "./loading-ui";
 import styles from "./password-reset-queue.module.css";
 
@@ -6,22 +7,7 @@ export function PasswordResetQueueLoading({
 }: {
   contentOnly?: boolean;
 }) {
-  const content = (
-    <div
-      className={styles.loadingRows}
-      role="status"
-      aria-label="Loading password reset requests"
-      aria-busy="true"
-    >
-      {Array.from({ length: 5 }, (_, index) => (
-        <div key={index} className={styles.loadingRow}>
-          {Array.from({ length: 4 }, (_, column) => (
-            <Skeleton key={column} className={styles.loadingBar} />
-          ))}
-        </div>
-      ))}
-    </div>
-  );
+  const content = <LoadingTable label="Loading password reset requests" headers={["Account", "Requested", "Branch", "Status", "Email delivery", "Actions"]} className={styles.table} wrapClassName={styles.scroll} />;
   if (contentOnly) return content;
   return (
     <main className={styles.page}>

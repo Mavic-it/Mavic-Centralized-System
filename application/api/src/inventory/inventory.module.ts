@@ -5,8 +5,10 @@ import { AssetController } from './assets/asset.controller.js';
 import { AssetService } from './assets/asset.service.js';
 import { InventoryController } from './inventory/inventory.controller.js';
 import { InventoryService } from './inventory/inventory.service.js';
+import { SecurityModule } from '../security/security.module.js';
 
 @Module({
+  imports: [SecurityModule],
   controllers: [InventoryController, AssetController],
   providers: [
     { provide: InventoryService, useFactory: (db: DataSource) => new InventoryService(db), inject: [getDataSourceToken()] },

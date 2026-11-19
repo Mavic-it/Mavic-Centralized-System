@@ -2,6 +2,8 @@ import { Modal } from "../../components/ui/modal";
 import { LoaderCircle, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { IconActionButton } from "../../components/icon-action-button";
+import { LoadingRegion } from "../../components/content-loading";
+import { Skeleton } from "../../components/loading-ui";
 import type { UseFormReturn } from "react-hook-form";
 import type { UseMutationResult } from "@tanstack/react-query";
 import type { SelectedBranchLocation } from "../openstreetmap-location-picker";
@@ -193,7 +195,14 @@ export function BranchFormDialog({
           <fieldset>
             <legend>Contact and management</legend>
             <div className="branch-form-grid branch-contact-grid">
-              <Field
+              {managers.isLoading && canViewManagerOptions ? (
+                <div className="branch-field">
+                  <span className="branch-field-label form-field-label">Branch manager</span>
+                  <LoadingRegion label="Loading branch manager options">
+                    <Skeleton style={{ width: "100%", height: 42, borderRadius: 8 }} />
+                  </LoadingRegion>
+                </div>
+              ) : <Field
                 label="Branch manager"
                 error={
                   canViewManagerOptions && managers.error instanceof Error
@@ -231,8 +240,8 @@ export function BranchFormDialog({
                   })}
                 >
                   <option value="" disabled={!canAssignManager}>
-                    {managers.isLoading && canViewManagerOptions
-                      ? "Loading managers…"
+                    {managers.isError && canViewManagerOptions
+                      ? "Manager options unavailable"
                       : "No manager assigned"}
                   </option>
                   {editing?.managerUserId &&
@@ -261,7 +270,7 @@ export function BranchFormDialog({
                     </option>
                   ))}
                 </select>
-              </Field>
+              </Field>}
               <Field
                 label="Phone"
                 error={form.formState.errors.phone?.message}
@@ -285,13 +294,16 @@ export function BranchFormDialog({
                 />
               </Field>
               <div className="branch-manager-guidance" id="branch-manager-help">
-                <p>
+                {managers.isLoading && canViewManagerOptions ? (
+                  <div aria-hidden="true" className="branch-manager-guidance-skeleton">
+                    <Skeleton style={{ width: "94%", height: 10 }} />
+                    <Skeleton style={{ width: "68%", height: 10 }} />
+                  </div>
+                ) : <p>
                   {!canViewManagerOptions
                     ? "Manager assignment is managed by Super Admin or HR Admin."
                     : managers.isError
                     ? "Manager accounts could not be loaded. Try again to select a manager."
-                    : managers.isLoading
-                    ? "Loading HR Admin and Branch Manager accounts…"
                     : !canAssignManager
                     ? availableManagers.length === 0
                       ? "No active HR Admin or Branch Manager accounts are listed for your branch. Assignments are managed by Super Admin or HR Admin."
@@ -301,7 +313,7 @@ export function BranchFormDialog({
                     : availableManagers.length === 0
                     ? "Accounts are listed with the reason they are unavailable. Check their employee link and branch assignment in User Access before selecting."
                     : "Choose an HR Admin or Branch Manager to fill Phone and Email automatically. The same person can manage multiple branches."}
-                </p>
+                </p>}
                 {selectedManagerOption?.managedBranches?.length ? (
                   <p>
                     Currently managing: {selectedManagerOption.managedBranches

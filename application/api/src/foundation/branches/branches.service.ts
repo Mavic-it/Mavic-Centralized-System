@@ -127,7 +127,7 @@ const branchSelect = `
     (SELECT COUNT(*) FROM rooms r WHERE r.branch_id = b.id)::int AS "roomCount",
     (SELECT COUNT(*) FROM reservations rs WHERE rs.branch_id = b.id)::int AS "reservationCount",
     (SELECT COUNT(*) FROM inquiries i WHERE i.branch_id = b.id)::int AS "inquiryCount",
-    (SELECT COUNT(*) FROM inventory_items ii WHERE ii.branch_id = b.id)::int AS "inventoryItemCount"
+    (SELECT COUNT(DISTINCT ib.item_id) FROM inventory_balances ib WHERE ib.branch_id = b.id)::int AS "inventoryItemCount"
   FROM branches b
   LEFT JOIN users manager_user ON manager_user.id = b.manager_user_id`;
 

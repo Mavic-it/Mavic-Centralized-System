@@ -1,4 +1,5 @@
 "use client";
+import { LoadingList } from "../components/content-loading";
 import { RequiredMark } from "../components/required-mark";
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -335,7 +336,7 @@ export function DtrWorkspace({
         ) : null)}
       {(tab === "ledger" || tab === "summary") &&
         (ledger.isPending ? (
-          <DtrLoading />
+          <DtrLoading kind={tab === "summary" ? "summary" : "ledger"} canManage={canManage} />
         ) : ledger.error ? (
           <p className={styles.error} role="alert">
             {ledger.error.message}{" "}
@@ -454,7 +455,7 @@ export function DtrWorkspace({
         <section className={styles.card}>
           <h3>Stored import history</h3>
           {history.isPending ? (
-            <p role="status">Loading history…</p>
+            <LoadingList label="Loading import history" items={4} />
           ) : history.error ? (
             <p role="alert" className={styles.error}>
               {history.error.message}

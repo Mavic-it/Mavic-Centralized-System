@@ -11,7 +11,10 @@ import type { WorkspaceRole } from "../data/people";
 import styles from "./my-profile-workspace.module.css";
 import theme from "./ui/workspace-theme.module.css";
 
-vi.mock("next/navigation", () => ({ useRouter: () => ({ replace: vi.fn() }) }));
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ replace: vi.fn() }),
+  usePathname: () => "/me",
+}));
 
 const account = {
   email: "test@example.test",

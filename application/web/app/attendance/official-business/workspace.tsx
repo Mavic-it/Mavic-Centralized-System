@@ -1,4 +1,5 @@
 "use client";
+import { ObCardsLoading, ObPageLoading } from "./ob-loading";
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ArrowUpRight, BriefcaseBusiness, CalendarDays, Clock3, MapPin, Plus, RefreshCw, RotateCcw } from "lucide-react";
@@ -64,14 +65,7 @@ export function OfficialBusinessWorkspace({
     setFiling(false);
     if (id) setSelected(id);
   }
-  if (context.isPending)
-    return (
-      <section className={css.panel} aria-busy="true">
-        <div className={css.skeleton} />
-        <div className={css.skeleton} />
-        <p role="status">Loading Official Business...</p>
-      </section>
-    );
+  if (context.isPending) return <ObPageLoading />;
   if (context.isError)
     return (
       <section className={css.panel}>
@@ -227,7 +221,7 @@ export function OfficialBusinessWorkspace({
           </div>
         )}
         {list.isPending ? (
-          <p role="status">Loading requests...</p>
+          <ObCardsLoading />
         ) : list.isError ? (
           <div>
             <p className={css.error} role="alert">

@@ -13,4 +13,12 @@ describe("module access route mapping", () => {
     expect(permissionKeyForPath("/system/module-access", "users")).toBe("system.module-access");
     expect(workspaceAreaForPath("/my-leave")).toBe("my-leave");
   });
+
+  it("shows inventory only through its registered module permission", () => {
+    expect(workspaceAreaForPath("/inventory")).toBe("inventory");
+    expect(permissionKeyForPath("/inventory", "inventory")).toBe("inventory");
+    expect(canAccessWorkspaceArea("STAFF", "inventory")).toBe(true);
+    expect(canAccessWorkspaceArea("EMPLOYEE", "inventory")).toBe(false);
+    expect(canAccessWorkspaceArea("EMPLOYEE", "inventory", ["inventory"])).toBe(true);
+  });
 });

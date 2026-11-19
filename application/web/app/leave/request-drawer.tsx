@@ -1,4 +1,5 @@
 "use client";
+import { LeaveDetailLoading } from "./leave-loading";
 import { useState } from "react";
 import { FieldLabel } from "../components/field-label";
 import { useQuery } from "@tanstack/react-query";
@@ -15,7 +16,7 @@ import {
   dateTimeLabel,
   currentDate,
 } from "./api";
-import { ErrorState, Loading, Status } from "./ui";
+import { ErrorState, Status } from "./ui";
 import type { Context, Detail } from "./types";
 import { leaveEventLabel, leaveEventComment } from "./request-presentation";
 import { addCalendarDays, effectiveNoticeDays } from "./filing-dates";
@@ -208,7 +209,7 @@ export function RequestDrawer({
       </header>
       <div className={css.drawerBody}>
         {q.isPending ? (
-          <Loading />
+          <LeaveDetailLoading />
         ) : q.isError ? (
           <div className={css.details}>
             <ErrorState error={q.error} retry={() => void q.refetch()} />

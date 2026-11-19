@@ -1,4 +1,5 @@
 "use client";
+import { LeaveReportsLoading } from "./leave-loading";
 import { useState } from "react";
 import { Download, SlidersHorizontal, RotateCcw } from "lucide-react";
 import { Button } from "../components/ui/button";
@@ -7,7 +8,6 @@ import { useQuery } from "@tanstack/react-query";
 import { api, currentYear } from "./api";
 import {
   ErrorState,
-  Loading,
   Empty,
   Filters,
   Metrics,
@@ -115,7 +115,7 @@ export function Reports({
         />
       </section>
       {q.isPending ? (
-        <Loading />
+        <LeaveReportsLoading />
       ) : q.isError ? (
         <ErrorState error={q.error} retry={() => void q.refetch()} />
       ) : (

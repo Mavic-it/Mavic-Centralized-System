@@ -1,3 +1,5 @@
+import fileStyles from "./employee-file-presentation.module.css";
+import { EmployeeHrProfileLoading } from "./employee-section-loading";
 import { BranchDirectorySkeleton } from "../branches/components/branch-cards";
 import { AccountDirectorySkeleton } from "./account-directory";
 import { PortalLoading } from "./portal-presentation";
@@ -281,43 +283,5 @@ function HrOverviewLoading() {
 }
 
 export function EmployeeProfileLoading() {
-  return (
-    <>
-      <section aria-hidden="true" className={styles.profileHero}>
-        <Skeleton className="loading-profile-avatar" />
-        <div className={styles.profileIdentity}>
-          <Skeleton className="loading-caption" />
-          <Skeleton className="loading-section-title" />
-          <Skeleton className="loading-description" />
-        </div>
-        <Skeleton className="loading-action" />
-      </section>
-      <div aria-hidden="true" className={styles.sectionSwitcherLayout}>
-        <div className={styles.sectionSwitcherContent}>
-          <section className={styles.panel}>
-            <div className={styles.sectionTitle}>
-              <div>
-                <Skeleton className="loading-section-title" />
-              </div>
-            </div>
-            <div className="loading-detail-grid">
-              {Array.from({ length: 6 }, (_, index) => (
-                <div key={index}>
-                  <Skeleton className="loading-caption" />
-                  <Skeleton className="loading-description" />
-                </div>
-              ))}
-            </div>
-          </section>
-        </div>
-        <nav className={styles.sectionSwitcherNav}>
-          <Skeleton className="loading-eyebrow" />
-          {Array.from({ length: 5 }, (_, index) => (
-            <Skeleton className="loading-nav-row" key={index} />
-          ))}
-        </nav>
-      </div>
-    </>
-  );
+  return <><Skeleton className="loading-action" /><section aria-hidden="true" className={styles.profileHero}><Skeleton className="loading-profile-avatar" /><div className={styles.profileIdentity}><Skeleton className="loading-caption" /><Skeleton className="loading-section-title" /><Skeleton className="loading-description" /></div><Skeleton className="loading-action" /></section><dl className={fileStyles.facts} aria-hidden="true">{["Work branches", "Employment", "Date hired", "Reports to"].map(label => <div key={label}><dt>{label}</dt><dd><Skeleton className="loading-caption" /></dd></div>)}</dl><div className={styles.sectionSwitcherLayout}><nav className={`${profileTabs.shell} ${profileTabs.loadingRail}`} aria-hidden="true">{Array.from({ length: 6 }, (_, i) => <Skeleton className="loading-action" key={i} />)}</nav><div className={styles.sectionSwitcherContent}><section className={styles.panel}><EmployeeHrProfileLoading /></section></div></div></>;
 }
-

@@ -1,4 +1,5 @@
 "use client";
+import { WorkDetailLoading } from "./work-loading";
 import { PageHeading, PageHeader } from "../components/page-heading";
 import { FieldLabel } from "../components/field-label";
 import { Suspense, useState, type FormEvent } from "react";
@@ -253,6 +254,7 @@ function Content({ kind }: { kind: Kind }) {
           {kind === "incidents" && (
             <IncidentControls
               summary={rows.data?.summary}
+              loading={context.isPending || rows.isPending}
               status={status}
               onStatus={(value) => {
                 setStatus(value);
@@ -1333,10 +1335,7 @@ function RecordDetail({
         </div>
         <div className={css.drawerBody}>
           {query.isPending ? (
-            <div aria-busy="true">
-              <p role="status">Loading private record...</p>
-              <div className={css.skeletonCard} />
-            </div>
+            <WorkDetailLoading kind={kind} />
           ) : query.isError ? (
             <Failure error={query.error} retry={() => void query.refetch()} />
           ) : (

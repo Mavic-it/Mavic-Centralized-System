@@ -1,4 +1,5 @@
 "use client";
+import { LeaveBalancesLoading, LeaveTableLoading } from "./leave-loading";
 import { FieldLabel } from "../components/field-label";
 import { useState, type FormEvent } from "react";
 import { ChevronRight, Wallet, X } from "lucide-react";
@@ -9,7 +10,7 @@ import { Modal } from "../components/ui/modal";
 import { useConfirmation } from "../components/ui/confirmation-provider";
 import { randomUuid } from "../lib/random-uuid";
 import { api, send, useAction, currentYear, dateLabel } from "./api";
-import { ErrorState, Loading, Empty, Filters, Pagination, params } from "./ui";
+import { ErrorState, Empty, Filters, Pagination, params } from "./ui";
 import type { Balance, Context, LeaveType } from "./types";
 import css from "./leave.module.css";
 import { TableTools } from "./table-tools";
@@ -235,7 +236,7 @@ export function Balances({
         />
       )}
       {q.isPending ? (
-        <Loading />
+        <LeaveBalancesLoading />
       ) : q.isError ? (
         <ErrorState error={q.error} retry={() => void q.refetch()} />
       ) : !visibleGroups.length ? (
@@ -480,7 +481,7 @@ function ResetBalance({
           reduce available days. Usage and credit history are preserved.
         </p>
         {settings.isPending ? (
-          <Loading />
+          <LeaveTableLoading label="Loading balance policy" headers={["Leave type", "Annual days", "Eligibility"]} />
         ) : settings.isError ? (
           <ErrorState
             error={settings.error}
@@ -604,7 +605,7 @@ function Ledger({ row, onClose }: { row: Balance; onClose: () => void }) {
           {row.employeeName} | {row.typeName} | {row.year}
         </p>
         {q.isPending ? (
-          <Loading />
+          <LeaveTableLoading label="Loading credit history" headers={["Date", "Entry", "Days", "Reason / actor"]} />
         ) : q.isError ? (
           <ErrorState error={q.error} retry={() => void q.refetch()} />
         ) : !q.data.length ? (

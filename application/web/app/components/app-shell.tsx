@@ -101,7 +101,7 @@ const navigationGroups: {
     items: [
       { label: "Reservations", icon: CalendarDays, href: "/reservations" },
       { label: "Inquiries", icon: MessageSquareText },
-      { label: "Inventory", icon: Package },
+      { label: "Inventory", icon: Package, href: "/inventory" },
     ],
   },
   {

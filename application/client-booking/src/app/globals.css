@@ -1627,3 +1627,24 @@ footer > div {
 @media(max-width:480px){.header{height:auto;min-height:80px;flex-wrap:wrap;gap:14px;padding-top:16px;padding-bottom:16px}.header nav{width:100%;justify-content:space-between}}
 
 .discard-draft-modal{max-width:560px}.discard-draft-modal .policy-modal-footer{gap:12px;flex-wrap:wrap}.discard-draft-modal .policy-modal-content p:last-child{font-size:12px;margin-bottom:0}
+
+/* Placeholders follow the same grids and surfaces as the loaded content. */
+.skeleton { background: var(--line); border-radius: 6px; }
+.skeleton-count { width: 120px; height: 12px; margin-bottom: 16px; }
+.skeleton-space-image { border-radius: 0; }
+.skeleton-content { display: flex; flex-direction: column; gap: 14px; }
+.skeleton-short { width: 30%; height: 12px; }
+.skeleton-title { width: 65%; height: 23px; }
+.skeleton-line { width: 85%; height: 13px; }
+.skeleton-field { height: 46px; }
+.skeleton-slot { width: 90px; height: 44px; }
+@media (prefers-reduced-motion: no-preference) {
+  .skeleton { animation: skeleton-pulse 1.8s ease-in-out infinite; }
+  @keyframes skeleton-pulse { 50% { opacity: .55; } }
+}
+
+.skeleton-badge { width: 65px; height: 24px; }
+.skeleton-button { width: 200px; height: 48px; }
+.skeleton-back { width: 140px; height: 44px; }
+.skeleton-textarea { height: 92px; }
+.skeleton-detail { display: grid; gap: 12px; padding: 12px 0; }

@@ -1,3 +1,4 @@
+import { LoadingList } from "../../components/content-loading";
 import { RequiredMark } from "../../components/required-mark";
 import { Pencil, RefreshCw, Trash2, Phone, Mail, Search } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -192,7 +193,7 @@ export function BranchDetailPanel({
                 onChange={(e) => setDepartmentQuery(e.target.value)}
               />
             </label>
-            {departments.isLoading && <p role="status">Loading departments…</p>}
+            {departments.isLoading && <LoadingList label="Loading departments" items={3} />}
             {departments.isError && (
               <p className="branch-form-error" role="alert">
                 {departments.error instanceof Error

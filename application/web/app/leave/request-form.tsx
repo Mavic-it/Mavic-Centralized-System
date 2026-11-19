@@ -1,4 +1,6 @@
 "use client";
+import { LoadingLines, LoadingRegion } from "../components/content-loading";
+import { LeaveFormLoading } from "./leave-loading";
 import { FieldLabel } from "../components/field-label";
 import { useState, type FormEvent } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -11,7 +13,7 @@ import {
   effectiveNoticeDays,
   noticeLabel,
 } from "./filing-dates";
-import { ErrorState, Loading } from "./ui";
+import { ErrorState } from "./ui";
 import type { LeaveType, Preview } from "./types";
 import css from "./leave.module.css";
 export function RequestForm({ onClose }: { onClose: () => void }) {
@@ -116,7 +118,7 @@ export function RequestForm({ onClose }: { onClose: () => void }) {
       <form onSubmit={save}>
         <div className={css.form}>
           {types.isPending ? (
-            <Loading />
+            <LeaveFormLoading />
           ) : types.isError ? (
             <ErrorState
               error={types.error}
@@ -124,7 +126,7 @@ export function RequestForm({ onClose }: { onClose: () => void }) {
             />
           ) : null}
           {clock.isPending && (
-            <p role="status">Getting current Philippine time…</p>
+            <LoadingRegion label="Getting current Philippine time"><LoadingLines lines={1} /></LoadingRegion>
           )}
           {clock.isError && (
             <ErrorState

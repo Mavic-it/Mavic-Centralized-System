@@ -1,4 +1,5 @@
 "use client";
+import { ObDetailLoading } from "./ob-loading";
 import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Modal } from "../../components/ui/modal";
@@ -72,9 +73,7 @@ export function ObRequestDrawer({
         </Button>
       </header>
       {q.isPending ? (
-        <p role="status" className={css.notice}>
-          Loading OB details...
-        </p>
+        <ObDetailLoading />
       ) : q.isError ? (
         <div className={css.notice}>
           <p role="alert">{q.error.message}</p>
