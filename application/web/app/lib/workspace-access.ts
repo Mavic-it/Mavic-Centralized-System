@@ -28,14 +28,16 @@ export type WorkspaceArea =
   | "attendance"
   | "portal"
   | "security"
+  | "appearance"
   | "my-leave"
   | "leave-management"
   | "leave-settings"
+  | "inquiries"
   | "reservations"
   | "inventory";
 
 const accessByRole: Record<WorkspaceRole, readonly WorkspaceArea[]> = {
-  SUPER_ADMIN: ["reservations", "inventory", "tasks", "incidents", "my-leave", "leave-management", "leave-settings",
+  SUPER_ADMIN: ["inquiries", "reservations", "inventory", "tasks", "incidents", "my-leave", "leave-management", "leave-settings",
     "overview",
     "hr",
     "branches",
@@ -45,9 +47,9 @@ const accessByRole: Record<WorkspaceRole, readonly WorkspaceArea[]> = {
     "my-profile",
     "attendance",
     "portal",
-    "security",
+    "security", "appearance",
   ],
-  HR_ADMIN: ["reservations", "inventory", "tasks", "incidents", "my-leave", "leave-management", "leave-settings",
+  HR_ADMIN: ["inquiries", "reservations", "inventory", "tasks", "incidents", "my-leave", "leave-management", "leave-settings",
     "users",
     "overview",
     "hr",
@@ -56,9 +58,9 @@ const accessByRole: Record<WorkspaceRole, readonly WorkspaceArea[]> = {
     "employee-profile",
     "attendance",
     "portal",
-    "security",
+    "security", "appearance",
   ],
-  BRANCH_MANAGER: ["reservations", "inventory", "tasks", "incidents", "my-leave", "leave-management",
+  BRANCH_MANAGER: ["inquiries", "reservations", "inventory", "tasks", "incidents", "my-leave", "leave-management",
     "users",
     "overview",
     "hr",
@@ -67,18 +69,17 @@ const accessByRole: Record<WorkspaceRole, readonly WorkspaceArea[]> = {
     "employee-profile",
     "attendance",
     "portal",
-    "security",
+    "security", "appearance",
   ],
-  IT_ADMIN: [
-    "inventory",
+  IT_ADMIN: ["inventory",
     "branches",
     "users",
     "employee-profile",
     "portal",
-    "security",
+    "security", "appearance",
   ],
-  STAFF: ["reservations", "inventory", "tasks", "incidents", "my-leave","employee-profile", "attendance", "portal", "security"],
-  EMPLOYEE: ["tasks", "incidents", "my-leave","employee-profile", "attendance", "portal", "security"],
+  STAFF: ["inquiries", "reservations", "inventory", "tasks", "incidents", "my-leave","employee-profile", "attendance", "portal", "security", "appearance"],
+  EMPLOYEE: ["tasks", "incidents", "my-leave","employee-profile", "attendance", "portal", "security", "appearance"],
 };
 
 export function canAccessWorkspaceArea(
@@ -92,7 +93,9 @@ export function canAccessWorkspaceArea(
 
 export function workspaceAreaForPath(path: string): WorkspaceArea | undefined {
   const pathname = path.split(/[?#]/, 1)[0];
+  if (pathname === "/system/appearance" || pathname.startsWith("/system/appearance/")) return "appearance";
   if (pathname === '/attendance/official-business') return 'portal';
+  if (pathname === "/inquiries" || pathname.startsWith("/inquiries/")) return "inquiries";
   if (pathname === "/reservations" || pathname.startsWith("/reservations/")) return "reservations";
   if (pathname === "/inventory" || pathname.startsWith("/inventory/")) return "inventory";
   if (pathname === "/tasks") return "tasks";
@@ -125,13 +128,15 @@ export function workspaceAreaForPath(path: string): WorkspaceArea | undefined {
 
 export function permissionKeyForArea(area: WorkspaceArea): string | undefined {
   const keys: Partial<Record<WorkspaceArea,string>> = {
-    overview:"workspace.overview",hr:"hr.dashboard",employees:"hr.employees","employee-profile":"hr.employee-profile",attendance:"hr.attendance","leave-management":"hr.leave","leave-settings":"hr.leave.settings",tasks:"work.tasks",incidents:"work.incidents",reservations:"operations.reservations",inventory:"inventory",users:"system.users","my-profile":"people.my-profile",portal:"people.my-portal","my-leave":"people.my-leave",
+    inquiries:"crm.inquiries",overview:"workspace.overview",hr:"hr.dashboard",employees:"hr.employees","employee-profile":"hr.employee-profile",attendance:"hr.attendance","leave-management":"hr.leave","leave-settings":"hr.leave.settings",tasks:"work.tasks",incidents:"work.incidents",reservations:"operations.reservations",inventory:"inventory",users:"system.users","my-profile":"people.my-profile",portal:"people.my-portal","my-leave":"people.my-leave",
   };
   return keys[area];
 }
 
 export function permissionKeyForPath(path: string, area: WorkspaceArea): string | undefined {
   const pathname=path.split(/[?#]/,1)[0];
+  if(pathname==='/inquiries')return 'crm.inquiries.dashboard';
+  if(pathname.startsWith('/inquiries/'))return `crm.inquiries.${pathname.split('/')[2]}`;
   if(pathname==='/attendance/official-business')return 'people.my-portal';
   const exact:Record<string,string>={"/leave/balances":"hr.leave.balances","/leave/reports":"hr.leave.reports","/leave/settings":"hr.leave.settings","/system/password-reset-requests":"system.password-resets","/system/module-access":"system.module-access","/reservations/list":"operations.reservations.list","/reservations/payments":"operations.reservations.list","/reservations/spaces":"operations.reservations.spaces","/reservations/reports":"operations.reservations.reports","/reservations/settings":"operations.reservations.settings"};
   return exact[pathname]??permissionKeyForArea(area);

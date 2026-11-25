@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { CurrentScheduleLoading, EmployeeScheduleLoading } from "./employee-section-loading";
 
 import { ScheduleObBadge, type ScheduleOb } from "./schedule-ob-badge";
@@ -820,7 +821,7 @@ export default function EmployeeWorkScheduleCard({
       </section>
 
       {isEditing && canManage && (
-        <form className={styles.form} onSubmit={saveSchedule}>
+        <FormLayout className={styles.form} onSubmit={saveSchedule}>
           <label>
             <FieldLabel required={true}>Effective date</FieldLabel>
             <input
@@ -919,7 +920,7 @@ export default function EmployeeWorkScheduleCard({
               {mutation.isPending ? "Saving…" : "Save schedule"}
             </button>
           </div>
-        </form>
+        </FormLayout>
       )}
 
       {!!scheduleQuery.data?.history.length && (

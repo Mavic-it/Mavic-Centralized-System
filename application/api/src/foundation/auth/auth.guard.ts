@@ -18,6 +18,7 @@ import type { DataSource } from 'typeorm';
 import { MODULE_PERMISSION_REGISTRY, defaultModuleAccess, registryEntry } from '../permissions/module-registry.js';
 import { getDataSourceToken } from '@nestjs/typeorm';
 import { Inject } from '@nestjs/common';
+import { inquiryApiPermission } from '../permissions/inquiry-api-permission.js';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -81,7 +82,7 @@ export class AuthGuard implements CanActivate {
       );
       ownLeaveResource = Boolean(owned);
     }
-    const pathKey = ownEmployeeResource || path === '/employees/me' || path.startsWith('/employees/me/') ? 'people.my-portal'
+    const pathKey = inquiryApiPermission(path,request.method,request.body) ?? (ownEmployeeResource || path === '/employees/me' || path.startsWith('/employees/me/') ? 'people.my-portal'
       : ['/attendance/me','/attendance/clock-in','/attendance/clock-out'].includes(path) || path.startsWith('/attendance/official-business/') && !['SUPER_ADMIN','HR_ADMIN','BRANCH_MANAGER'].includes(user.role) ? 'people.my-portal'
       : ownLeaveResource || path === '/leave/me' || path.startsWith('/leave/me/') ? 'people.my-leave'
       : /^\/reservations\/payment-(accounts|policy)(?:\/|$)/.test(path) ? 'operations.reservations.settings'
@@ -90,7 +91,7 @@ export class AuthGuard implements CanActivate {
       : path === '/users' || (path.startsWith('/users/') && !path.startsWith('/users/me/')) ? 'system.users'
       : path.startsWith('/admin/password-reset-requests') ? 'system.password-resets'
       : workModuleKey ? `work.${workModuleKey}`
-      : registeredPathKey;
+      : registeredPathKey);
     let moduleAccessMode: 'VIEW'|'EDIT'|'DENY'|undefined;
     let hasExplicitModuleGrant = false;
     if (pathKey) {

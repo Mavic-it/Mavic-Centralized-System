@@ -3,7 +3,7 @@
   min-width: 0;
   margin: 0;
   padding: 0;
-  color: var(--ws-text, #202936);
+  color: var(--text-primary);
 }
 .header {
   margin-bottom: 24px;
@@ -11,19 +11,19 @@
 .eyebrow,
 .guideEyebrow {
   margin: 0;
-  color: #b42332;
-  font-size: 11px;
+  color: var(--primary-dark);
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 700;
   letter-spacing: 0.1em;
 }
 .header h1 {
-  font-size: clamp(24px, 2.5vw, 30px);
+  font-size: var(--app-title-size);
   margin: 6px 0;
 }
 .header p:last-child {
   margin: 0;
-  color: #606b7b;
-  font-size: 13px;
+  color: var(--text-secondary);
+  font-size: calc(13px * var(--app-text-scale, 1));
 }
 .grid {
   display: grid;
@@ -34,14 +34,14 @@
 .card,
 .guideCard,
 .infoCard {
-  background: var(--ws-surface, #fff);
-  border: 1px solid var(--ws-border, #e2e7ed);
+  background: var(--ws-surface, var(--surface));
+  border: 1px solid var(--ws-border, var(--border));
   border-radius: 12px;
   box-shadow: 0 2px 8px rgb(32 41 54 / 3%);
 }
 .card {
   padding: clamp(20px, 3vw, 32px);
-  border-top: 3px solid #b42332;
+  border-top: 3px solid var(--primary);
 }
 .cardHeader {
   display: flex;
@@ -56,20 +56,20 @@
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  background: #fdf0f1;
-  color: #b42332;
-  font-size: 20px;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  font-size: calc(20px * var(--app-text-scale, 1));
 }
 .cardHeader h2,
 .guideCard h2 {
   margin: 0 0 3px;
-  font-size: 18px;
+  font-size: var(--app-header-size);
 }
 .cardHeader p,
 .guideCard li,
 .infoCard p {
-  color: #606b7b;
-  font-size: 13px;
+  color: var(--text-secondary);
+  font-size: calc(13px * var(--app-text-scale, 1));
   line-height: 1.6;
 }
 .cardHeader p {
@@ -93,38 +93,42 @@
   gap: 9px;
 }
 .infoCard {
-  background: #f6f8fa;
+  background: var(--surface-subtle);
 }
 .infoCard h3 {
-  font-size: 14px;
+  font-size: var(--app-header-size);
   margin: 0 0 6px;
 }
 .infoCard p {
   margin: 0;
 }
-.form {
+.fields {
   display: grid;
-  gap: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  gap: 16px;
+  min-width: 0;
 }
 .field {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 8px;
 }
 .field label {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 600;
 }
 .inputRow {
   display: flex;
   align-items: stretch;
   min-height: 44px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--border-strong);
   border-radius: 8px;
-  background: #fff;
+  background: var(--surface);
 }
 .inputRow:focus-within {
-  border-color: #b42332;
-  box-shadow: 0 0 0 3px rgb(180 35 50 / 12%);
+  border-color: var(--focus-ring);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus-ring) 18%, transparent);
 }
 .inputRow input {
   width: 100%;
@@ -134,7 +138,7 @@
   border: 0;
   outline: 0;
   border-radius: 8px;
-  color: #202936;
+  color: var(--text-primary);
   background: transparent;
   font: inherit;
 }
@@ -144,25 +148,25 @@
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: #a12632;
-  font-size: 12px;
+  color: var(--primary-dark);
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 650;
   cursor: pointer;
 }
 .checklist {
   padding: 14px 16px;
-  border: 1px solid #e2e7ed;
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: #f8fafc;
+  background: var(--surface-subtle);
 }
 .checklistHeader {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .checklistHeader span {
-  color: #606b7b;
+  color: var(--text-secondary);
 }
 .checklist ul {
   list-style: none;
@@ -173,46 +177,43 @@
   gap: 7px 15px;
 }
 .checklist li {
-  color: #606b7b;
-  font-size: 12px;
+  color: var(--text-secondary);
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .checklist li span {
   display: inline-block;
   width: 17px;
 }
 .checklist li.met {
-  color: #176346;
+  color: var(--status-success);
 }
 .error {
-  color: #a12632;
-  font-size: 12px;
+  color: var(--status-danger);
+  font-size: calc(12px * var(--app-text-scale, 1));
   margin: 0;
 }
 .match {
-  color: #176346;
-  font-size: 12px;
+  color: var(--status-success);
+  font-size: calc(12px * var(--app-text-scale, 1));
   margin: 0;
 }
 .submit {
-  justify-self: start;
-  padding: 11px 22px;
-  min-height: 42px;
   border: 0;
   border-radius: 8px;
-  background: #b42332;
-  color: #fff;
+  background: var(--primary);
+  color: var(--primary-foreground);
   font-weight: 650;
   cursor: pointer;
 }
 .submit:hover {
-  background: #941d2a;
+  background: var(--primary-hover);
 }
 .submit:disabled {
   opacity: 0.65;
   cursor: wait;
 }
 .page :is(button, input):focus-visible {
-  outline: 2px solid #b42332;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }
 @media (max-width: 800px) {
@@ -232,6 +233,12 @@
   }
   .checklistHeader {
     flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 640px) {
+  .fields {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

@@ -52,8 +52,36 @@ type BranchManagerCandidate = Omit<BranchManagerOption, 'isAssignable' | 'unavai
 
 export type UserAccountStatus = 'ACTIVE' | 'INACTIVE' | 'ARCHIVED';
 
+export type UserAppearancePreferences = {
+  themeMode: 'light' | 'dark' | 'system';
+  accentColor: 'red' | 'green' | 'blue' | 'teal' | 'purple' | 'orange' | 'pink';
+  titleFontSize: 'small' | 'default' | 'large';
+  headerFontSize: 'small' | 'default' | 'large';
+  bodyFontSize: 'compact' | 'default' | 'large';
+  layoutDensity: 'compact' | 'comfortable' | 'spacious';
+};
+
+export const defaultUserAppearancePreferences: UserAppearancePreferences = {
+  themeMode: 'light',
+  accentColor: 'red',
+  titleFontSize: 'default',
+  headerFontSize: 'default',
+  bodyFontSize: 'default',
+  layoutDensity: 'comfortable',
+};
+
+type UserAppearancePreferenceRow = {
+  themeMode: UserAppearancePreferences['themeMode'];
+  accentColor: UserAppearancePreferences['accentColor'];
+  titleFontSize: UserAppearancePreferences['titleFontSize'];
+  headerFontSize: UserAppearancePreferences['headerFontSize'];
+  bodyFontSize: UserAppearancePreferences['bodyFontSize'];
+  layoutDensity: UserAppearancePreferences['layoutDensity'];
+};
+
 export class UserService {
   private users = new Map<string, UserRecord>();
+  private readonly appearancePreferences = new Map<string, UserAppearancePreferences>();
 
   constructor(
     private readonly dataSource?: DataSource,
@@ -63,6 +91,54 @@ export class UserService {
   create(input: UserRecord): UserRecord {
     this.users.set(input.id, input);
     return input;
+  }
+
+  async getAppearancePreferences(userId: string): Promise<UserAppearancePreferences> {
+    if (!this.dataSource) {
+      return { ...defaultUserAppearancePreferences, ...this.appearancePreferences.get(userId) };
+    }
+    const rows = await this.dataSource.query<UserAppearancePreferenceRow[]>(
+      `SELECT theme_mode AS "themeMode", accent_color AS "accentColor",
+              title_font_size AS "titleFontSize", header_font_size AS "headerFontSize",
+              body_font_size AS "bodyFontSize", layout_density AS "layoutDensity"
+       FROM user_appearance_preferences WHERE user_id = $1`,
+      [userId],
+    );
+    return rows[0] ?? { ...defaultUserAppearancePreferences };
+  }
+
+  async saveAppearancePreferences(
+    userId: string,
+    preferences: UserAppearancePreferences,
+  ): Promise<UserAppearancePreferences> {
+    if (!this.dataSource) {
+      this.appearancePreferences.set(userId, { ...preferences });
+      return { ...preferences };
+    }
+    const rows = await this.dataSource.query<UserAppearancePreferenceRow[]>(
+      `INSERT INTO user_appearance_preferences
+         (user_id, theme_mode, accent_color, title_font_size, header_font_size, body_font_size, layout_density)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)
+       ON CONFLICT (user_id) DO UPDATE SET
+         theme_mode = EXCLUDED.theme_mode, accent_color = EXCLUDED.accent_color,
+         title_font_size = EXCLUDED.title_font_size, header_font_size = EXCLUDED.header_font_size,
+         body_font_size = EXCLUDED.body_font_size, layout_density = EXCLUDED.layout_density,
+         updated_at = now()
+       RETURNING theme_mode AS "themeMode", accent_color AS "accentColor",
+                 title_font_size AS "titleFontSize", header_font_size AS "headerFontSize",
+                 body_font_size AS "bodyFontSize", layout_density AS "layoutDensity"`,
+      [userId, preferences.themeMode, preferences.accentColor, preferences.titleFontSize,
+        preferences.headerFontSize, preferences.bodyFontSize, preferences.layoutDensity],
+    );
+    return rows[0];
+  }
+
+  async deleteAppearancePreferences(userId: string): Promise<void> {
+    if (!this.dataSource) {
+      this.appearancePreferences.delete(userId);
+      return;
+    }
+    await this.dataSource.query('DELETE FROM user_appearance_preferences WHERE user_id = $1', [userId]);
   }
 
   async createAccount(input: CreateUserInput): Promise<UserRecord> {

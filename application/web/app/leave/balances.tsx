@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { LeaveBalancesLoading, LeaveTableLoading } from "./leave-loading";
 import { FieldLabel } from "../components/field-label";
 import { useState, type FormEvent } from "react";
@@ -685,7 +686,7 @@ function Adjustment({ row, onClose }: { row: Balance; onClose: () => void }) {
       <header className={css.dialogHeader}>
         <h2 id="adjust-title">Adjust leave credits</h2>
       </header>
-      <form onSubmit={(e) => void submit(e)}>
+      <FormLayout onSubmit={(e) => void submit(e)}>
         <div className={css.form}>
           <p>
             {row.employeeName} | {row.typeName} | {row.year}
@@ -758,7 +759,7 @@ function Adjustment({ row, onClose }: { row: Balance; onClose: () => void }) {
             {action.isPending ? "Posting..." : "Review adjustment"}
           </Button>
         </footer>
-      </form>
+      </FormLayout>
     </Modal>
   );
 }

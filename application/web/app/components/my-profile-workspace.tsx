@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 
 import { PageHeading, PageHeader } from "./page-heading";
 import { RequiredMark } from "./required-mark";
@@ -526,7 +527,7 @@ export default function MyProfileWorkspace() {
         )}
 
         {isEditing ? (
-          <form
+          <FormLayout
             className={styles.profileForm}
             onSubmit={handleSubmit}
             aria-busy={saveMutation.isPending}
@@ -774,7 +775,7 @@ export default function MyProfileWorkspace() {
                 {profile ? "Save changes" : "Save profile"}
               </button>
             </div>
-          </form>
+          </FormLayout>
         ) : (
           <>
             <section

@@ -19,7 +19,7 @@ const formValues: BranchFormValues = {
 
 describe("buildBranchPayload", () => {
   it("omits the immutable branch code when editing", () => {
-    const payload = buildBranchPayload(formValues, true);
+    const payload = buildBranchPayload(formValues);
 
     expect(payload).not.toHaveProperty("code");
     expect(payload).toMatchObject({
@@ -30,9 +30,10 @@ describe("buildBranchPayload", () => {
     });
   });
 
-  it("normalizes and includes the branch code when creating", () => {
-    expect(buildBranchPayload(formValues, false)).toMatchObject({
-      code: "MAKATI",
+  it("leaves code generation to the API when creating", () => {
+    const payload = buildBranchPayload(formValues);
+    expect(payload).not.toHaveProperty("code");
+    expect(payload).toMatchObject({
       name: "Mspaces Makati",
       latitude: 14.5547,
       longitude: 121.0244,

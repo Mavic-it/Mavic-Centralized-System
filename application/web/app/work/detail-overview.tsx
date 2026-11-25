@@ -25,7 +25,7 @@ export function DetailOverview({
   detail: Detail;
 }) {
   const brief = (
-    <section className={css.descriptionPanel}>
+    <section className={`${css.descriptionPanel} ${css.recordDetailCard}`}>
       <h3>{kind === "tasks" ? "Task brief" : "What happened"}</h3>
       <p className={css.prose}>{d.description}</p>
       {kind === "incidents" && d.remarks && (
@@ -36,7 +36,7 @@ export function DetailOverview({
   return (
     <div className={css.overview}>
       {kind === "tasks" && brief}
-      <div className={css.statusPanel}>
+      <div className={`${css.statusPanel} ${css.recordDetailCard}`}>
         <div>
           <span className={css.sectionLabel}>Current status</span>
           <StatusBadge
@@ -66,7 +66,7 @@ export function DetailOverview({
       </div>
       {kind === "incidents" && brief}
       {kind === "tasks" && (
-        <section className={css.progressPanel}>
+        <section className={`${css.progressPanel} ${css.recordDetailCard}`}>
           <div>
             <h3>Completion</h3>
             <span>{d.progress ?? 0}%</span>
@@ -82,7 +82,7 @@ export function DetailOverview({
         </section>
       )}
       {kind === "incidents" && d.caseStatus && (
-        <section className={css.progressPanel}>
+        <section className={`${css.progressPanel} ${css.recordDetailCard}`}>
           <h3>Linked disciplinary case</h3>
           <p className={css.muted}>
             Notices, explanations and the final decision are recorded in the
@@ -90,7 +90,7 @@ export function DetailOverview({
           </p>
         </section>
       )}
-      <dl className={css.recordMetadata}>
+      <dl className={`${css.recordMetadata} ${css.recordDetailCard}`}>
         {kind === "incidents" && (
           <>
             <div>

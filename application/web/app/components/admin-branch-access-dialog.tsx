@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { LoadingFields, LoadingList } from "./content-loading";
 import { FieldLabel } from "./field-label";
 import { useId, useState } from "react";
@@ -60,7 +61,7 @@ export function AdminBranchAccessDialog({
       <div className={styles.modalHeader}>
         <h2 id={id}>Edit shared work branches</h2>
       </div>
-      <form
+      <FormLayout
         className={`${styles.accountForm} ${choiceStyles.accessForm}`}
         onSubmit={(event) => {
           event.preventDefault();
@@ -173,7 +174,7 @@ export function AdminBranchAccessDialog({
             {save.isPending ? "Saving..." : "Save work branches"}
           </button>
         </div>
-      </form>
+      </FormLayout>
     </Modal>
   );
 }

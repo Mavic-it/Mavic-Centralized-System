@@ -7,13 +7,13 @@
   margin-bottom: 20px;
 }
 .directoryHeader h2 {
-  font-size: 18px;
+  font-size: var(--app-header-size);
   font-weight: 650;
   margin: 0;
   color: var(--ws-text, #172033);
 }
 .description {
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   line-height: 1.6;
   color: var(--ws-muted, #64748b);
   margin: 5px 0 0;
@@ -22,8 +22,8 @@
   display: inline-flex;
   gap: 3px;
   padding: 4px;
-  border: 1px solid var(--ws-border, #e2e8f0);
-  background: #f3f5f8;
+  border: 1px solid var(--ws-border, var(--border));
+  background: var(--surface-muted);
   border-radius: 11px;
 }
 .viewSwitch button {
@@ -35,15 +35,15 @@
   border: 0;
   border-radius: 7px;
   background: transparent;
-  color: #64748b;
+  color: var(--text-secondary);
   font: inherit;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   padding: 7px 11px;
   cursor: pointer;
 }
 .viewSwitch button[aria-pressed="true"] {
-  background: white;
-  color: var(--ws-brand, #c22d32);
+  background: var(--surface);
+  color: var(--primary-dark);
   box-shadow: 0 1px 5px #17203312;
 }
 .grid {
@@ -56,17 +56,17 @@
   padding: 20px 24px;
 }
 .card {
-  border: 1px solid var(--ws-border, #e2e8f0);
+  border: 1px solid var(--ws-border, var(--border));
   border-radius: 16px;
   padding: 20px;
-  background: linear-gradient(140deg, #fff, #fcfdff);
+  background: linear-gradient(140deg, var(--surface), var(--surface-subtle));
   min-width: 0;
   transition:
     border-color 0.18s,
     box-shadow 0.18s;
 }
 .card:hover {
-  border-color: #c4cedb;
+  border-color: var(--border);
   box-shadow: 0 5px 20px #17203307;
 }
 .cardHeader {
@@ -82,9 +82,9 @@
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: #fff0f2;
-  color: #b42332;
-  font-size: 15px;
+  background: var(--surface-muted);
+  color: var(--primary-dark);
+  font-size: calc(15px * var(--app-text-scale, 1));
   font-weight: 650;
 }
 .avatar img,
@@ -104,9 +104,9 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #fff0f2;
-  color: #b42332;
-  font-size: 11px;
+  background: var(--surface-muted);
+  color: var(--primary-dark);
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 650;
 }
 .identity {
@@ -114,22 +114,22 @@
   flex: 1;
 }
 .identity h3 {
-  font-size: 15px;
+  font-size: var(--app-header-size);
   margin: 2px 0 5px;
-  color: #172033;
+  color: var(--text-primary);
   overflow-wrap: anywhere;
 }
 .identity p {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   margin: 0;
-  color: #64748b;
+  color: var(--text-secondary);
   line-height: 1.6;
   overflow-wrap: anywhere;
 }
 .titleButton {
   border: 0;
   background: transparent;
-  color: #172033;
+  color: var(--text-primary);
   font: inherit;
   font-weight: 650;
   padding: 0;
@@ -138,7 +138,7 @@
   overflow-wrap: anywhere;
 }
 .titleButton:hover {
-  color: var(--ws-brand, #c22d32);
+  color: var(--primary-dark);
   text-decoration: underline;
 }
 .badges {
@@ -154,21 +154,21 @@
   gap: 6px;
   border-radius: 20px;
   padding: 5px 9px;
-  background: #eef2f6;
-  color: #526177;
-  font-size: 11px;
+  background: var(--surface-muted);
+  color: var(--text-secondary);
+  font-size: calc(11px * var(--app-text-scale, 1));
   line-height: 1.4;
 }
 .active {
-  background: #eaf7f1;
-  color: #14745b;
+  background: var(--success);
+  color: var(--status-success);
 }
 .meta {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
-  color: #64748b;
+  font-size: calc(12px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
   line-height: 1.6;
   margin: 10px 0;
   overflow-wrap: anywhere;
@@ -180,7 +180,7 @@
 .stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border: 1px solid #edf1f6;
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 12px;
   margin: 16px 0;
@@ -188,16 +188,16 @@
 }
 .stats strong {
   display: block;
-  color: #172033;
-  font-size: 19px;
+  color: var(--text-primary);
+  font-size: calc(19px * var(--app-text-scale, 1));
   margin-bottom: 3px;
 }
 .stats span {
-  color: #64748b;
-  font-size: 11px;
+  color: var(--text-secondary);
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 .cardFooter {
-  border-top: 1px solid #edf1f6;
+  border-top: 1px solid var(--border);
   padding-top: 15px;
   margin-top: 18px;
   display: flex;
@@ -211,19 +211,19 @@
   align-items: center;
   gap: 7px;
   min-height: 39px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   border-radius: 9px;
   padding: 8px 12px;
-  background: white;
-  color: #172033;
+  background: var(--surface);
+  color: var(--text-primary);
   font: inherit;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 550;
   cursor: pointer;
   text-decoration: none;
 }
 .button:hover {
-  background: #f5f7fa;
+  background: var(--surface-subtle);
 }
 .button:disabled {
   opacity: 0.5;
@@ -239,19 +239,19 @@
 .filters label {
   display: grid;
   gap: 6px;
-  color: #64748b;
-  font-size: 11px;
+  color: var(--text-secondary);
+  font-size: calc(11px * var(--app-text-scale, 1));
   flex: 1 1 150px;
   min-width: 0;
 }
 .filters select {
   min-height: 42px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   border-radius: 10px;
-  background: #fff;
-  color: #172033;
+  background: var(--surface);
+  color: var(--text-primary);
   font: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   padding: 8px 11px;
   width: 100%;
 }
@@ -266,21 +266,21 @@
   justify-content: center;
   gap: 8px;
   cursor: pointer;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   border-radius: 9px;
   min-height: 36px;
   padding: 7px 10px;
-  color: #526177;
-  background: #fff;
-  font-size: 12px;
+  color: var(--text-secondary);
+  background: var(--surface);
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 550;
   white-space: nowrap;
 }
 .managementTrigger:hover,
 .managementTrigger[aria-expanded="true"] {
-  color: #b42332;
-  background: #fff8f9;
-  border-color: #efd6da;
+  color: var(--primary-dark);
+  background: var(--surface-subtle);
+  border-color: var(--border);
 }
 .managementTrigger > svg:last-child {
   transition: transform 0.18s;
@@ -298,9 +298,9 @@
   max-height: min(420px, calc(100vh - 16px));
   overflow-y: auto;
   padding: 6px;
-  border: 1px solid #dce3ec;
+  border: 1px solid var(--border);
   border-radius: 12px;
-  background: #fff;
+  background: var(--surface);
   box-shadow: 0 16px 40px #17203326;
 }
 .action {
@@ -311,11 +311,11 @@
   min-height: 36px;
   padding: 8px 10px;
   border: 0;
-  background: #fff;
+  background: var(--surface);
   border-radius: 7px;
-  color: #526177;
+  color: var(--text-secondary);
   font: inherit;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   text-align: left;
   cursor: pointer;
 }
@@ -323,15 +323,15 @@
   flex-shrink: 0;
 }
 .action:hover {
-  background: #f5f7fa;
-  color: #172033;
+  background: var(--surface-subtle);
+  color: var(--text-primary);
 }
 .danger {
-  color: #b42332;
+  color: var(--status-danger);
 }
 .danger:hover {
-  background: #fff0f2;
-  color: #9e1c2b;
+  background: var(--danger-soft);
+  color: var(--status-danger);
 }
 .action:disabled {
   opacity: 0.5;
@@ -349,33 +349,33 @@
   cursor: wait;
 }
 .summaryButton.summaryButton[aria-pressed="true"] {
-  border-color: #d88792;
-  background: linear-gradient(120deg, #fff8f9, #fff);
+  border-color: var(--primary);
+  background: linear-gradient(120deg, var(--primary-soft), var(--surface));
 }
 .accountDialog.accountDialog {
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   border-radius: 20px;
   padding: 28px;
   box-shadow: 0 24px 80px #0f172a26;
 }
 .accountDialog h2 {
-  font-size: 20px;
+  font-size: var(--app-header-size);
   letter-spacing: -0.025em;
 }
 .accountDialog label {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .accountDialog :is(input:not([type="checkbox"]):not([type="radio"]), select) {
   border-radius: 10px;
   min-height: 43px;
-  font-size: 13px;
-  border-color: #dce3ec;
+  font-size: calc(13px * var(--app-text-scale, 1));
+  border-color: var(--border);
 }
 .accountDialog input:disabled {
-  background: #f5f7fa;
+  background: var(--surface-subtle);
 }
 .accountDialog :is(input, select):focus-visible {
-  outline: 2px solid var(--ws-brand, #c22d32);
+  outline: 2px solid var(--ws-brand, var(--focus-ring));
   outline-offset: 2px;
 }
 .accountDialog::backdrop {
@@ -389,11 +389,11 @@
 }
 .summaryButton:hover {
   box-shadow: 0 4px 16px #17203308;
-  border-color: #c7d0dc;
+  border-color: var(--border);
 }
 .summaryButton[aria-pressed="true"] {
-  border-color: #d88792;
-  background: linear-gradient(120deg, #fff8f9, #fff);
+  border-color: var(--primary);
+  background: linear-gradient(120deg, var(--primary-soft), var(--surface));
 }
 .summaryButton small {
   display: flex;
@@ -404,11 +404,11 @@
 .empty {
   padding: 32px 20px;
   text-align: center;
-  color: #64748b;
-  border: 1px dashed #d7dfe9;
+  color: var(--text-secondary);
+  border: 1px dashed var(--border);
   border-radius: 13px;
-  background: #f8fafc;
-  font-size: 13px;
+  background: var(--surface-subtle);
+  font-size: calc(13px * var(--app-text-scale, 1));
 }
 .loadingCard {
   display: grid;
@@ -424,7 +424,7 @@
   .action,
   .summaryButton
 ):focus-visible {
-  outline: 2px solid var(--ws-brand, #c22d32);
+  outline: 2px solid var(--ws-brand, var(--focus-ring));
   outline-offset: 3px;
 }
 @media (max-width: 1100px) {

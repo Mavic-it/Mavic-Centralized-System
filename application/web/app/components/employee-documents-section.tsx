@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
@@ -299,7 +300,7 @@ export default function EmployeeDocumentsSection({
               }}
             />
           </header>
-          <form className={styles.uploadForm} onSubmit={uploadDocument}>
+          <FormLayout className={styles.uploadForm} onSubmit={uploadDocument}>
             <label>
               <span>
                 Document type <RequiredMark />
@@ -372,7 +373,7 @@ export default function EmployeeDocumentsSection({
                 {uploadMutation.isPending ? "Uploading…" : "Upload file"}
               </Button>
             </div>
-          </form>
+          </FormLayout>
         </Modal>
       )}
       <div className={styles.documentSearchRow}>

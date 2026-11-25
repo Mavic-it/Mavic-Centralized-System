@@ -124,3 +124,13 @@ describe('branch manager list access', () => {
     })).rejects.toThrow(ForbiddenException);
   });
 });
+
+describe('branch code suggestion access', () => {
+  it('suggests a code only to an account allowed to create branches', async () => {
+    const { controller, request } = await setup();
+    await expect(controller.suggestCode(request('SUPER_ADMIN', null), { name: 'New Makati' }))
+      .resolves.toMatchObject({ data: { code: 'NEW-MAKATI' } });
+    await expect(controller.suggestCode(request('BRANCH_MANAGER'), { name: 'New Makati' }))
+      .rejects.toThrow(ForbiddenException);
+  });
+});

@@ -1,16 +1,161 @@
 /* All modal surfaces use the browser top layer, above navigation and page overlays. */
 .app-modal.app-modal {
-  background: #fff;
-  border: 1px solid #e3e6e4;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 14px;
   box-shadow: 0 24px 80px rgb(16 24 20 / 20%);
-  color: #252c28;
+  color: var(--text-primary);
   margin: auto;
   max-height: calc(100dvh - 32px);
   overflow: auto;
   overscroll-behavior: contain;
   padding: 24px;
   width: calc(100vw - 32px);
+}
+
+.app-modal.app-modal[data-presentation="drawer"]:has(
+    form[data-form-layout="standard"]
+  ) {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+.app-modal.app-modal[data-presentation="drawer"]:has(
+    form[data-form-layout="standard"]
+  )
+  > :not(form, header):has(form[data-form-layout="standard"]) {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
+  max-height: none;
+  overflow: hidden;
+  padding: 0;
+}
+
+.app-modal.app-modal[data-presentation="drawer"]:has(
+    form[data-form-layout="standard"]
+  )
+  form[data-form-layout="standard"]:not([data-form-scroll="contained"]) {
+  flex: 1;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
+  overflow: auto;
+  padding: 20px 24px 24px;
+}
+
+.app-modal.app-modal[data-presentation="drawer"]:has(
+    form[data-form-layout="standard"]
+  )
+  > :is(header, div):has(> h2),
+.app-modal.app-modal[data-presentation="drawer"]:has(
+    form[data-form-layout="standard"]
+  )
+  > header:has(h2),
+.app-modal.app-modal[data-presentation="drawer"]:has(
+    form[data-form-layout="standard"]
+  )
+  > :not(form, header):has(form[data-form-layout="standard"])
+  > :is(header, div):has(h2) {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  min-width: 0;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.app-modal.app-modal[data-presentation="drawer"]:has(
+    form[data-form-layout="standard"]
+  )
+  > :is(header, div):has(> h2) > h2,
+.app-modal.app-modal[data-presentation="drawer"]:has(
+    form[data-form-layout="standard"]
+  )
+  > header:has(h2) h2,
+.app-modal.app-modal[data-presentation="drawer"]:has(
+    form[data-form-layout="standard"]
+  )
+  > :is(div, section):has(form[data-form-layout="standard"])
+  > :is(header, div):has(h2)
+  h2,
+.app-modal.app-modal[data-presentation="drawer"]:has(
+    form[data-form-layout="standard"]
+  )
+  form[data-form-layout="standard"]
+  > :is(header, div):has(h2)
+  h2 {
+  color: var(--text-primary);
+  font-size: calc(24px * var(--app-text-scale, 1));
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+.app-modal.app-modal[data-presentation="drawer"]:has(
+    form[data-form-layout="standard"]
+  )
+  form[data-form-layout="standard"]
+  > :is(header, div):has(h2) {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  min-width: 0;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.app-modal.app-modal[data-presentation="drawer"]:has(
+    form[data-form-layout="standard"]
+  )
+  h2 {
+  margin: 0;
+}
+
+.app-modal.app-modal[data-presentation="drawer"]:has(
+    form[data-form-layout="standard"]
+  )
+  form[data-form-layout="standard"]
+  > footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+  padding: 14px 0 0;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.app-modal.app-modal[data-presentation="drawer"]:has(
+    form[data-form-frame="flush"]
+  )
+  form[data-form-frame="flush"] {
+  padding: 0;
 }
 :where(.app-modal) {
   max-width: 720px;
@@ -22,11 +167,11 @@
   outline: none;
 }
 .app-modal :is(button, input, select, textarea, a):focus-visible {
-  outline: 2px solid #b91c2b;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }
 .app-modal h2 {
-  font-size: 19px;
+  font-size: var(--app-header-size);
   font-weight: 650;
   line-height: 1.4;
   letter-spacing: -0.02em;
@@ -41,7 +186,7 @@
     textarea
   ) {
   border-radius: 7px;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   min-height: 40px;
 }
 .app-modal :is(button:disabled, input:disabled, select:disabled) {
@@ -51,7 +196,7 @@
   align-items: center;
   background: transparent;
   border: 0;
-  color: #707973;
+  color: var(--text-secondary);
   cursor: pointer;
   display: inline-flex;
   height: 36px;
@@ -59,8 +204,8 @@
   width: 36px;
 }
 .app-modal-close:hover {
-  background: #f2f4f3;
-  color: #252c28;
+  background: var(--surface-hover);
+  color: var(--text-primary);
 }
 .app-modal.app-confirmation {
   max-width: 460px;
@@ -73,33 +218,33 @@
 }
 .app-confirmation-icon {
   align-items: center;
-  background: #f0f4f2;
-  border: 1px solid #e3eae6;
+  background: var(--success);
+  border: 1px solid color-mix(in srgb, var(--status-success) 22%, var(--border));
   border-radius: 12px;
-  color: #405c4e;
+  color: var(--success-foreground);
   display: inline-flex;
   height: 44px;
   justify-content: center;
   width: 44px;
 }
 .app-confirmation-icon-danger {
-  background: #fff1f2;
-  border-color: #ffe0e3;
-  color: #b91c2b;
+  background: var(--danger-soft);
+  border-color: color-mix(in srgb, var(--status-danger) 28%, var(--border));
+  color: var(--status-danger);
 }
 .app-confirmation h2 {
   margin: 0 0 10px;
   overflow-wrap: anywhere;
 }
 .app-confirmation-description {
-  color: #626d66;
-  font-size: 14px;
+  color: var(--text-secondary);
+  font-size: calc(14px * var(--app-text-scale, 1));
   line-height: 1.65;
   margin: 0;
   overflow-wrap: anywhere;
 }
 .app-confirmation-actions {
-  border-top: 1px solid #edf0ee;
+  border-top: 1px solid var(--border);
   display: flex;
   gap: 10px;
   justify-content: flex-end;
@@ -110,36 +255,75 @@
 .app-modal-primary {
   cursor: pointer;
   font: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   font-weight: 600;
   min-height: 40px;
   padding: 9px 16px;
 }
 .app-modal-secondary {
-  background: #fff;
-  border: 1px solid #dce2de;
-  color: #343e37;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
 }
 .app-modal-secondary:hover {
-  background: #f5f7f6;
+  background: var(--surface-hover);
 }
 .app-modal-primary {
-  background: #304c3f;
+  background: var(--primary);
   border: 1px solid transparent;
-  color: #fff;
+  color: var(--primary-foreground);
 }
 .app-modal-primary:hover {
-  background: #243e32;
+  background: var(--primary-hover);
 }
 .app-modal-danger {
-  background: #bd2433;
+  background: var(--destructive);
+  color: var(--destructive-foreground);
 }
 .app-modal-danger:hover {
-  background: #a51d2a;
+  background: var(--destructive-hover);
 }
 @media (max-width: 600px) {
   .app-modal.app-modal {
     padding: 20px 16px;
+  }
+
+  .app-modal.app-modal[data-presentation="drawer"]:has(
+      form[data-form-layout="standard"]
+    )
+    form[data-form-layout="standard"]:not([data-form-scroll="contained"]) {
+    padding: 16px;
+  }
+
+  .app-modal.app-modal[data-presentation="drawer"]:has(
+      form[data-form-layout="standard"]
+    )
+    > :is(header, div):has(> h2),
+  .app-modal.app-modal[data-presentation="drawer"]:has(
+      form[data-form-layout="standard"]
+    )
+    > header:has(h2),
+  .app-modal.app-modal[data-presentation="drawer"]:has(
+      form[data-form-layout="standard"]
+    )
+    > :not(form, header):has(form[data-form-layout="standard"])
+    > :is(header, div):has(h2) {
+    padding: 16px;
+  }
+
+  .app-modal.app-modal[data-presentation="drawer"]:has(
+      form[data-form-layout="standard"]
+    )
+    form[data-form-layout="standard"]
+    > :is(header, div):has(h2) {
+    padding: 16px;
+  }
+
+  .app-modal.app-modal[data-presentation="drawer"]:has(
+      form[data-form-frame="flush"]
+    )
+    form[data-form-frame="flush"] {
+    padding: 0;
   }
 }
 @media (max-width: 380px) {
@@ -179,7 +363,7 @@
   transform: none !important;
   box-sizing: border-box;
   border: 0;
-  border-left: 1px solid #dce3ed;
+  border-left: 1px solid var(--border);
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;

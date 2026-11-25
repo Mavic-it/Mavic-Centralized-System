@@ -19,7 +19,7 @@ export type BranchFormValues = {
 export const LEGACY_BRANCH_MANAGER = "__legacy__";
 
 export const branchFormSchema = z.object({
-  code: z.string().trim().min(2, "Enter a branch code").max(50, "Branch code must be 50 characters or fewer").regex(/^[A-Za-z0-9][A-Za-z0-9_-]*$/, "Use letters, numbers, hyphens, or underscores"),
+  code: z.string().trim().max(50, "Branch code must be 50 characters or fewer").regex(/^$|^[A-Za-z0-9][A-Za-z0-9_-]+$/, "Use letters, numbers, hyphens, or underscores"),
   name: z.string().trim().min(1, "Enter a branch name").max(200, "Branch name must be 200 characters or fewer"),
   description: z.string().trim().max(2000, "Description must be 2,000 characters or fewer"),
   address: z.string().trim().min(1, "Enter an address").max(500, "Address must be 500 characters or fewer"),
@@ -40,27 +40,25 @@ export const branchFormSchema = z.object({
 
 export function buildBranchPayload(
   values: BranchFormValues,
-  isEditing: boolean,
 ) {
-  const { code, ...details } = values;
-  const isLegacyManager = details.managerUserId === LEGACY_BRANCH_MANAGER;
+  const isLegacyManager = values.managerUserId === LEGACY_BRANCH_MANAGER;
   const normalizedDetails = {
-    ...details,
-    description: details.description || null,
-    province: details.province || null,
-    postalCode: details.postalCode || null,
-    phone: details.phone || null,
-    email: details.email || null,
+    name: values.name,
+    description: values.description || null,
+    address: values.address,
+    city: values.city,
+    province: values.province || null,
+    postalCode: values.postalCode || null,
+    phone: values.phone || null,
+    email: values.email || null,
     managerUserId:
-      details.managerUserId && !isLegacyManager
-        ? details.managerUserId
+      values.managerUserId && !isLegacyManager
+        ? values.managerUserId
         : null,
-    managerName: isLegacyManager ? details.managerName || null : null,
-    latitude: details.latitude,
-    longitude: details.longitude,
+    managerName: isLegacyManager ? values.managerName || null : null,
+    latitude: values.latitude,
+    longitude: values.longitude,
   };
 
-  return isEditing
-    ? normalizedDetails
-    : { ...normalizedDetails, code: code.trim().toUpperCase() };
+  return normalizedDetails;
 }

@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { RequiredMark } from "../components/required-mark";
 import { useState, type FormEvent } from "react";
 import { useMutation } from "@tanstack/react-query";
@@ -69,7 +70,7 @@ export function DtrSettings({
           order used in your file. First-and-last punch pairing requires an
           approved HR reconciliation policy.
         </p>
-        <form onSubmit={submitTemplate} className={styles.workspace}>
+        <FormLayout onSubmit={submitTemplate} className={styles.workspace}>
           <label className={styles.field}>
             <span>
               Template name / device
@@ -184,7 +185,7 @@ export function DtrSettings({
           <button className={styles.button} disabled={template.isPending}>
             {template.isPending ? "Saving…" : "Save new template version"}
           </button>
-        </form>
+        </FormLayout>
       </section>
       <section className={styles.card}>
         <h3>Calculation policy & holidays</h3>
@@ -194,7 +195,7 @@ export function DtrSettings({
           placement here. Policy changes require reopening protected periods,
           then recalculation.
         </p>
-        <form
+        <FormLayout
           className={styles.workspace}
           onSubmit={(e) => {
             e.preventDefault();
@@ -385,7 +386,7 @@ export function DtrSettings({
           <button className={styles.button} disabled={settings.isPending}>
             Save approved policy
           </button>
-        </form>
+        </FormLayout>
       </section>
     </div>
   );

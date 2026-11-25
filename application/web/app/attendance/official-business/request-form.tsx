@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { useState, type FormEvent } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Modal } from "../../components/ui/modal";
@@ -85,7 +86,7 @@ export function ObRequestForm({
           Close
         </Button>
       </header>
-      <form onSubmit={(e) => void submit(e)}>
+      <FormLayout onSubmit={(e) => void submit(e)}>
         <div className={css.formGrid}>
           <fieldset disabled={busy} className={css.fields}>
             <section
@@ -262,7 +263,7 @@ export function ObRequestForm({
                 : "Preview attendance"}
           </Button>
         </footer>
-      </form>
+      </FormLayout>
     </Modal>
   );
 }

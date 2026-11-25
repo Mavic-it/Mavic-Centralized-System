@@ -36,6 +36,7 @@ import {
   BranchStatusDto,
   CreateBranchDto,
   DeleteBranchDto,
+  SuggestBranchCodeDto,
   UpdateBranchDto,
 } from './branch.dto.js';
 
@@ -124,6 +125,26 @@ export class BranchesController {
         },
       },
       message: 'Branches retrieved successfully',
+    };
+  }
+
+  @Get('code-suggestion')
+  async suggestCode(
+    @Req() request: AuthenticatedRequest,
+    @Query(
+      new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        transform: true,
+      }),
+    )
+    query: SuggestBranchCodeDto,
+  ) {
+    this.authorize(request, 'CREATE');
+    return {
+      success: true,
+      data: { code: await this.service.suggestCode(query.name) },
+      message: 'Branch code suggested successfully',
     };
   }
 

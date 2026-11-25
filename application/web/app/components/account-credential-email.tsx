@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 
 import type { FormEvent } from "react";
 import type { WorkspaceAccount } from "../data/people";
@@ -83,7 +84,7 @@ export function CredentialRegenerationDialog({
         does not confirm inbox delivery. Allow 30 seconds between attempts; an
         interrupted send can be retried after two minutes.
       </p>
-      <form onSubmit={onSubmit} className={styles.accountForm}>
+      <FormLayout onSubmit={onSubmit} className={styles.accountForm}>
         {error && (
           <p className={styles.formError} role="alert">
             {error}
@@ -106,7 +107,7 @@ export function CredentialRegenerationDialog({
             {pending ? "Sending credential email…" : "Regenerate & email"}
           </button>
         </div>
-      </form>
+      </FormLayout>
     </Modal>
   );
 }

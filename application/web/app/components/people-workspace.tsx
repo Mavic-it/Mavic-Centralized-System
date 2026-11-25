@@ -1,6 +1,6 @@
 "use client";
-import { LoadingList, LoadingRegion, LoadingLines } from "./content-loading";
-import { Skeleton } from "./loading-ui";
+import { FormLayout } from "@/app/components/ui/form-layout";
+import { LoadingRegion, LoadingLines } from "./content-loading";
 import { EmployeeWorkBranches } from "./employee-work-branches";
 import { loadActiveBranches, loadWorkspaceBranchAccess } from "../lib/branch-access";
 import { PageHeading, PageHeader } from "./page-heading";
@@ -17,6 +17,7 @@ import { EmployeeProfileTabs } from "./employee-profile-tabs";
 import profileTabs from "./employee-profile-tabs.module.css";
 import { EmployeeIncidentHistory } from "./employee-incident-history";
 import { RealtimeQueryProvider } from "./realtime-query-provider";
+import AnalyticsWorkspace from "../analytics/workspace";
 
 import {
   ArrowLeft,
@@ -26,7 +27,6 @@ import {
   RefreshCw,
   LayoutGrid,
   List,
-  Clock3,
   FileText,
   Archive,
   KeyRound,
@@ -38,7 +38,6 @@ import {
   Search,
   ShieldCheck,
   Trash2,
-  type LucideIcon,
   UsersRound,
   X,
 } from "lucide-react";
@@ -248,33 +247,6 @@ function StatusPill({ value }: { value: string | null | undefined }) {
   );
 }
 
-function Metric({
-  icon: Icon,
-  label,
-  value,
-  detail,
-  tone,
-}: {
-  icon: LucideIcon;
-  label: string;
-  value: ReactNode;
-  detail: string;
-  tone: "red" | "green" | "amber" | "gray";
-}) {
-  return (
-    <article className={styles.metric}>
-      <div className={styles.metricTop}>
-        <span className={`${styles.metricIcon} ${styles[`tone-${tone}`]}`}>
-          <Icon aria-hidden="true" size={17} />
-        </span>
-        <span>{label}</span>
-      </div>
-      <strong className={styles.metricValue}>{value}</strong>
-      <span className={styles.metricDetail}>{detail}</span>
-    </article>
-  );
-}
-
 function SectionTitle({ title, aside }: { title: string; aside?: ReactNode }) {
   return (
     <div className={styles.sectionTitle}>
@@ -288,6 +260,7 @@ export default function PeopleWorkspace({
   mode,
   employeeId,
 }: PeopleWorkspaceProps) {
+  if (mode === "hr") return <AnalyticsWorkspace mode="hr" />;
   const copy = peoplePageCopy[mode];
   const isEmployeeWorkspace =
     mode === "employees" || mode === "employee-profile";
@@ -305,8 +278,9 @@ export default function PeopleWorkspace({
     <div
       className={[
         styles.page,
+        workspaceTheme.scope,
         isModernWorkspace
-          ? `${workspaceTheme.scope} ${styles.employeeWorkspace}`
+          ? styles.employeeWorkspace
           : "",
         mode === "users" ? styles.userWorkspace : "",
         mode === "me" ? `${styles.portalPage} ${styles.employeeFilePage}` : "",
@@ -323,9 +297,6 @@ export default function PeopleWorkspace({
                 ? "PEOPLE / EMPLOYEE DIRECTORY"
                 : "PEOPLE / EMPLOYEE 201 FILE"}
             </p>
-          )}
-          {mode === "hr" && (
-            <p className={styles.employeeEyebrow}>WORKFORCE / HR MANAGEMENT</p>
           )}
           {mode === "users" && (
             <p className={styles.employeeEyebrow}>
@@ -362,7 +333,6 @@ export default function PeopleWorkspace({
         </div>
       )}
 
-      {mode === "hr" && <HrOverview />}
       {mode === "employees" && <EmployeeDirectory />}
       {mode === "employee-profile" && (
         <EmployeeProfile
@@ -373,125 +343,6 @@ export default function PeopleWorkspace({
       {mode === "me" && <EmployeePortal onNotice={notifySuccess} />}
       {mode === "users" && <UserAccess onNotice={notifySuccess} />}
     </div>
-  );
-}
-
-function HrOverview() {
-  const [queryClient] = useState(() => new QueryClient());
-  return (
-    <RealtimeQueryProvider client={queryClient}>
-      <HrOverviewContent />
-    </RealtimeQueryProvider>
-  );
-}
-
-function HrOverviewContent() {
-  const role = useWorkspaceRole();
-  const employeesQuery = useQuery({
-    queryKey: ["employees", "hr-overview"],
-    queryFn: async () => {
-      const records = await hrRequest<EmployeeApiRecord[]>("employees");
-      return records.map(toWorkspaceEmployee);
-    },
-  });
-  const employees = employeesQuery.data ?? [];
-  const activeEmployees = employees.filter(
-    (employee) => employee.status === "ACTIVE",
-  );
-
-  return (
-    <>
-      <section aria-label="HR summary" className={styles.metricGrid}>
-        <Metric
-          icon={UsersRound}
-          label="Team members"
-          value={
-            employeesQuery.isLoading
-              ? <Skeleton className="loading-card-value" />
-              : employeesQuery.isError
-                ? "Unavailable"
-                : String(employees.length)
-          }
-          detail="Visible within your assigned scope"
-          tone="red"
-        />
-        <Metric
-          icon={Clock3}
-          label="Active employees"
-          value={
-            employeesQuery.isLoading
-              ? <Skeleton className="loading-card-value" />
-              : employeesQuery.isError
-                ? "Unavailable"
-                : String(activeEmployees.length)
-          }
-          detail="Active employee records in scope"
-          tone="green"
-        />
-      </section>
-
-      <div className={styles.contentGrid}>
-        <section className={styles.panel}>
-          <SectionTitle title="People at a glance" />
-          {employeesQuery.isLoading && (
-            <LoadingList label="Loading employees" items={3} avatar className={styles.teamList} itemClassName={styles.teamRow} />
-          )}
-          {employeesQuery.isError && (
-            <div className={styles.formError} role="alert">
-              <p>Employee records could not be loaded.</p>
-              <button
-                type="button"
-                className={styles.secondaryButton}
-                onClick={() => void employeesQuery.refetch()}
-              >
-                Retry employee records
-              </button>
-            </div>
-          )}
-          {employees.length === 0 &&
-            !employeesQuery.isLoading &&
-            !employeesQuery.isError && (
-              <p className={styles.emptyState}>
-                No employee records in this scope.
-              </p>
-            )}
-          <div className={styles.teamList}>
-            {activeEmployees.slice(0, 3).map((employee) => (
-              <Link
-                className={styles.teamRow}
-                href={`/employees/${employee.id}`}
-                key={employee.id}
-              >
-                <div className={styles.avatar}>
-                  {employee.name
-                    .split(" ")
-                    .map((part) => part[0])
-                    .join("")}
-                </div>
-                <span className={styles.teamIdentity}>
-                  <strong>{employee.name}</strong>
-                  <small>
-                    {employee.position} · {employee.branch}
-                  </small>
-                </span>
-                <ChevronRight aria-hidden="true" size={16} />
-              </Link>
-            ))}
-          </div>
-          <div className={styles.panelFooterLinks}>
-            <Link className={styles.textLink} href="/employees">
-              View employee directory{" "}
-              <ChevronRight aria-hidden="true" size={14} />
-            </Link>
-            {role === "SUPER_ADMIN" && (
-              <Link className={styles.textLink} href="/system/users">
-                Review user access <ChevronRight aria-hidden="true" size={14} />
-              </Link>
-            )}
-          </div>
-        </section>
-      </div>
-    </>
   );
 }
 
@@ -810,7 +661,7 @@ function EmployeeDirectoryContent() {
                 type="button"
               />
             </div>
-            <form className={styles.accountForm} onSubmit={submitEmployee}>
+            <FormLayout className={styles.accountForm} onSubmit={submitEmployee}>
               <fieldset className={styles.formSection}>
                 <legend>Personal information</legend>
                 <div className={styles.formSectionFields}>
@@ -1193,7 +1044,7 @@ function EmployeeDirectoryContent() {
                   {createMutation.isPending ? "Creating..." : "Create employee"}
                 </button>
               </div>
-            </form>
+            </FormLayout>
           </Modal>
         )}
       </section>
@@ -1750,7 +1601,7 @@ function EmployeeProfileContent({
               HR profile
             </button>
           </nav>
-          <form
+          <FormLayout
             className={styles.accountForm}
             hidden={employeeEditorSection !== "employee"}
             id="employee-editor-details-form"
@@ -1941,7 +1792,7 @@ function EmployeeProfileContent({
                 </label>
               </div>
             </fieldset>
-          </form>
+          </FormLayout>
           {hasOpenedHrProfileEditor && role !== "IT_ADMIN" && (
             <div
               aria-labelledby="employee-editor-hr-profile-tab"
@@ -2009,7 +1860,7 @@ function EmployeeProfileContent({
               type="button"
             />
           </div>
-          <form
+          <FormLayout
             className={styles.accountForm}
             onSubmit={(event) => {
               event.preventDefault();
@@ -2113,7 +1964,7 @@ function EmployeeProfileContent({
                   : "Save contact"}
               </button>
             </div>
-          </form>
+          </FormLayout>
         </Modal>
       )}
 
@@ -2520,7 +2371,7 @@ export function EmployeePortalContent({
               type="button"
             />
           </div>
-          <form
+          <FormLayout
             className={styles.accountForm}
             onSubmit={(event) => {
               event.preventDefault();
@@ -2628,7 +2479,7 @@ export function EmployeePortalContent({
                   : "Save contact"}
               </button>
             </div>
-          </form>
+          </FormLayout>
         </Modal>
       )}
     </>
@@ -3562,7 +3413,7 @@ function UserAccessContent({
             come from the selected employee record. Use Edit shared work branches
             to update branch access.
           </p>
-          <form className={styles.accountForm} onSubmit={updateAccountRole}>
+          <FormLayout className={styles.accountForm} onSubmit={updateAccountRole}>
             <fieldset className={styles.formSection}>
               <legend>Access details</legend>
               <div className={styles.formSectionFields}>
@@ -3743,7 +3594,7 @@ function UserAccessContent({
                 {isRoleUpdatePending ? "Saving role..." : "Save role"}
               </button>
             </div>
-          </form>
+          </FormLayout>
         </Modal>
       )}
       {isCreateOpen && (
@@ -3771,7 +3622,7 @@ function UserAccessContent({
               type="button"
             />
           </div>
-          <form className={styles.accountForm} onSubmit={createAccount}>
+          <FormLayout className={styles.accountForm} onSubmit={createAccount}>
             <fieldset className={styles.formSection}>
               <legend>Access details</legend>
               <div className={styles.formSectionFields}>
@@ -4048,7 +3899,7 @@ function UserAccessContent({
                     : "Create account"}
               </button>
             </div>
-          </form>
+          </FormLayout>
         </Modal>
       )}
       {pendingDeactivation && (
@@ -4289,7 +4140,7 @@ function UserAccessContent({
           <p className={styles.modalCopy}>
             Set a new initial password for {resetTarget.name}.
           </p>
-          <form className={styles.accountForm} onSubmit={resetAccountPassword}>
+          <FormLayout className={styles.accountForm} onSubmit={resetAccountPassword}>
             <label>
               <ModalFieldLabel required>New password</ModalFieldLabel>
               <input
@@ -4326,7 +4177,7 @@ function UserAccessContent({
                 {isActionPending ? "Resetting..." : "Reset password"}
               </button>
             </div>
-          </form>
+          </FormLayout>
         </Modal>
       )}
     </>

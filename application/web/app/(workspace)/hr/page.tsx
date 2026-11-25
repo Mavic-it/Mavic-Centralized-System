@@ -1,10 +1,6 @@
 import AuthorizedWorkspacePage from "../../components/authorized-workspace-page";
-import PeopleWorkspace from "../../components/people-workspace";
+import AnalyticsWorkspace from "../../analytics/workspace";
 
 export default function HrPage() {
-  return (
-    <AuthorizedWorkspacePage access="hr" returnPath="/hr">
-      <PeopleWorkspace mode="hr" />
-    </AuthorizedWorkspacePage>
-  );
+  return <AuthorizedWorkspacePage access="hr" returnPath="/hr"><AnalyticsWorkspace mode="hr" /></AuthorizedWorkspacePage>;
 }

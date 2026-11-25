@@ -1,6 +1,8 @@
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { Modal } from "../../components/ui/modal";
 import { LoaderCircle, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { IconActionButton } from "../../components/icon-action-button";
 import { LoadingRegion } from "../../components/content-loading";
 import { Skeleton } from "../../components/loading-ui";
@@ -9,7 +11,10 @@ import type { UseMutationResult } from "@tanstack/react-query";
 import type { SelectedBranchLocation } from "../openstreetmap-location-picker";
 import { OpenStreetMapLocationPicker } from "../openstreetmap-location-picker";
 import type { Branch, BranchForm } from "../branch-types";
-import { fetchBranchManagerOptions } from "../services/branch-service";
+import {
+  fetchBranchCodeSuggestion,
+  fetchBranchManagerOptions,
+} from "../services/branch-service";
 import { LEGACY_BRANCH_MANAGER } from "../branch-payload";
 import { Field } from "./branch-field";
 
@@ -34,6 +39,53 @@ export function BranchFormDialog({
   onApplyLocation,
   onClearMapCoordinates,
 }: BranchFormDialogProps) {
+  const branchName = form.watch("name");
+  const branchCode = form.watch("code");
+  const setCode = form.setValue;
+  const [nameForSuggestion, setNameForSuggestion] = useState("");
+  useEffect(() => {
+    const timer = window.setTimeout(
+      () => setNameForSuggestion(editing ? "" : branchName.trim()),
+      250,
+    );
+    return () => window.clearTimeout(timer);
+  }, [branchName, editing]);
+  const codeSuggestion = useQuery({
+    queryKey: ["branch-code-suggestion", nameForSuggestion],
+    queryFn: () => fetchBranchCodeSuggestion(nameForSuggestion),
+    enabled: !editing && Boolean(nameForSuggestion),
+    refetchOnMount: "always",
+    retry: false,
+  });
+  useEffect(() => {
+    if (
+      !editing &&
+      nameForSuggestion === branchName.trim() &&
+      codeSuggestion.data
+    ) {
+      setCode("code", codeSuggestion.data, { shouldDirty: true, shouldValidate: true });
+    }
+  }, [branchName, codeSuggestion.data, editing, nameForSuggestion, setCode]);
+  const codeHelp = !branchName.trim()
+    ? "Enter a branch name to generate a code."
+    : nameForSuggestion !== branchName.trim() ||
+        codeSuggestion.isFetching ||
+        codeSuggestion.isPending
+      ? "Checking available branch codes..."
+      : codeSuggestion.isError
+        ? "Code preview unavailable. A unique code will be assigned when you save."
+        : "Suggested from the name. The final code is confirmed when saved.";
+  const codePreview = editing
+    ? branchCode || "No branch code"
+    : !branchName.trim()
+      ? "Generated automatically"
+      : nameForSuggestion !== branchName.trim() ||
+          codeSuggestion.isFetching ||
+          codeSuggestion.isPending
+        ? "Generating..."
+        : codeSuggestion.isError
+          ? "Assigned when saved"
+          : codeSuggestion.data ?? "Generating...";
   const managers = useQuery({
     queryKey: ["branch-manager-options", editing?.id ?? "new"],
     queryFn: () => fetchBranchManagerOptions(editing?.id),
@@ -74,7 +126,7 @@ export function BranchFormDialog({
           />
         </div>
 
-        <form
+        <FormLayout
           className="branch-form"
           noValidate
           onSubmit={form.handleSubmit((values) => save.mutate(values))}
@@ -83,24 +135,47 @@ export function BranchFormDialog({
             <legend>Basic information</legend>
             <div className="branch-form-grid">
               <Field
-                label="Branch code"
-                required
-                error={form.formState.errors.code?.message}
-              >
-                <input
-                  disabled={Boolean(editing)}
-                  maxLength={50}
-                  required
-                  {...form.register("code", { required: true })}
-                />
-              </Field>
-              <Field
                 label="Branch name"
                 required
                 error={form.formState.errors.name?.message}
               >
-                <input required maxLength={200} {...form.register("name")} />
+                <input
+                  required
+                  maxLength={200}
+                  {...form.register("name", {
+                    onChange: () => {
+                      if (!editing) {
+                        form.setValue("code", "", { shouldDirty: true });
+                      }
+                    },
+                  })}
+                />
               </Field>
+              <div className="branch-field">
+                <span
+                  className="branch-field-label form-field-label"
+                  id="branch-code-label"
+                >
+                  Branch code
+                </span>
+                <input type="hidden" {...form.register("code")} />
+                <output
+                  className="branch-code-display"
+                  aria-labelledby="branch-code-label"
+                  aria-describedby={!editing ? "branch-code-help" : undefined}
+                  aria-live="polite"
+                >
+                  {codePreview}
+                </output>
+                {!editing && (
+                  <small
+                    className="branch-code-help"
+                    id="branch-code-help"
+                  >
+                    {codeHelp}
+                  </small>
+                )}
+              </div>
               <Field
                 className="full"
                 label="Description"
@@ -366,7 +441,7 @@ export function BranchFormDialog({
               )}
             </button>
           </div>
-        </form>
+        </FormLayout>
     </Modal>
   );
 }

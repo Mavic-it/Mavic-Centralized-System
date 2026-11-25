@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { LoadingTable } from "../components/content-loading";
 import { RequiredMark } from "../components/required-mark";
 import Image from "next/image";
@@ -182,7 +183,7 @@ export function PaymentAccountSettings({
             </p>
           )}
           {branchId && policy && (
-            <form
+            <FormLayout
               className={s.policy}
               onSubmit={async (e) => {
                 e.preventDefault();
@@ -261,7 +262,7 @@ export function PaymentAccountSettings({
                   {busy ? "Saving…" : "Save payment policy"}
                 </button>
               )}
-            </form>
+            </FormLayout>
           )}
         </>
       )}
@@ -273,7 +274,7 @@ export function PaymentAccountSettings({
           presentation="center"
           className={s.dialog}
         >
-          <form onSubmit={save}>
+          <FormLayout onSubmit={save}>
             <h2 id="payment-account-title">
               {editing ? "Edit" : "Add"} official payment account
             </h2>
@@ -423,7 +424,7 @@ export function PaymentAccountSettings({
                 {busy ? "Saving…" : "Save official account"}
               </button>
             </div>
-          </form>
+          </FormLayout>
         </Modal>
       )}
     </section>

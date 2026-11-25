@@ -21,7 +21,7 @@
   align-items: center;
   gap: 8px;
   text-decoration: none;
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--ws-border);
 }
 .scope :global(.branch-department-search) {
@@ -29,7 +29,7 @@
   align-items: center;
   gap: 9px;
   border: 1px solid var(--ws-border);
-  background: #f8fafc;
+  background: var(--surface-subtle);
   border-radius: 10px;
   padding: 0 12px;
   margin: 14px 0;
@@ -42,7 +42,7 @@
   border: 0;
   min-height: 42px;
   font: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   outline: 0;
 }
 .scope :global(.branch-department-search:focus-within) {
@@ -55,19 +55,19 @@
   transition: background 0.15s;
 }
 .scope :global(.branch-details > div:hover) {
-  background: #f6f8fb;
+  background: var(--surface-subtle);
 }
 .scope :global(.branch-departments li) {
   border: 1px solid var(--ws-border);
   border-radius: 10px;
   padding: 12px 14px;
   margin-bottom: 8px;
-  background: #fff;
+  background: var(--surface);
 }
 .scope :global(.branch-stats > div) {
   border: 1px solid var(--ws-border);
   border-radius: 12px;
-  background: linear-gradient(125deg, #fff8f9, #fff);
+  background: linear-gradient(125deg, var(--primary-soft), var(--surface));
 }
 .scope :global(.branch-modal) {
   border-radius: 18px;
@@ -83,8 +83,8 @@
   }
 }
 .eyebrow {
-  color: var(--ws-brand);
-  font-size: 10px;
+  color: var(--primary-dark);
+  font-size: calc(10px * var(--app-text-scale, 1));
   font-weight: 670;
   letter-spacing: 0.11em;
   margin: 0;
@@ -96,7 +96,7 @@
 }
 .scope :global(.branch-heading h1) {
   color: var(--ws-text);
-  font-size: 25px;
+  font-size: var(--app-title-size);
   font-weight: 650;
   line-height: 1.25;
   margin: 7px 0 5px;
@@ -104,7 +104,7 @@
 }
 .scope :global(.page-description) {
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.5;
   margin: 0;
 }
@@ -131,24 +131,24 @@
 }
 .scope :global(.branch-search input) {
   height: 40px;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   background: transparent;
 }
 .scope :global(.branch-filter) {
   display: grid;
   gap: 6px;
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .scope :global(.branch-count) {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   color: var(--ws-muted);
   padding-bottom: 10px;
 }
 .scope :global(.branch-primary),
 .scope :global(.branch-secondary) {
   min-height: 42px;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   padding: 9px 16px;
   border-radius: var(--ws-control-radius);
 }
@@ -189,7 +189,7 @@
   width: 21%;
 }
 .scope :global(.branch-table th) {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 600;
   height: 48px;
   background: var(--ws-subtle);
@@ -198,7 +198,7 @@
   text-transform: none;
 }
 .scope :global(.branch-table td) {
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   height: 78px;
   border-color: var(--ws-border);
   color: var(--ws-text);
@@ -209,12 +209,12 @@
   padding-right: 16px;
 }
 .scope :global(.branch-name-cell strong) {
-  font-size: 14px;
+  font-size: calc(14px * var(--app-text-scale, 1));
   color: var(--ws-text);
   overflow-wrap: anywhere;
 }
 .scope :global(.branch-name-cell small) {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   color: var(--ws-muted);
 }
 .scope :global(.branch-icon) {
@@ -230,7 +230,7 @@
 }
 .scope :global(.branch-status) {
   border-radius: 20px;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   padding: 5px 10px;
 }
 .scope :global(.branch-status.active) {
@@ -248,7 +248,7 @@
   border: 0;
   border-top: 1px solid var(--ws-border);
   padding: 16px 24px;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   color: var(--ws-muted);
   background: var(--ws-surface);
 }
@@ -274,7 +274,7 @@
 .scope :global(.branch-related-card h2),
 .scope :global(.branch-info-card h2),
 .scope :global(.branch-modal-heading h2) {
-  font-size: 18px;
+  font-size: var(--app-header-size);
   color: var(--ws-text);
 }
 .scope :global(.branch-stats) {
@@ -288,11 +288,11 @@
   padding: 18px;
 }
 .scope :global(.branch-stats strong) {
-  font-size: 26px;
+  font-size: calc(26px * var(--app-text-scale, 1));
   color: var(--ws-text);
 }
 .scope :global(.branch-stats span) {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   color: var(--ws-muted);
 }
 .scope :global(.branch-details) {
@@ -300,12 +300,12 @@
   gap: 24px;
 }
 .scope :global(.branch-details dt) {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   color: var(--ws-muted);
   margin-bottom: 6px;
 }
 .scope :global(.branch-details dd) {
-  font-size: 14px;
+  font-size: calc(14px * var(--app-text-scale, 1));
   color: var(--ws-text);
   overflow-wrap: anywhere;
 }
@@ -315,12 +315,12 @@
   border-color: var(--ws-border);
 }
 .scope :global(.branch-departments h3) {
-  font-size: 16px;
+  font-size: var(--app-header-size);
   color: var(--ws-text);
 }
 .scope :global(.branch-departments li),
 .scope :global(.branch-departments p) {
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
 }
 .scope :global(.branch-modal) {
   border-radius: 16px;
@@ -335,7 +335,7 @@
 .scope :global(.branch-field),
 .scope :global(.branch-form label) {
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .scope
   :global(
@@ -348,13 +348,13 @@
   max-width: 100%;
   border-color: var(--ws-border);
   border-radius: var(--ws-control-radius);
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   color: var(--ws-text);
 }
 .scope :global(.branch-form-hint),
 .scope :global(.branch-form-error),
 .scope :global(.branch-modal p) {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.6;
 }
 .scope :global(button),
@@ -393,7 +393,7 @@
     gap: 16px;
   }
   .scope :global(.branch-heading h1) {
-    font-size: 25px;
+    font-size: var(--app-title-size);
   }
   .scope :global(.branch-toolbar),
   .scope :global(.branch-info-card),

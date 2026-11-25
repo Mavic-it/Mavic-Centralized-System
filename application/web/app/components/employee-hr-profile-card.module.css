@@ -1,13 +1,13 @@
 .panel {
-  background: #fff;
-  border: 1px solid #e3e6e3;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 5px;
   min-width: 0;
   padding: 18px 19px;
 }
 
 .embedded {
-  border-top: 1px solid #eceeec;
+  border-top: 1px solid var(--border);
   margin-top: 18px;
   padding-top: 18px;
 }
@@ -28,8 +28,8 @@
 }
 
 .sectionTitle h2 {
-  color: #252a26;
-  font-size: 14px;
+  color: var(--text-primary);
+  font-size: var(--app-header-size);
   font-weight: 650;
   line-height: 1.35;
   margin: 0;
@@ -38,22 +38,22 @@
 .textButton {
   background: transparent;
   border: 0;
-  color: #a51e27;
+  color: var(--primary-dark);
   cursor: pointer;
   font: inherit;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   font-weight: 620;
   padding: 5px 0;
   white-space: nowrap;
 }
 
 .textButton:hover {
-  color: #7f171e;
+  color: var(--primary-dark);
   text-decoration: underline;
 }
 
 .textButton:disabled {
-  color: #929a94;
+  color: var(--text-secondary);
   cursor: wait;
 }
 
@@ -73,8 +73,8 @@
 
 .profileSection h3,
 .fieldGroup legend {
-  color: #626a64;
-  font-size: 9px;
+  color: var(--text-secondary);
+  font-size: var(--app-header-size);
   font-weight: 650;
   margin: 0 0 10px;
 }
@@ -91,33 +91,33 @@
 }
 
 .detailItem dt {
-  color: #626a64;
-  font-size: 9px;
+  color: var(--text-secondary);
+  font-size: calc(9px * var(--app-text-scale, 1));
   margin-bottom: 4px;
 }
 
 .detailItem dd {
-  color: #343a36;
-  font-size: 10px;
+  color: var(--text-primary);
+  font-size: calc(10px * var(--app-text-scale, 1));
   line-height: 1.45;
   margin: 0;
   overflow-wrap: anywhere;
 }
 
 .embedded .profileSection h3 {
-  font-size: 11px;
+  font-size: var(--app-header-size);
 }
 
 .embedded .detailGrid dt {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 
 .embedded .detailGrid dd {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 
 .profileForm {
-  border-top: 1px solid #eceeec;
+  border-top: 1px solid var(--border);
   margin-top: 14px;
   padding-top: 3px;
 }
@@ -130,7 +130,7 @@
 
 .fieldGroup {
   border: 0;
-  border-bottom: 1px solid #eceeec;
+  border-bottom: 1px solid var(--border);
   margin: 0;
   min-width: 0;
   padding: 13px 0 15px;
@@ -151,9 +151,9 @@
 }
 
 .formGrid label {
-  color: #59615b;
+  color: var(--text-secondary);
   display: grid;
-  font-size: 9px;
+  font-size: calc(9px * var(--app-text-scale, 1));
   gap: 5px;
   min-width: 0;
 }
@@ -161,12 +161,12 @@
 .formGrid input,
 .formGrid select,
 .formGrid textarea {
-  background: #fff;
-  border: 1px solid #dfe3df;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 4px;
-  color: #343a36;
+  color: var(--text-primary);
   font: inherit;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   min-height: 34px;
   min-width: 0;
   padding: 7px 8px;
@@ -190,7 +190,7 @@
   cursor: pointer;
   display: inline-flex;
   font: inherit;
-  font-size: 9px;
+  font-size: calc(9px * var(--app-text-scale, 1));
   font-weight: 620;
   justify-content: center;
   min-height: 32px;
@@ -198,23 +198,23 @@
 }
 
 .primaryButton {
-  background: #c22d32;
-  border-color: #c22d32;
+  background: var(--primary);
+  border-color: var(--primary-dark);
   color: #fff;
 }
 
 .primaryButton:hover:not(:disabled) {
-  background: #a51e27;
+  background: var(--primary-hover);
 }
 
 .secondaryButton {
-  background: #fff;
-  border-color: #dfe3df;
-  color: #515954;
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text-secondary);
 }
 
 .secondaryButton:hover:not(:disabled) {
-  background: #f5f6f5;
+  background: var(--surface-subtle);
 }
 
 .primaryButton:disabled,
@@ -232,8 +232,8 @@
 
 .formError,
 .queryError p {
-  color: #a51e27;
-  font-size: 10px;
+  color: var(--status-danger);
+  font-size: calc(10px * var(--app-text-scale, 1));
   line-height: 1.45;
   margin: 10px 0;
 }
@@ -247,14 +247,14 @@
 
 .emptyState,
 .mutedNote {
-  color: #626a64;
-  font-size: 10px;
+  color: var(--text-secondary);
+  font-size: calc(10px * var(--app-text-scale, 1));
   line-height: 1.5;
   margin: 0;
 }
 
 .emptyState {
-  border-top: 1px solid #eceeec;
+  border-top: 1px solid var(--border);
   padding-top: 13px;
 }
 
@@ -262,18 +262,18 @@
 .panel input:focus-visible,
 .panel select:focus-visible,
 .panel textarea:focus-visible {
-  outline: 2px solid #b4232a;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
 .modalEditor .formGrid label {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 
 .modalEditor .formGrid input,
 .modalEditor .formGrid select,
 .modalEditor .formGrid textarea {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   min-height: 40px;
   padding: 8px 10px;
 }
@@ -330,11 +330,11 @@
   gap: 10px;
   align-items: center;
   flex: 1 1 230px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   border-radius: 11px;
   padding: 0 12px;
-  color: #64748b;
-  background: #f8fafc;
+  color: var(--text-secondary);
+  background: var(--surface-subtle);
 }
 .profileToolbar input {
   border: 0;
@@ -344,22 +344,22 @@
   width: 100%;
   min-width: 0;
   font: inherit;
-  font-size: 13px;
-  color: #172033;
+  font-size: calc(13px * var(--app-text-scale, 1));
+  color: var(--text-primary);
 }
 .profileToolbar label:focus-within {
-  outline: 2px solid #c22d32;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 .profileToolbar button {
-  border: 1px solid #e2e8f0;
-  background: #fff;
+  border: 1px solid var(--border);
+  background: var(--surface);
   border-radius: 10px;
   min-height: 42px;
   padding: 8px 14px;
-  color: #526177;
+  color: var(--text-secondary);
   font: inherit;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   cursor: pointer;
 }
 .groupIcon {
@@ -369,8 +369,8 @@
   width: 34px;
   flex: 0 0 34px;
   border-radius: 10px;
-  background: #edf1f6;
-  color: #526177;
+  background: var(--surface-muted);
+  color: var(--text-secondary);
 }
 .disclosureIcon {
   transition: transform 0.2s;
@@ -386,21 +386,21 @@
   box-shadow: 0 3px 12px #17203305;
 }
 .collapsibleSection.collapsibleSection summary {
-  background: #fff;
+  background: var(--surface);
   padding: 15px 18px;
 }
 .collapsibleSection.collapsibleSection summary::after {
   display: none;
 }
 .collapsibleSection[open] summary .groupIcon {
-  background: #fff0f2;
-  color: #c22d32;
+  background: var(--surface-muted);
+  color: var(--primary-dark);
 }
 .collapsibleSection[open] .disclosureIcon {
   transform: rotate(180deg);
 }
 .collapsibleSection[open] summary {
-  border-bottom: 1px solid #edf1f6;
+  border-bottom: 1px solid var(--border);
 }
 .collapsibleSection .detailItem {
   padding: 10px 12px;
@@ -408,7 +408,7 @@
   transition: background 0.15s;
 }
 .collapsibleSection .detailItem:hover {
-  background: #f5f7fa;
+  background: var(--surface-subtle);
 }
 @media (prefers-reduced-motion: reduce) {
   .disclosureIcon,
@@ -418,7 +418,7 @@
   }
 }
 .collapsibleSection {
-  border: 1px solid var(--ws-border, #e2e7ed);
+  border: 1px solid var(--ws-border, var(--border));
   border-radius: 10px;
   min-width: 0;
   overflow: hidden;
@@ -431,29 +431,29 @@
   padding: 16px 18px;
   color: var(--ws-text, #202936);
   cursor: pointer;
-  font-size: 14px;
+  font-size: calc(14px * var(--app-text-scale, 1));
   font-weight: 550;
-  background: var(--ws-subtle, #f6f8fa);
+  background: var(--ws-subtle, var(--surface-subtle));
 }
 .collapsibleSection summary::-webkit-details-marker {
   display: none;
 }
 .collapsibleSection summary small {
   margin-left: auto;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 400;
   color: var(--ws-muted, #606b7b);
 }
 .collapsibleSection summary::after {
   content: "+";
-  font-size: 18px;
+  font-size: calc(18px * var(--app-text-scale, 1));
   color: var(--ws-muted, #606b7b);
 }
 .collapsibleSection[open] summary::after {
   content: "-";
 }
 .collapsibleSection summary:focus-visible {
-  outline: 2px solid var(--ws-brand, #b42332);
+  outline: 2px solid var(--ws-brand, var(--focus-ring));
   outline-offset: -3px;
 }
 .collapsibleSection .detailGrid {
@@ -464,12 +464,12 @@
   padding: 20px;
 }
 .collapsibleSection .detailItem dt {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   color: var(--ws-muted, #606b7b);
   margin-bottom: 6px;
 }
 .collapsibleSection .detailItem dd {
-  font-size: 14px;
+  font-size: calc(14px * var(--app-text-scale, 1));
   color: var(--ws-text, #202936);
   line-height: 1.6;
 }

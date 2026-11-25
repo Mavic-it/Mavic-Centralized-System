@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { AttendanceMetricsLoading, AttendanceRecordsLoading } from "./attendance-loading";
 import { LoadingList } from "../components/content-loading";
 import {
@@ -854,7 +855,7 @@ function AttendanceContent() {
                     : "Unable to load the branch schedule."}
                 </p>
               )}
-              <form className={styles.scheduleForm} onSubmit={saveSchedule}>
+              <FormLayout className={styles.scheduleForm} onSubmit={saveSchedule}>
                 <label>
                   <span>
                     Default time in <RequiredMark />
@@ -965,7 +966,7 @@ function AttendanceContent() {
                     ? "Saving schedule…"
                     : "Save schedule"}
                 </button>
-              </form>
+              </FormLayout>
             </section>
           )}
 
@@ -1186,7 +1187,7 @@ function AttendanceContent() {
                     if (!record) return null;
                     return (
                       <>
-                        <form
+                        <FormLayout
                           className={styles.correctionForm}
                           onSubmit={(event) => submitCorrection(event, record)}
                         >
@@ -1245,7 +1246,7 @@ function AttendanceContent() {
                               ? "Saving…"
                               : "Save audited correction"}
                           </button>
-                        </form>
+                        </FormLayout>
                         <div className={styles.correctionHistory}>
                           <h4>Audited correction records</h4>
                           {correctionHistoryQuery.isLoading ? (
@@ -1291,7 +1292,7 @@ function AttendanceContent() {
                     if (!record || record.overtimeApprovalStatus !== "PENDING")
                       return null;
                     return (
-                      <form
+                      <FormLayout
                         className={styles.overtimeForm}
                         onSubmit={(event) => {
                           event.preventDefault();
@@ -1345,7 +1346,7 @@ function AttendanceContent() {
                         >
                           Reject overtime
                         </button>
-                      </form>
+                      </FormLayout>
                     );
                   })()}
               </>

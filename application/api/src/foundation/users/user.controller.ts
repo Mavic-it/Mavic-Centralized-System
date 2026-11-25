@@ -21,6 +21,7 @@ import type { AuthenticatedRequest } from '../auth/auth.context.js';
 import { BranchService } from '../branches/branches.service.js';
 import { DepartmentService } from '../branches/departments.service.js';
 import { CreateUserDto } from './user.dto.js';
+import { UpdateUserPreferencesDto } from './user-preferences.dto.js';
 import {
   ResetUserPasswordDto,
   UpdateUserRoleDto,
@@ -70,6 +71,28 @@ export class UserController {
     if (!actor.branchId) throw new ForbiddenException('Branch assignment required.');
     const access = await this.auth.getBranchAccess(actor.userId);
     return access.branches.map((branch) => branch.id);
+  }
+
+  @Get('me/preferences')
+  async getMyAppearancePreferences(@Req() request: AuthenticatedRequest) {
+    if (!request.user) throw new ForbiddenException('Authentication required.');
+    return this.service.getAppearancePreferences(request.user.userId);
+  }
+
+  @Patch('me/preferences')
+  async saveMyAppearancePreferences(
+    @Req() request: AuthenticatedRequest,
+    @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true })) input: UpdateUserPreferencesDto,
+  ) {
+    if (!request.user) throw new ForbiddenException('Authentication required.');
+    return this.service.saveAppearancePreferences(request.user.userId, input);
+  }
+
+  @Delete('me/preferences')
+  async resetMyAppearancePreferences(@Req() request: AuthenticatedRequest) {
+    if (!request.user) throw new ForbiddenException('Authentication required.');
+    await this.service.deleteAppearancePreferences(request.user.userId);
+    return this.service.getAppearancePreferences(request.user.userId);
   }
 
   @Get('branch-options')

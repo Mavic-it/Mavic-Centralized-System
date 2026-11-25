@@ -1,5 +1,2 @@
-import { OverviewLoading } from "../components/page-loading";
-
-export default function Loading() {
-  return <OverviewLoading />;
-}
+import { AnalyticsLoading } from "../analytics/loading";
+export default function Loading() { return <AnalyticsLoading />; }

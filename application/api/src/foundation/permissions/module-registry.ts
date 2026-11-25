@@ -6,6 +6,10 @@ export type ModulePermission = { key: string; label: string; path: string; paren
 // Absent keys and roles default to DENY. Defaults are resolved dynamically for
 // new accounts and role changes, without per-user seed rows.
 export const ROLE_MODULE_DEFAULTS: Record<string, Partial<Record<RoleName, ModuleAccessLevel>>> = {
+  ...Object.fromEntries(['list','create','update','activities','followups'].map(action => [`crm.inquiries.${action}`, { SUPER_ADMIN:'EDIT', HR_ADMIN:'EDIT', BRANCH_MANAGER:'EDIT', STAFF:'EDIT' }])),
+  ...Object.fromEntries(['archive','assign','convert','import','settings'].map(action => [`crm.inquiries.${action}`, { SUPER_ADMIN:'EDIT', BRANCH_MANAGER:'EDIT' }])),
+  ...Object.fromEntries(['dashboard','reports','export'].map(action => [`crm.inquiries.${action}`, { SUPER_ADMIN:'VIEW', HR_ADMIN:'VIEW', BRANCH_MANAGER:'VIEW', STAFF:'VIEW' }])),
+  'crm.inquiries': { SUPER_ADMIN:'EDIT', HR_ADMIN:'EDIT', BRANCH_MANAGER:'EDIT', STAFF:'EDIT' },
   'workspace.overview': { SUPER_ADMIN:'VIEW', IT_ADMIN:'VIEW', HR_ADMIN:'VIEW', BRANCH_MANAGER:'VIEW', STAFF:'VIEW', EMPLOYEE:'VIEW' },
   'hr.dashboard': { SUPER_ADMIN:'VIEW', HR_ADMIN:'VIEW', BRANCH_MANAGER:'VIEW' },
   'hr.employees': { SUPER_ADMIN:'EDIT', HR_ADMIN:'EDIT', BRANCH_MANAGER:'VIEW' },
@@ -41,6 +45,8 @@ const entry = (key: string, label: string, path: string, parentKey?: string, cri
   return { key, label, path, ...(parentKey ? { parentKey } : {}), ceiling: Object.keys(defaults).filter(role => defaults[role as RoleName] !== 'DENY') as RoleName[], editCeiling: Object.keys(defaults).filter(role => defaults[role as RoleName] === 'EDIT') as RoleName[], ...(critical ? { critical } : {}) };
 };
 export const MODULE_PERMISSION_REGISTRY: readonly ModulePermission[] = [
+  entry('crm.inquiries','Inquiries','/inquiries'),
+  ...['list','create','update','archive','assign','activities','followups','convert','dashboard','reports','import','export','settings'].map(action => entry(`crm.inquiries.${action}`,`Inquiry ${action}`,`/inquiries/${action}`,'crm.inquiries')),
   entry('workspace.overview','Overview','/'),
   entry('hr.dashboard','HR dashboard','/hr'),
   entry('hr.employees','Employees','/employees'),

@@ -1,6 +1,6 @@
 .card {
-  background: #fff;
-  border: 1px solid #e3e6e3;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 5px;
   box-shadow: none;
   gap: 0;
@@ -17,15 +17,15 @@
 }
 
 .header h3 {
-  color: #252a26;
-  font-size: 15px;
+  color: var(--text-primary);
+  font-size: var(--app-header-size);
   font-weight: 640;
   margin: 0;
 }
 
 .uploadNote {
-  color: #737a75;
-  font-size: 10px;
+  color: var(--text-secondary);
+  font-size: calc(10px * var(--app-text-scale, 1));
   line-height: 1.45;
   margin: 4px 0 0;
 }
@@ -35,7 +35,7 @@
   border: 1px solid;
   border-radius: 4px;
   display: flex;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   gap: 8px;
   justify-content: space-between;
   margin-top: 12px;
@@ -47,21 +47,21 @@
 }
 
 .complete {
-  background: #edf6f1;
+  background: var(--success);
   border-color: #cfe3d7;
-  color: #2f684e;
+  color: var(--status-success);
 }
 
 .incomplete {
-  background: #fff7ed;
+  background: var(--surface-subtle);
   border-color: #f0dfc8;
-  color: #795427;
+  color: var(--status-warning);
 }
 
 .emptyState,
 .muted {
-  color: #737a75;
-  font-size: 11px;
+  color: var(--text-secondary);
+  font-size: calc(11px * var(--app-text-scale, 1));
   line-height: 1.5;
   margin: 12px 0 0;
 }
@@ -101,7 +101,7 @@
 }
 
 .item {
-  border-top: 1px solid #eceeec;
+  border-top: 1px solid var(--border);
   padding: 12px 0;
 }
 
@@ -120,26 +120,26 @@
 
 .itemHeading strong,
 .requirementSettings strong {
-  color: #303632;
-  font-size: 11px;
+  color: var(--text-primary);
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 630;
 }
 
 .itemHeading small,
 .requirementSettings small {
-  color: #737a75;
-  font-size: 9px;
+  color: var(--text-secondary);
+  font-size: calc(9px * var(--app-text-scale, 1));
 }
 
 .itemStatus {
   flex: 0 0 auto;
-  font-size: 9px;
+  font-size: calc(9px * var(--app-text-scale, 1));
   padding: 4px 6px;
 }
 
 .fileInfo {
-  color: #69716b;
-  font-size: 9px;
+  color: var(--text-secondary);
+  font-size: calc(9px * var(--app-text-scale, 1));
   margin: 7px 0 0;
 }
 
@@ -157,37 +157,37 @@
 }
 
 .attachForm label {
-  color: #68706a;
+  color: var(--text-secondary);
   display: grid;
-  font-size: 9px;
+  font-size: calc(9px * var(--app-text-scale, 1));
   gap: 4px;
 }
 
 .attachForm select {
-  color: #4c544e;
+  color: var(--text-secondary);
   font: inherit;
-  font-size: 9px;
+  font-size: calc(9px * var(--app-text-scale, 1));
   max-width: 240px;
 }
 
 .attachForm select {
-  border: 1px solid #dfe3df;
+  border: 1px solid var(--border);
   border-radius: 3px;
   min-height: 29px;
   padding: 5px 7px;
 }
 
 .configPanel {
-  background: #f8f9f8;
-  border: 1px solid #e4e7e4;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
   border-radius: 4px;
   margin-top: 12px;
   padding: 12px;
 }
 
 .configPanel h4 {
-  color: #303632;
-  font-size: 11px;
+  color: var(--text-primary);
+  font-size: var(--app-header-size);
   margin: 0 0 10px;
 }
 
@@ -199,34 +199,34 @@
 }
 
 .configForm > label:not(.checkboxLabel) {
-  color: #68706a;
+  color: var(--text-secondary);
   display: grid;
-  font-size: 9px;
+  font-size: calc(9px * var(--app-text-scale, 1));
   gap: 4px;
 }
 
 .configForm input:not([type="checkbox"]),
 .configForm select {
-  background: #fff;
-  border: 1px solid #dfe3df;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 3px;
-  color: #303632;
+  color: var(--text-primary);
   font: inherit;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   min-height: 31px;
   padding: 6px 8px;
 }
 
 .checkboxLabel {
   align-items: center;
-  color: #555d57;
+  color: var(--text-secondary);
   display: flex;
-  font-size: 9px;
+  font-size: calc(9px * var(--app-text-scale, 1));
   gap: 6px;
 }
 
 .requirementSettings {
-  border-top: 1px solid #e4e7e4;
+  border-top: 1px solid var(--border);
   display: grid;
   gap: 8px;
   list-style: none;
@@ -244,9 +244,9 @@
 
 .errorBox {
   align-items: center;
-  color: #a51e27;
+  color: var(--status-danger);
   display: flex;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   gap: 8px;
   justify-content: space-between;
   margin-top: 10px;

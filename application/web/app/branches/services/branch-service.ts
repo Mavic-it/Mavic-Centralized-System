@@ -79,6 +79,18 @@ export async function fetchBranchManagerOptions(
   return api<BranchManagerOption[]>(`/manager-options${query}`);
 }
 
+export async function fetchBranchCodeSuggestion(name: string): Promise<string> {
+  const params = new URLSearchParams({ name });
+  const result = await api<{ code: unknown }>(`/code-suggestion?${params}`);
+  if (
+    typeof result?.code !== "string" ||
+    !/^[A-Z0-9][A-Z0-9_-]{1,49}$/.test(result.code)
+  ) {
+    throw new Error("The branch code preview is unavailable.");
+  }
+  return result.code;
+}
+
 export function fetchBranch(id: string): Promise<Branch> {
   return api<Branch>(`/${encodeURIComponent(id)}`);
 }
@@ -126,7 +138,7 @@ export async function deleteBranchDepartment(
 export async function createBranch(values: BranchFormValues): Promise<Branch> {
   return api<Branch>("", {
     method: "POST",
-    body: JSON.stringify(buildBranchPayload(values, false)),
+    body: JSON.stringify(buildBranchPayload(values)),
   });
 }
 
@@ -136,7 +148,7 @@ export async function updateBranch(
 ): Promise<Branch> {
   return api<Branch>(`/${branchId}`, {
     method: "PATCH",
-    body: JSON.stringify(buildBranchPayload(values, true)),
+    body: JSON.stringify(buildBranchPayload(values)),
   });
 }
 

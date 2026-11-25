@@ -58,11 +58,11 @@
   gap: 2px;
 }
 .sectionSwitcherButton strong {
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   font-weight: 600;
 }
 .sectionSwitcherButton small {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 .sectionSwitcherButton:hover {
   background: var(--ws-subtle);
@@ -70,12 +70,12 @@
 }
 .sectionSwitcherButton[aria-pressed="true"] {
   background: var(--ws-brand-soft);
-  color: var(--ws-brand);
+  color: var(--primary-dark);
   border-color: transparent;
 }
 .sectionSwitcherHeading {
   color: var(--ws-muted);
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   letter-spacing: 0.1em;
 }
 .header,
@@ -92,7 +92,7 @@
 }
 .header h1 {
   color: var(--ws-text);
-  font-size: 25px;
+  font-size: var(--app-title-size);
   font-weight: 650;
   line-height: 1.25;
   letter-spacing: 0;
@@ -109,11 +109,11 @@
   align-items: center;
   gap: 7px;
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .eyebrow {
-  color: var(--ws-brand);
-  font-size: 10px;
+  color: var(--primary-dark);
+  font-size: calc(10px * var(--app-text-scale, 1));
   font-weight: 650;
   letter-spacing: 0.12em;
   margin: 0;
@@ -122,7 +122,7 @@
 .description,
 .subtle {
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.5;
   margin: 0;
 }
@@ -135,7 +135,7 @@
   display: grid;
   gap: 7px;
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 500;
   min-width: 0;
 }
@@ -152,7 +152,7 @@
   border-radius: var(--ws-control-radius);
   color: var(--ws-text);
   font: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   min-height: var(--ws-control-height);
   padding: 8px 12px;
   min-width: 0;
@@ -182,14 +182,14 @@
   border-top: 3px solid var(--ws-brand);
 }
 .todayCopy h2 {
-  font-size: 22px;
+  font-size: var(--app-header-size);
   font-weight: 600;
   letter-spacing: -0.025em;
   margin: 8px 0;
 }
 .todayCopy > p:last-child {
   color: var(--ws-muted);
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   margin: 0;
   max-width: 65ch;
 }
@@ -214,18 +214,18 @@
 .metric > span,
 .metric small {
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .metric strong {
   color: var(--ws-text);
-  font-size: 30px;
+  font-size: calc(30px * var(--app-text-scale, 1));
   font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 1.2;
   font-variant-numeric: tabular-nums;
 }
 .metric small {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   line-height: 1.5;
 }
 .panel {
@@ -236,7 +236,7 @@
 }
 .sectionHeader h2 {
   margin: 0;
-  font-size: 18px;
+  font-size: var(--app-header-size);
   font-weight: 600;
   letter-spacing: -0.025em;
 }
@@ -249,7 +249,7 @@
 }
 .dateFilters .subtle {
   flex-basis: 100%;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .scheduleForm {
   display: grid;
@@ -266,7 +266,7 @@
 }
 .daysFieldset legend {
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   padding: 0 6px;
 }
 .daysGrid {
@@ -282,7 +282,7 @@
   border-radius: 6px;
   padding: 8px 12px;
   color: var(--ws-text);
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
 }
 .daysGrid input {
   accent-color: var(--ws-brand);
@@ -297,7 +297,7 @@
   display: block;
   margin-top: 5px;
   color: var(--ws-muted);
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 .tableWrap {
   max-width: 100%;
@@ -314,7 +314,7 @@
 .table th {
   background: var(--ws-subtle);
   color: var(--ws-muted);
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 600;
   padding: 13px 16px;
   white-space: nowrap;
@@ -322,7 +322,7 @@
 .table td {
   border-top: 1px solid var(--ws-border);
   color: var(--ws-text);
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   padding: 16px;
   white-space: nowrap;
 }
@@ -339,12 +339,12 @@
   color: var(--ws-muted);
   display: grid;
   gap: 4px;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   margin: 16px 0;
 }
 .rosterTitle strong {
   color: var(--ws-text);
-  font-size: 15px;
+  font-size: calc(15px * var(--app-text-scale, 1));
   font-weight: 600;
 }
 .rosterTitle span {
@@ -359,7 +359,7 @@
   color: var(--ws-muted);
   display: inline-flex;
   align-items: center;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 500;
   padding: 4px 8px;
 }
@@ -373,7 +373,7 @@
   border-radius: var(--ws-control-radius);
   cursor: pointer;
   font: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   font-weight: 550;
   min-height: var(--ws-control-height);
   padding: 9px 16px;
@@ -401,10 +401,10 @@
 .textButton {
   background: transparent;
   border: 0;
-  color: var(--ws-brand);
+  color: var(--primary-dark);
   cursor: pointer;
   font: inherit;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 550;
   padding: 6px;
   min-height: 28px;
@@ -429,7 +429,7 @@
   grid-column: 1/-1;
 }
 .correctionForm h3 {
-  font-size: 16px;
+  font-size: var(--app-header-size);
   margin: 0;
 }
 .correctionHistory {
@@ -442,7 +442,7 @@
   padding: 20px;
 }
 .correctionHistory h4 {
-  font-size: 13px;
+  font-size: var(--app-header-size);
   margin: 0;
 }
 .correctionHistory ul {
@@ -455,14 +455,14 @@
 .correctionHistory li {
   border-top: 1px solid var(--ws-border);
   display: grid;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   gap: 5px;
   padding-top: 12px;
 }
 .correctionHistory li strong,
 .correctionHistory li small {
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .overtimeForm {
   display: flex;
@@ -478,7 +478,7 @@
 .overtimeForm h3 {
   color: var(--ws-warning);
   flex: 1 1 100%;
-  font-size: 15px;
+  font-size: var(--app-header-size);
   margin: 0;
 }
 .overtimeForm label {
@@ -488,7 +488,7 @@
 .notice,
 .empty {
   border-radius: 8px;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   line-height: 1.6;
   margin: 12px 0;
   padding: 14px 16px;
@@ -505,7 +505,7 @@
   color: var(--ws-muted);
 }
 .notice a {
-  color: var(--ws-brand);
+  color: var(--primary-dark);
   font-weight: 600;
   text-decoration: underline;
 }
@@ -577,7 +577,7 @@
     display: none;
   }
   .sectionSwitcherButton strong {
-    font-size: 12px;
+    font-size: calc(12px * var(--app-text-scale, 1));
   }
 }
 @media (max-width: 768px) {
@@ -626,10 +626,10 @@
     padding: 14px;
   }
   .metric strong {
-    font-size: 26px;
+    font-size: calc(26px * var(--app-text-scale, 1));
   }
   .metric small {
-    font-size: 11px;
+    font-size: calc(11px * var(--app-text-scale, 1));
   }
   .todayPanel,
   .rosterToolbar {
@@ -688,7 +688,7 @@
   background: transparent;
 }
 .sectionSwitcherNav .sectionSwitcherButton strong {
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   font-weight: 550;
 }
 @media (max-width: 600px) {

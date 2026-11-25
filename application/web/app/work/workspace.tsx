@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { WorkDetailLoading } from "./work-loading";
 import { PageHeading, PageHeader } from "../components/page-heading";
 import { FieldLabel } from "../components/field-label";
@@ -25,7 +26,6 @@ import {
   type TaskTemplate,
 } from "./types";
 import {
-  CalendarDays,
   ClipboardList,
   Plus,
   ShieldCheck,
@@ -678,44 +678,34 @@ function Create({
       aria-labelledby="create-work-title"
     >
       <div className={css.drawer}>
-        <div className={css.drawerChrome}>
-          <header className={css.drawerHeader}>
-            <div className={css.drawerIdentity}>
-              <span className={css.moduleIcon}>
-                {kind === "tasks" ? (
-                  <ClipboardList size={21} />
-                ) : (
-                  <ShieldCheck size={21} />
-                )}
-              </span>
-              <div>
-                <p className={css.eyebrow}>
-                  {kind === "tasks" ? "NEW WORK" : "PRIVATE REPORT"}
-                </p>
-                <h2 id="create-work-title">
-                  {kind === "tasks" ? "Create task" : "Report an incident"}
-                </h2>
-              </div>
-            </div>
-            <button
-              className={css.closeButton}
-              aria-label="Close creation form"
-              onClick={onClose}
-              disabled={busy}
-            >
-              <X size={20} />
-            </button>
-          </header>
-        </div>
-        <p className={css.formIntro}>
-          {kind === "tasks"
-            ? "Set a clear outcome, choose one or more assignees, and set the start and due dates."
-            : c.canManage
-              ? "The concerned employee can see this report and its initial supporting file. Internal reviewer notes stay private."
-              : "Describe what happened. Your report will be available to authorized reviewers."}
-        </p>
-        <form className={`${css.form} ${css.createForm}`} onSubmit={submit}>
-          <fieldset className={css.createFields} disabled={busy}>
+        <header className={css.drawerHeader}>
+          <div>
+            <h2 id="create-work-title">
+              {kind === "tasks" ? "Create task" : "Report an incident"}
+            </h2>
+            <p className={css.formIntro}>
+              {kind === "tasks"
+                ? "Set a clear outcome, choose one or more assignees, and set the start and due dates."
+                : c.canManage
+                  ? "The concerned employee can see this report and its initial supporting file. Internal reviewer notes stay private."
+                  : "Describe what happened. Your report will be available to authorized reviewers."}
+            </p>
+          </div>
+          <button
+            className={css.closeButton}
+            aria-label="Close creation form"
+            onClick={onClose}
+            disabled={busy}
+          >
+            <X size={20} />
+          </button>
+        </header>
+        <FormLayout className={css.form} onSubmit={submit}>
+          <fieldset
+            className={css.createFields}
+            data-form-contents=""
+            disabled={busy}
+          >
             {kind === "tasks" ? (
               <>
                 <label>
@@ -737,9 +727,8 @@ function Create({
                   selected={taskAssignees}
                   onChange={changeTaskAssignees}
                 />
-                <section className={css.taskSchedule}>
+                <section className={css.taskSchedule} data-form-section="">
                   <div className={css.taskSectionHeading}>
-                    <CalendarDays size={18} aria-hidden="true" />
                     <div>
                       <h3>Schedule & priority</h3>
                       <p>Set the dates and urgency for this task.</p>
@@ -750,7 +739,7 @@ function Create({
                       Priority
                       <RequiredMark />
                     </legend>
-                    <div className={css.priorityOptions}>
+                    <div className={css.priorityOptions} data-form-grid="custom">
                       {[
                         ["LOW", "Low", "Can wait"],
                         ["NORMAL", "Normal", "Regular work"],
@@ -848,9 +837,8 @@ function Create({
               </>
             ) : (
               <>
-                <section className={css.incidentFormSection}>
+                <section className={css.incidentFormSection} data-form-section="">
                   <div className={css.incidentFormHeading}>
-                    <span>01</span>
                     <div>
                       <h3>Report details</h3>
                       <p>
@@ -858,7 +846,7 @@ function Create({
                       </p>
                     </div>
                   </div>
-                  <label>
+                  <label data-form-span="full">
                     <FieldLabel required={true}>Report title</FieldLabel>
                     <input name="title" required maxLength={160} />
                   </label>
@@ -948,9 +936,8 @@ function Create({
                     </label>
                   </div>
                 </section>
-                <section className={css.incidentFormSection}>
+                <section className={css.incidentFormSection} data-form-section="">
                   <div className={css.incidentFormHeading}>
-                    <span>02</span>
                     <div>
                       <h3>What happened?</h3>
                       <p>Describe what happened as clearly as possible.</p>
@@ -967,9 +954,8 @@ function Create({
                     />
                   </label>
                 </section>
-                <section className={css.incidentFormSection}>
+                <section className={css.incidentFormSection} data-form-section="">
                   <div className={css.incidentFormHeading}>
-                    <span>03</span>
                     <div>
                       <h3>Supporting evidence</h3>
                       <p>Attach relevant files to the private report.</p>
@@ -982,11 +968,13 @@ function Create({
                 </section>
               </>
             )}
-            {error && (
-              <p className={css.error} role="alert">
-                {error}
-              </p>
-            )}
+          </fieldset>
+          {error && (
+            <p className={css.error} role="alert">
+              {error}
+            </p>
+          )}
+          <footer>
             <button
               className={css.primary}
               disabled={
@@ -1002,8 +990,8 @@ function Create({
                   ? "Assign task"
                   : "Submit report"}
             </button>
-          </fieldset>
-        </form>
+          </footer>
+        </FormLayout>
       </div>
     </Modal>
   );
@@ -1293,47 +1281,50 @@ function RecordDetail({
       aria-labelledby="record-work-title"
     >
       <div className={css.drawer}>
-        <div className={css.drawerChrome}>
-          <header className={css.drawerHeader}>
-            <div className={css.drawerIdentity}>
-              <span className={css.moduleIcon}>
-                {kind === "tasks" ? (
-                  <ClipboardList size={21} />
-                ) : (
-                  <ShieldCheck size={21} />
-                )}
-              </span>
-              <div>
-                <p className={css.eyebrow}>
-                  {kind === "tasks" ? "TASK DETAILS" : "INCIDENT DETAILS"}
-                </p>
-                <h2 id="record-work-title">{d?.title ?? "Record details"}</h2>
-              </div>
-            </div>
-            <div className={css.drawerHeaderActions}>
-              {kind === "tasks" && d?.canDelete && (
-                <button
-                  className={css.deleteButton}
-                  aria-label="Delete task"
-                  disabled={busy}
-                  onClick={() => void deleteTask()}
-                >
-                  <Trash2 size={17} />
-                  <span>Delete</span>
-                </button>
+        <header className={css.drawerHeader}>
+          <div className={css.drawerIdentity}>
+            <span className={css.moduleIcon}>
+              {kind === "tasks" ? (
+                <ClipboardList size={21} />
+              ) : (
+                <ShieldCheck size={21} />
               )}
-              <button
-                className={css.closeButton}
-                aria-label="Close record details"
-                disabled={busy}
-                onClick={onClose}
-              >
-                <X size={20} />
-              </button>
+            </span>
+            <div>
+              <p className={css.eyebrow}>
+                {kind === "tasks" ? "TASK DETAILS" : "INCIDENT DETAILS"}
+              </p>
+              <h2 id="record-work-title">{d?.title ?? "Record details"}</h2>
             </div>
-          </header>
-        </div>
-        <div className={css.drawerBody}>
+          </div>
+          <div className={css.drawerHeaderActions}>
+            {kind === "tasks" && d?.canDelete && (
+              <button
+                className={css.deleteButton}
+                aria-label="Delete task"
+                disabled={busy}
+                onClick={() => void deleteTask()}
+              >
+                <Trash2 size={17} />
+                <span>Delete</span>
+              </button>
+            )}
+            <button
+              className={css.closeButton}
+              aria-label="Close record details"
+              disabled={busy}
+              onClick={onClose}
+            >
+              <X size={20} />
+            </button>
+          </div>
+        </header>
+        <div
+          className={css.drawerBody}
+          role="region"
+          aria-labelledby="record-work-title"
+          tabIndex={0}
+        >
           {query.isPending ? (
             <WorkDetailLoading kind={kind} />
           ) : query.isError ? (

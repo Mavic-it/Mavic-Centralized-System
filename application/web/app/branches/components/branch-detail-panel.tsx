@@ -1,3 +1,4 @@
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { LoadingList } from "../../components/content-loading";
 import { RequiredMark } from "../../components/required-mark";
 import { Pencil, RefreshCw, Trash2, Phone, Mail, Search } from "lucide-react";
@@ -266,7 +267,7 @@ export function BranchDetailPanel({
                   .includes(departmentQuery.trim().toLowerCase()),
               ) && <p>No departments match your search.</p>}
             {editingDepartment && (
-              <form
+              <FormLayout
                 aria-label={`Edit ${editingDepartment.name} department`}
                 className="branch-department-edit-form"
                 onSubmit={(event) => {
@@ -320,9 +321,9 @@ export function BranchDetailPanel({
                     {saveDepartment.isPending ? "Saving…" : "Save department"}
                   </button>
                 </div>
-              </form>
+              </FormLayout>
             )}
-            <form
+            <FormLayout
               aria-label={`Add a department to ${branch.name}`}
               className="branch-department-form"
               onSubmit={(event) => {
@@ -350,7 +351,7 @@ export function BranchDetailPanel({
               >
                 {addDepartment.isPending ? "Adding…" : "Add department"}
               </button>
-            </form>
+            </FormLayout>
           </section>
         </div>
       </section>

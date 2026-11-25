@@ -6,9 +6,9 @@
   padding: 6px 8px;
   margin-bottom: 6px;
   border-radius: 6px;
-  background: #eff6ff;
-  color: #1e40af;
-  font-size: 11px;
+  background: var(--info-soft);
+  color: var(--status-info);
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 600;
   line-height: 1.5;
   overflow-wrap: anywhere;

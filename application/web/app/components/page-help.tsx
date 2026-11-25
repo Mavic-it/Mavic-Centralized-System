@@ -107,6 +107,31 @@ export const pageGuides: Record<string, readonly [string, string, string]> = {
     "Change the settings available to your role.",
     "Check your entries before saving.",
   ],
+  "/inquiries": [
+    "Review inquiry activity and follow-ups that need attention.",
+    "Choose a branch or date range to focus the dashboard.",
+    "Select a breakdown value to open matching inquiries.",
+  ],
+  "/inquiries/list": [
+    "Search by client or reference and narrow the list with filters.",
+    "Switch between the table and status board to scan records.",
+    "Open an inquiry to review its history and next action.",
+  ],
+  "/inquiries/followups": [
+    "Choose a queue to see the follow-ups assigned to you or your team.",
+    "Use the date range and calendar views to plan the work.",
+    "Open a follow-up to record its result or review the inquiry.",
+  ],
+  "/inquiries/reports": [
+    "Choose the branch and inquiry date range for your report.",
+    "Select a breakdown to compare inquiry activity.",
+    "Export the filtered report when you are ready.",
+  ],
+  "/inquiries/settings": [
+    "Review inquiry categories and reminder rules.",
+    "Edit settings that are available to your role.",
+    "Save changes after checking the values and branch scope.",
+  ],
   "/branches": [
     "Search for a branch or open it from the list.",
     "Review its contact details and assigned manager.",

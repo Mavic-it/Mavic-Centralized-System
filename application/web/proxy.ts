@@ -23,6 +23,7 @@ export const config = {
     "/my-profile/:path*",
     "/me/:path*",
     "/system/users/:path*",
+    "/system/appearance/:path*",
     "/system/password-reset-requests/:path*",
   ],
 };

@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { EmployeeHrProfileLoading } from "./employee-section-loading";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -200,7 +201,7 @@ export default function EmployeeHrProfileCard({
       )}
 
       {!profileQuery.isLoading && !profileQuery.isError && isEditing && (
-        <form
+        <FormLayout
           className={[
             styles.profileForm,
             editorMode ? styles.modalEditorForm : "",
@@ -467,7 +468,7 @@ export default function EmployeeHrProfileCard({
               </button>
             </div>
           )}
-        </form>
+        </FormLayout>
       )}
 
       {!profileQuery.isLoading && !profileQuery.isError && !isEditing && (

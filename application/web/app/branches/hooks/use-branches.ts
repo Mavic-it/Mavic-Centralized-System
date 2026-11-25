@@ -44,10 +44,11 @@ export function useBranchesPage() {
   const save = useMutation({
     mutationFn: (values: BranchFormValues) =>
       editing ? updateBranch(editing.id, values) : createBranch(values),
-    onSuccess: async () => {
+    onSuccess: async (savedBranch) => {
       await queryClient.invalidateQueries({ queryKey: ["branches"] });
+      await queryClient.invalidateQueries({ queryKey: ["branch-code-suggestion"] });
       closeForm();
-      notifySuccess(editing ? "Branch details updated." : "Branch created.");
+      notifySuccess(editing ? "Branch details updated." : `Branch created with code ${savedBranch.code}.`);
     },
     onError: (error: Error) => notifyError(error.message),
   });

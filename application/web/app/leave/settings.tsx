@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { FieldLabel } from "../components/field-label";
 import { useState, type FormEvent } from "react";
 import { Button } from "../components/ui/button";
@@ -225,7 +226,7 @@ export function Settings({
             </p>
           </div>
         </div>
-        <form className={css.form} onSubmit={(e) => void allocate(e)}>
+        <FormLayout className={css.form} onSubmit={(e) => void allocate(e)}>
           <p className={css.notice}>
             Saving a leave policy does not add credits. After HR approves the
             policy, use Run allocation to grant eligible yearly credits.
@@ -265,7 +266,7 @@ export function Settings({
               {allocation.isPending ? "Allocating…" : "Run allocation"}
             </Button>
           </div>
-        </form>
+        </FormLayout>
       </section>
       {editing && (
         <TypeEditor
@@ -359,7 +360,7 @@ function TypeEditor({
           Close
         </Button>
       </header>
-      <form
+      <FormLayout
         onSubmit={(e) => {
           e.preventDefault();
           if (!action.isPending) action.mutate();
@@ -580,7 +581,7 @@ function TypeEditor({
             {action.isPending ? "Saving…" : "Save policy"}
           </Button>
         </footer>
-      </form>
+      </FormLayout>
     </Modal>
   );
 }
@@ -635,7 +636,7 @@ function Eligibility({
       <header className={css.dialogHeader}>
         <h2 id="eligibility-title">Employee eligibility</h2>
       </header>
-      <form onSubmit={(e) => void save(e)}>
+      <FormLayout onSubmit={(e) => void save(e)}>
         <div className={css.form}>
           <label>
             <FieldLabel required={true}>Employee</FieldLabel>
@@ -731,7 +732,7 @@ function Eligibility({
             Save assignment
           </Button>
         </footer>
-      </form>
+      </FormLayout>
     </Modal>
   );
 }

@@ -3,6 +3,35 @@ import { describe, expect, it, vi } from 'vitest';
 import { BranchService } from './branches.service.js';
 import { BadRequestException } from '@nestjs/common';
 
+describe('automatic branch codes', () => {
+  const details = { address: 'Street', city: 'Makati' };
+
+  it('derives a readable code and fills the first unused suffix', async () => {
+    const service = new BranchService();
+    await service.create({ ...details, code: 'MSPACES-MAKATI', name: 'Existing branch' });
+    await service.create({ ...details, code: 'MSPACES-MAKATI-2', name: 'Existing branch 2' });
+    await service.create({ ...details, code: 'MSPACES-MAKATI-4', name: 'Existing branch 4' });
+
+    expect(await service.suggestCode('Mspaces Makati')).toBe('MSPACES-MAKATI-3');
+    const created = await service.create({ ...details, name: 'Mspaces Makati' });
+    expect(created.code).toBe('MSPACES-MAKATI-3');
+    expect(await service.suggestCode('Mspaces Makati')).toBe('MSPACES-MAKATI-5');
+  });
+
+  it('normalizes punctuation and creates distinct codes for simultaneous requests', async () => {
+    const service = new BranchService();
+    const [first, second] = await Promise.all([
+      service.create({ ...details, name: 'Café & Co.' }),
+      service.create({ ...details, name: 'Café & Co.' }),
+    ]);
+    expect(new Set([first.code, second.code])).toEqual(new Set(['CAFE-CO', 'CAFE-CO-2']));
+  });
+
+  it('rejects blank names before suggesting a code', async () => {
+    await expect(new BranchService().suggestCode('  ')).rejects.toThrow(BadRequestException);
+  });
+});
+
 describe('BranchService database updates', () => {
   it('returns the persisted branch after update without relying on UPDATE timestamps', async () => {
     const persisted = {
