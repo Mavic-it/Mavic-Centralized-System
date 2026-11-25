@@ -1,9 +1,9 @@
 .shell {
   min-width: 0;
   padding: 5px;
-  border: 1px solid var(--ws-border, #e2e8f0);
+  border: 1px solid var(--ws-border, var(--border));
   border-radius: 16px;
-  background: var(--ws-surface-subtle, #f3f5f8);
+  background: var(--ws-surface-subtle, var(--surface-muted));
   box-shadow: inset 0 1px 2px #0f172a03;
 }
 .rail {
@@ -30,7 +30,7 @@
   background: transparent;
   color: var(--ws-muted, #64748b);
   font: inherit;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 500;
   cursor: pointer;
   transition: background 180ms ease, box-shadow 180ms ease, color 180ms ease, transform 150ms ease;
@@ -41,7 +41,7 @@
   flex: 0 0 30px;
   height: 30px;
   border-radius: 9px;
-  background: #e8edf3;
+  background: var(--surface-muted);
   transition: background 180ms ease, color 180ms ease, transform 180ms ease;
 }
 .text { white-space: nowrap; }
@@ -55,13 +55,13 @@
   transform: scale(0.5);
   transition: opacity 180ms ease, transform 180ms ease;
 }
-.tab:hover { color: var(--ws-text, #172033); background: #ffffffa6; }
+.tab:hover { color: var(--text-primary); background: var(--surface-hover); }
 .tab:hover .icon { transform: translateY(-1px); }
 .tab:active { transform: scale(0.98); }
 .tab[aria-selected="true"] {
-  color: var(--ws-brand, #ce1126);
-  background: var(--ws-surface, #fff);
-  border-color: #e5e7eb;
+  color: var(--primary-dark);
+  background: var(--ws-surface, var(--surface));
+  border-color: var(--border);
   box-shadow: 0 2px 5px #0f172a09, 0 1px 2px #0f172a05;
   font-weight: 600;
 }

@@ -1,3 +1,4 @@
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { FieldLabel } from "../components/field-label";
 import { useRef, useState, type FormEvent } from "react";
 import { LockKeyhole, MessageSquare, RotateCcw } from "lucide-react";
@@ -81,7 +82,7 @@ export function TaskOverview({
   }
   return (
     <div className={css.overview}>
-      <section>
+      <section className={`${css.descriptionPanel} ${css.recordDetailCard}`}>
         <h3>Task brief</h3>
         <p className={css.prose}>{d.description}</p>
       </section>
@@ -111,7 +112,7 @@ export function TaskOverview({
         </section>
       )}
       <section
-        className={`${css.progressPanel} ${css.taskProgress}`}
+        className={`${css.progressPanel} ${css.taskProgress} ${css.recordDetailCard}`}
         data-task-status={preview.status}
       >
         <div>
@@ -133,12 +134,13 @@ export function TaskOverview({
         )}
       </section>
       {!closed && (
-        <form
-          className={`${css.form} ${css.taskComposer}`}
+        <FormLayout
+          className={`${css.form} ${css.taskComposer} ${css.recordDetailCard}`}
+          data-form-scroll="contained"
           ref={form}
           onSubmit={submit}
         >
-          <fieldset disabled={busy}>
+          <fieldset data-form-contents="" disabled={busy}>
             {canStatus && (
               <label>
                 <FieldLabel required={true}>Update task status</FieldLabel>
@@ -229,7 +231,7 @@ export function TaskOverview({
               </p>
             )}
           </fieldset>
-        </form>
+        </FormLayout>
       )}
       {closed && (
         <p className={css.notice}>
@@ -237,7 +239,7 @@ export function TaskOverview({
           remain available.
         </p>
       )}
-      <dl className={css.recordMetadata}>
+      <dl className={`${css.recordMetadata} ${css.recordDetailCard}`}>
         <div>
           <dt>Assignees</dt>
           <dd>
@@ -274,7 +276,7 @@ export function TaskOverview({
         busy={busy}
         onReassign={onReassign}
       />
-      <section className={css.taskActivity}>
+      <section className={`${css.taskActivity} ${css.recordDetailCard}`}>
         <div className={css.sectionHeading}>
           <MessageSquare size={18} />
           <h3>Activity & files</h3>

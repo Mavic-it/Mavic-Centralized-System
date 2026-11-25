@@ -1,10 +1,10 @@
 .scope {
-  --brand: #b42332;
-  --ink: #202936;
-  --muted: #606b7b;
-  --line: #e2e7ed;
+  --brand: var(--primary);
+  --ink: var(--text-primary);
+  --muted: var(--text-secondary);
+  --line: var(--border);
   color: var(--ink);
-  font-size: 14px;
+  font-size: calc(14px * var(--app-text-scale, 1));
   line-height: 1.55;
   min-width: 0;
   width: 100%;
@@ -19,7 +19,7 @@
   margin-bottom: 24px;
 }
 .header h1 {
-  font-size: 25px;
+  font-size: var(--app-title-size);
   font-weight: 650;
   letter-spacing: 0;
   line-height: 1.25;
@@ -28,20 +28,20 @@
 .header > div > p:not(.eyebrow),
 .muted {
   color: var(--muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.5;
   margin: 0;
 }
 .eyebrow {
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   letter-spacing: 0.11em;
   font-weight: 670;
-  color: var(--brand) !important;
+  color: var(--primary-dark) !important;
   margin: 0;
   text-transform: uppercase;
 }
 .panel {
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 12px;
   overflow: hidden;
@@ -57,7 +57,7 @@
   flex-wrap: wrap;
 }
 .toolbar h2 {
-  font-size: 17px;
+  font-size: var(--app-header-size);
   margin: 0;
 }
 .actions {
@@ -71,7 +71,7 @@
   grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
   gap: 14px;
   padding: 18px 20px;
-  background: #f8fafb;
+  background: var(--surface-subtle);
   border-block: 1px solid var(--line);
 }
 .filters label,
@@ -79,9 +79,9 @@
   display: flex;
   flex-direction: column;
   gap: 7px;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 600;
-  color: #4f5d6c;
+  color: var(--text-secondary);
   min-width: 0;
 }
 .scope select,
@@ -91,18 +91,18 @@
 .form input:not([type="checkbox"]),
 .form textarea {
   min-height: 42px;
-  border: 1px solid #d9e0e8;
+  border: 1px solid var(--border);
   border-radius: 7px;
-  background: #fff;
+  background: var(--surface);
   padding: 9px 11px;
-  color: #202936;
+  color: var(--text-primary);
   width: 100%;
   font: inherit;
   box-sizing: border-box;
 }
 .scope :focus-visible,
 .form :focus-visible {
-  outline: 2px solid #b42332;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }
 .metrics {
@@ -113,7 +113,7 @@
 }
 .metric {
   padding: 20px;
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 12px;
   display: flex;
@@ -123,10 +123,10 @@
 .metric span,
 .metric small {
   color: var(--muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .metric strong {
-  font-size: 28px;
+  font-size: calc(28px * var(--app-text-scale, 1));
   font-weight: 650;
   letter-spacing: -0.6px;
 }
@@ -137,25 +137,25 @@
   margin: 24px 0;
 }
 .balanceCards article {
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 20px;
 }
 .balanceCards h2 {
-  font-size: 30px;
+  font-size: var(--app-header-size);
   margin: 8px 0 16px;
   letter-spacing: -0.6px;
 }
 .balanceCards h2 small {
-  font-size: 12px;
+  font-size: var(--app-header-size);
   font-weight: 500;
   color: var(--muted);
   letter-spacing: normal;
 }
 .balanceCards strong {
-  font-size: 32px;
-  color: #22352d;
+  font-size: calc(32px * var(--app-text-scale, 1));
+  color: var(--text-primary);
 }
 .balanceCards dl {
   display: flex;
@@ -166,7 +166,7 @@
   border-top: 1px solid var(--line);
 }
 .balanceCards dt {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   color: var(--muted);
 }
 .balanceCards dd {
@@ -184,14 +184,14 @@
   gap: 10px 14px;
   padding: 14px 20px;
   border-block: 1px solid var(--line);
-  background: #fff;
+  background: var(--surface);
 }
 .tableTools label {
   display: grid;
   gap: 5px;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 600;
-  color: #4f5d6c;
+  color: var(--text-secondary);
 }
 .tableSearch {
   flex: 1 1 230px;
@@ -205,10 +205,10 @@
   gap: 8px;
   min-height: 42px;
   padding-left: 11px;
-  border: 1px solid #d9e0e8;
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: #fff;
-  color: #69778b;
+  background: var(--surface);
+  color: var(--text-secondary);
 }
 .tableInputWrap:focus-within {
   border-color: var(--brand);
@@ -234,46 +234,46 @@
   padding: 0 12px;
   border: 1px solid var(--line);
   border-radius: 7px;
-  background: white;
-  color: var(--brand);
+  background: var(--surface);
+  color: var(--primary-dark);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 5px;
 }
 .clearSearch:hover {
-  background: #fff3f4;
+  background: var(--surface-subtle);
   border-color: #e2b8be;
 }
 .resultCount {
   margin-left: auto;
   align-self: center;
   color: var(--muted);
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   border: 1px solid var(--line);
   border-radius: 999px;
   padding: 6px 11px;
-  background: #f8fafb;
+  background: var(--surface-subtle);
   white-space: nowrap;
 }
 .table tbody tr:hover {
-  background: #f5f8fc;
+  background: var(--surface-subtle);
 }
 .table tbody tr:focus-within {
-  background: #fff8f8;
+  background: var(--surface-subtle);
 }
 .table {
   border-collapse: collapse;
   width: 100%;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   min-width: 700px;
 }
 .table th {
   text-align: left;
-  background: #f6f8fb;
-  color: #606b7b;
+  background: var(--surface-subtle);
+  color: var(--text-secondary);
   font-weight: 600;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   text-transform: uppercase;
   letter-spacing: 0.4px;
   white-space: nowrap;
@@ -281,22 +281,22 @@
 .table td,
 .table th {
   padding: 15px 20px;
-  border-bottom: 1px solid #edf0f4;
+  border-bottom: 1px solid var(--border);
   vertical-align: middle;
 }
 .table :is(td, th) small {
   display: block;
   color: var(--muted);
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 400;
 }
 .table :is(td, th) strong {
   font-weight: 600;
-  color: #202936;
+  color: var(--text-primary);
 }
 .table .rowTitle {
-  color: #202936;
-  font-size: 13px;
+  color: var(--text-primary);
+  font-size: calc(13px * var(--app-text-scale, 1));
   font-weight: 600;
   text-transform: none;
   letter-spacing: normal;
@@ -314,32 +314,32 @@
 }
 .table td button:hover {
   border-color: var(--brand);
-  color: var(--brand);
+  color: var(--primary-dark);
 }
 .status {
   display: inline-flex;
   align-items: center;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   padding: 4px 9px;
   border-radius: 5px;
   font-weight: 600;
   white-space: nowrap;
 }
 .pending {
-  background: #fff6e0;
-  color: #805a13;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
 }
 .approved {
-  background: #edf8f1;
-  color: #176346;
+  background: var(--success);
+  color: var(--status-success);
 }
 .rejected {
-  background: #fff0f1;
-  color: #a12632;
+  background: var(--danger-soft);
+  color: var(--status-danger);
 }
 .cancelled {
-  background: #f0f3f6;
-  color: #5d6978;
+  background: var(--surface-muted);
+  color: var(--text-secondary);
 }
 .empty {
   padding: 40px 24px;
@@ -351,9 +351,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  background: #fff1f2;
-  color: #9a2330;
-  border: 1px solid #f2ccd1;
+  background: var(--danger-soft);
+  color: var(--status-danger);
+  border: 1px solid color-mix(in srgb, var(--status-danger) 28%, var(--border));
   border-radius: 8px;
   padding: 15px;
   margin: 16px 0;
@@ -365,7 +365,7 @@
   justify-content: flex-end;
   padding: 16px 20px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .pagination span {
   margin-right: auto;
@@ -378,29 +378,29 @@
 }
 .skeleton {
   height: 110px;
-  background: #edf0f4;
+  background: var(--surface-muted);
 }
 .dialog {
   width: min(760px, calc(100vw - 32px));
   max-height: 90dvh;
   padding: 0;
-  border: 1px solid #e2e7ed;
+  border: 1px solid var(--border);
   border-radius: 14px;
-  color: #202936;
+  color: var(--text-primary);
 }
 .dialog::backdrop {
   background: #18212d70;
 }
 .dialogHeader {
   padding: 22px 24px;
-  border-bottom: 1px solid #e2e7ed;
+  border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
 }
 .dialogHeader h2 {
-  font-size: 20px;
+  font-size: var(--app-header-size);
   margin: 0;
 }
 .form {
@@ -425,24 +425,24 @@
 .check input {
   width: 16px;
   height: 16px;
-  accent-color: #b42332;
+  accent-color: var(--primary-dark);
 }
 .preview {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
   padding: 16px;
-  background: #f5f8f6;
+  background: var(--surface-subtle);
   border-radius: 10px;
   margin: 0;
 }
 .preview dt {
-  font-size: 11px;
-  color: #5b6a60;
+  font-size: calc(11px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
 }
 .preview dd {
   margin: 8px 0 0;
-  font-size: 19px;
+  font-size: calc(19px * var(--app-text-scale, 1));
   font-weight: 650;
 }
 .footer {
@@ -450,7 +450,7 @@
   justify-content: flex-end;
   gap: 10px;
   padding: 18px 24px;
-  border-top: 1px solid #e2e7ed;
+  border-top: 1px solid var(--border);
 }
 .details {
   padding: 24px;
@@ -461,29 +461,29 @@
   padding: 14px 16px;
   border: 1px solid #dce5ef;
   border-radius: 9px;
-  background: #f6f9fc;
+  background: var(--surface-subtle);
 }
 .requestNextStep strong {
-  font-size: 14px;
+  font-size: calc(14px * var(--app-text-scale, 1));
 }
 .requestNextStep p {
-  color: #606b7b;
-  font-size: 12px;
+  color: var(--text-secondary);
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .requestHistory {
-  border-top: 1px solid #e2e7ed;
+  border-top: 1px solid var(--border);
   padding-top: 16px;
 }
 .requestHistory summary {
   cursor: pointer;
-  color: #52647b;
-  font-size: 13px;
+  color: var(--text-secondary);
+  font-size: calc(13px * var(--app-text-scale, 1));
   font-weight: 600;
   padding: 7px 0;
 }
 .details h3 {
-  font-size: 13px;
-  color: #5f6c7b;
+  font-size: var(--app-header-size);
+  color: var(--text-secondary);
   margin: 0 0 5px;
 }
 .details p {
@@ -503,11 +503,11 @@
 }
 .timeline li {
   padding: 12px 0;
-  border-bottom: 1px solid #edf0f4;
+  border-bottom: 1px solid var(--border);
 }
 .timeline small {
   display: block;
-  color: #687586;
+  color: var(--text-secondary);
 }
 .charts {
   display: grid;
@@ -519,11 +519,11 @@
   padding: 22px;
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: white;
+  background: var(--surface);
   min-width: 0;
 }
 .chart h2 {
-  font-size: 16px;
+  font-size: var(--app-header-size);
   margin: 0 0 10px;
 }
 .barRow {
@@ -543,7 +543,7 @@
 }
 .track {
   display: flex;
-  background: #f0f3f5;
+  background: var(--surface-muted);
   height: 9px;
   border-radius: 5px;
   overflow: hidden;
@@ -564,20 +564,20 @@
 .notice {
   padding: 14px 18px;
   border-radius: 8px;
-  background: #fff8e8;
+  background: var(--warning);
   border: 1px solid #efe2bd;
-  color: #73561d;
-  font-size: 12px;
+  color: var(--status-warning);
+  font-size: calc(12px * var(--app-text-scale, 1));
   margin: 16px 0;
 }
 .link {
-  color: #9e2431;
+  color: var(--primary-dark);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 .small {
-  font-size: 12px;
-  color: #667384;
+  font-size: calc(12px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
   padding: 0 20px 15px;
 }
 @media (max-width: 700px) {
@@ -589,7 +589,7 @@
     flex-direction: column;
   }
   .header h1 {
-    font-size: 25px;
+    font-size: var(--app-title-size);
   }
   .fields,
   .charts {
@@ -666,7 +666,7 @@
   gap: 10px;
   align-items: center;
   white-space: nowrap;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 600;
 }
 .balanceYear input {
@@ -694,44 +694,44 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: #f4f8f5;
-  border: 1px solid #e0eae3;
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
   border-radius: 7px;
   padding: 7px 10px;
 }
 .balanceChip > span {
-  font-size: 11px;
-  color: #53675a;
+  font-size: calc(11px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
 }
 .balanceChip > strong {
-  font-size: 14px;
+  font-size: calc(14px * var(--app-text-scale, 1));
   white-space: nowrap;
-  color: #2d543b;
+  color: var(--text-primary);
 }
 .balanceChip strong small {
   display: inline;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   font-weight: 400;
   margin-left: 4px;
-  color: #68786d;
+  color: var(--text-secondary);
 }
 .balanceChip.zeroCredit {
-  background: #fafbfc;
-  border-color: #e9edf2;
+  background: var(--surface-subtle);
+  border-color: var(--border);
 }
 .zeroCredit > span,
 .zeroCredit > strong {
-  color: #69768a;
+  color: var(--text-secondary);
 }
 .balanceMobileLabel {
   display: none;
 }
 .pendingCount {
   display: inline-flex;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 600;
-  background: #fff7e7;
-  color: #8b621e;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
   border-radius: 20px;
   padding: 5px 9px;
 }
@@ -739,8 +739,8 @@
   border-top: 1px solid var(--line);
 }
 .balanceIntro {
-  font-size: 12px;
-  color: #66758a;
+  font-size: calc(12px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
   line-height: 1.8;
   margin: 0;
 }
@@ -750,9 +750,9 @@
   padding: 24px;
 }
 .employeeTypeCard {
-  border: 1px solid #e2e8ef;
+  border: 1px solid var(--border);
   border-radius: 12px;
-  background: #fff;
+  background: var(--surface);
   overflow: hidden;
 }
 .employeeTypeHeader {
@@ -762,12 +762,12 @@
   padding: 20px;
 }
 .employeeTypeHeader h3 {
-  font-size: 14px;
+  font-size: var(--app-header-size);
   margin: 0 0 4px;
 }
 .employeeTypeHeader small {
-  font-size: 10px;
-  color: #6e7b8e;
+  font-size: calc(10px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
 }
 .availableCredit {
   display: flex;
@@ -777,38 +777,38 @@
   gap: 3px;
 }
 .availableCredit strong {
-  font-size: 28px;
+  font-size: calc(28px * var(--app-text-scale, 1));
   line-height: 1.2;
-  color: #2c4b37;
+  color: var(--text-primary);
 }
 .availableCredit span {
-  font-size: 10px;
-  color: #6b798b;
+  font-size: calc(10px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
 }
 .employeeTypeStats {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  background: #f8fafb;
+  background: var(--surface-subtle);
   margin: 0 20px;
   padding: 13px 16px;
-  border: 1px solid #edf0f4;
+  border: 1px solid var(--border);
   border-radius: 8px;
   gap: 16px;
 }
 .employeeTypeStats dt {
-  font-size: 11px;
-  color: #6a778b;
+  font-size: calc(11px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
 }
 .employeeTypeStats dd {
-  font-size: 17px;
+  font-size: calc(17px * var(--app-text-scale, 1));
   font-weight: 600;
   margin: 5px 0 0;
-  color: #33475e;
+  color: var(--text-primary);
 }
 .creditBreakdown {
   margin: 17px 20px;
-  color: #56677d;
-  font-size: 12px;
+  color: var(--text-secondary);
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .creditBreakdown summary {
   cursor: pointer;
@@ -830,9 +830,9 @@
   font-weight: 600;
 }
 .creditBreakdown p {
-  font-size: 10px;
-  color: #768294;
-  border-top: 1px solid #edf0f4;
+  font-size: calc(10px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border);
   padding-top: 10px;
   line-height: 1.7;
 }
@@ -840,7 +840,7 @@
   display: flex;
   gap: 9px;
   padding: 15px 20px;
-  border-top: 1px solid #edf0f4;
+  border-top: 1px solid var(--border);
 }
 .srOnly {
   position: absolute;
@@ -865,7 +865,7 @@
     grid-template-columns: 1fr auto;
     gap: 16px;
     padding: 20px;
-    border-bottom: 1px solid #e8edf2;
+    border-bottom: 1px solid var(--border);
   }
   .balanceTable :is(td, th) {
     display: block;
@@ -879,8 +879,8 @@
   }
   .balanceMobileLabel {
     display: block;
-    color: #6d7b8f;
-    font-size: 10px;
+    color: var(--text-secondary);
+    font-size: calc(10px * var(--app-text-scale, 1));
     font-weight: 500;
     margin-bottom: 8px;
   }
@@ -894,7 +894,7 @@
     padding: 6px 8px;
   }
   .balanceChip > span {
-    font-size: 10px;
+    font-size: calc(10px * var(--app-text-scale, 1));
   }
   .employeeBalanceDetails {
     padding: 18px;
@@ -922,7 +922,7 @@
   display: flex;
   gap: 10px;
   align-items: center;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 600;
 }
 .reportFilters .actions input {
@@ -935,14 +935,14 @@
   border: 1px solid var(--line);
   border-radius: 7px;
   padding: 9px 12px;
-  color: #42536b;
-  background: #fff;
-  font-size: 12px;
+  color: var(--text-secondary);
+  background: var(--surface);
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 600;
   text-decoration: none;
 }
 .exportButton:hover {
-  background: #f6f8fb;
+  background: var(--surface-subtle);
 }
 .reportCharts {
   display: grid;
@@ -961,25 +961,25 @@
   margin: 5px 0 8px;
 }
 .breakdownHeader .muted {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.7;
 }
 .typeCount {
   white-space: nowrap;
-  background: #f2f5f8;
-  border: 1px solid #e5eaf0;
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
   border-radius: 20px;
   padding: 4px 9px;
-  color: #586b83;
-  font-size: 11px;
+  color: var(--text-secondary);
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 .chartLegend {
   display: flex;
   flex-wrap: wrap;
   gap: 11px 16px;
-  color: #66758a;
-  font-size: 10px;
-  border-block: 1px solid #edf0f4;
+  color: var(--text-secondary);
+  font-size: calc(10px * var(--app-text-scale, 1));
+  border-block: 1px solid var(--border);
   padding: 14px 0;
   margin: 18px 0 0;
 }
@@ -1007,16 +1007,16 @@
   width: 100%;
   min-width: 0;
   text-align: left;
-  background: white;
+  background: var(--surface);
   border: 0;
-  border-bottom: 1px solid #edf0f4;
+  border-bottom: 1px solid var(--border);
   padding: 20px 0;
   font: inherit;
   color: inherit;
   cursor: pointer;
 }
 .typeRow:hover {
-  background: #fafbfc;
+  background: var(--surface-subtle);
 }
 .typeRowTitle {
   display: flex;
@@ -1025,7 +1025,7 @@
   margin-bottom: 13px;
 }
 .typeRowTitle strong {
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   line-height: 1.5;
 }
 .typeRowTitle > .typeIcon {
@@ -1039,7 +1039,7 @@
   overflow-wrap: anywhere;
 }
 .typeRowTitle > svg {
-  color: #758499;
+  color: var(--text-secondary);
   flex-shrink: 0;
 }
 .typeMeta {
@@ -1047,13 +1047,13 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-  font-size: 10px;
-  color: #64748b;
+  font-size: calc(10px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
   margin-top: 4px;
 }
 .policyBadge {
-  background: #f2f4f7;
-  color: #5c6b7f;
+  background: var(--surface-muted);
+  color: var(--text-secondary);
   border-radius: 4px;
   padding: 2px 5px;
 }
@@ -1061,21 +1061,21 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px 16px;
-  font-size: 11px;
-  color: #64748b;
+  font-size: calc(11px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
   margin-top: 10px;
 }
 .typeFigures b {
-  color: #34465d;
+  color: var(--text-primary);
 }
 .typeHint {
-  font-size: 10px;
-  color: #766585;
+  font-size: calc(10px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
   margin: 10px 0 0;
 }
 .chartFootnote {
-  font-size: 11px;
-  color: #66758a;
+  font-size: calc(11px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
   line-height: 1.7;
   margin: 17px 0 0;
 }
@@ -1105,7 +1105,7 @@
   align-items: center;
   gap: 12px;
   white-space: nowrap;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 600;
 }
 .yearSelect select {
@@ -1118,7 +1118,7 @@
   margin: 18px 0 30px;
 }
 .personalCard {
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 22px;
@@ -1140,33 +1140,33 @@
   width: 42px;
   height: 42px;
   border-radius: 12px;
-  background: #fbeced;
-  color: #a62a38;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
   flex-shrink: 0;
 }
 .paidBadge,
 .unpaidBadge,
 .accountBadge {
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   font-weight: 650;
   border-radius: 30px;
   padding: 5px 10px;
   letter-spacing: 0.3px;
-  background: #f3f6f3;
-  color: #456650;
+  background: var(--success);
+  color: var(--status-success);
 }
 .unpaidBadge {
-  background: #edf2fa;
-  color: #486185;
+  background: var(--info-soft);
+  color: var(--status-info);
 }
 .personalCard h3 {
-  font-size: 16px;
+  font-size: var(--app-header-size);
   line-height: 1.5;
   letter-spacing: -0.25px;
   margin: 0 0 4px;
 }
 .typeCode {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   color: var(--muted);
   margin: 0;
 }
@@ -1178,18 +1178,18 @@
   flex-wrap: wrap;
 }
 .cardValue strong {
-  font-size: 42px;
+  font-size: calc(42px * var(--app-text-scale, 1));
   line-height: 1.1;
   letter-spacing: -1.8px;
   font-weight: 650;
-  color: #263c31;
+  color: var(--text-primary);
 }
 .cardValue span {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   color: var(--muted);
 }
 .creditMeter {
-  background: #edf2ed;
+  background: var(--surface-muted);
   height: 5px;
   border-radius: 10px;
   overflow: hidden;
@@ -1209,22 +1209,22 @@
   padding: 0;
 }
 .cardStats dt {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   color: var(--muted);
   line-height: 1.5;
 }
 .cardStats dd {
-  font-size: 17px;
+  font-size: calc(17px * var(--app-text-scale, 1));
   font-weight: 650;
-  color: #364253;
+  color: var(--text-primary);
   margin: 6px 0 0;
 }
 .cardFootnote {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   display: flex;
   gap: 7px;
   align-items: center;
-  border-top: 1px solid #edf0f3;
+  border-top: 1px solid var(--border);
   padding-top: 16px;
   margin: 20px 0 0;
   color: var(--muted);
@@ -1233,16 +1233,16 @@
   flex-shrink: 0;
 }
 .unpaidCard .typeIcon {
-  background: #edf2fa;
-  color: #486185;
+  background: var(--surface-muted);
+  color: var(--text-secondary);
 }
 .unpaidCard .cardValue strong {
-  color: #3c557b;
+  color: var(--text-secondary);
 }
 .creditFree {
-  font-size: 11px;
-  background: #f4f7fc;
-  color: #486185;
+  font-size: calc(11px * var(--app-text-scale, 1));
+  background: var(--surface-subtle);
+  color: var(--text-secondary);
   padding: 8px 11px;
   border-radius: 6px;
   margin: 0 0 19px;
@@ -1250,7 +1250,7 @@
 .accountPanel {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 16px;
   margin: 26px 0;
@@ -1268,19 +1268,19 @@
 }
 .accountBadge {
   display: inline-block;
-  background: #fbf0f1;
-  color: #9b2a37;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
   vertical-align: middle;
 }
 .accountIntro h2 {
-  font-size: 28px;
+  font-size: var(--app-header-size);
   line-height: 1.3;
   letter-spacing: -0.8px;
   margin: 24px 0 15px;
   max-width: 460px;
 }
 .accountIntro > p {
-  font-size: 14px;
+  font-size: calc(14px * var(--app-text-scale, 1));
   line-height: 1.85;
   color: var(--muted);
   max-width: 490px;
@@ -1300,7 +1300,7 @@
   border-radius: 8px;
   padding: 11px 15px;
   text-decoration: none;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 600;
   min-height: 43px;
 }
@@ -1313,13 +1313,13 @@
   background: #972332;
 }
 .accountSecondary {
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--line);
-  color: #3e4b5d;
+  color: var(--text-primary);
 }
 .accountSteps {
   padding: 36px;
-  background: #fafbfc;
+  background: var(--surface-subtle);
   border-left: 1px solid var(--line);
 }
 .accountSteps ol {
@@ -1338,20 +1338,20 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  background: white;
-  border: 1px solid #e0e6ed;
+  background: var(--surface);
+  border: 1px solid var(--border);
   width: 32px;
   height: 32px;
   border-radius: 9px;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 650;
-  color: #64748a;
+  color: var(--text-secondary);
 }
 .accountSteps strong {
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
 }
 .accountSteps li p {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   color: var(--muted);
   margin: 6px 0 0;
   line-height: 1.7;
@@ -1363,7 +1363,7 @@
   align-items: flex-start;
   gap: 9px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 .accountFootnote svg {
   flex-shrink: 0;
@@ -1374,26 +1374,26 @@
   align-items: center;
   gap: 15px;
   padding: 18px 20px;
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 12px;
   margin: 20px 0;
 }
 .adminNotice strong {
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
 }
 .adminNotice p {
   color: var(--muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   margin: 5px 0 0;
 }
 .adminNotice a {
   display: inline-flex;
   gap: 5px;
   align-items: center;
-  color: var(--brand);
+  color: var(--primary-dark);
   margin-left: auto;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 600;
   flex-shrink: 0;
 }
@@ -1409,8 +1409,8 @@
   border: 0;
   border-left: 1px solid #dce3ed;
   border-radius: 0;
-  background: white;
-  color: #24354c;
+  background: var(--surface);
+  color: var(--text-primary);
   overflow: hidden;
   box-shadow: -18px 0 60px #14253d24;
 }
@@ -1427,16 +1427,16 @@
   justify-content: space-between;
   gap: 16px;
   padding: 22px 26px;
-  border-bottom: 1px solid var(--line, #e2e7ed);
+  border-bottom: 1px solid var(--line, var(--border));
   flex-shrink: 0;
 }
 .drawerHeader h2 {
-  font-size: 22px;
+  font-size: var(--app-header-size);
   margin: 7px 0;
   overflow-wrap: anywhere;
 }
 .drawerHeader .muted {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .drawerBody {
   flex: 1;
@@ -1448,15 +1448,15 @@
   flex-shrink: 0;
   align-items: center;
   flex-wrap: wrap;
-  background: #fafbfc;
+  background: var(--surface-subtle);
 }
 .drawerFooter > span {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   line-height: 1.6;
 }
 .requestDrawer .detailGrid {
-  background: #f7f9fb;
-  border: 1px solid #e6ebf1;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
   padding: 18px;
   border-radius: 10px;
 }
@@ -1493,7 +1493,7 @@
     padding: 24px;
   }
   .accountIntro h2 {
-    font-size: 25px;
+    font-size: var(--app-header-size);
   }
   .accountActions > a {
     width: 100%;

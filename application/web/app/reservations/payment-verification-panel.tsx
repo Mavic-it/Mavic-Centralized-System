@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { LoadingRows } from "../components/content-loading";
 import { RequiredMark } from "../components/required-mark";
@@ -138,7 +139,7 @@ export function PaymentVerificationPanel({ branchId }: { branchId: string }) {
           Refresh queue
         </button>
       </div>
-      <form
+      <FormLayout
         className={s.filters}
         onSubmit={(e) => {
           e.preventDefault();
@@ -214,7 +215,7 @@ export function PaymentVerificationPanel({ branchId }: { branchId: string }) {
           />
         </label>
         <button>Search</button>
-      </form>
+      </FormLayout>
       {error && (
         <p role="alert" className={s.error}>
           {error}
@@ -462,7 +463,7 @@ export function PaymentVerificationPanel({ branchId }: { branchId: string }) {
           presentation="center"
           className={s.dialog}
         >
-          <form onSubmit={decide}>
+          <FormLayout onSubmit={decide}>
             <h2 id="payment-decision-title">{label(action)} payment</h2>
             {["verify", "confirm-refund"].includes(action) && (
               <>
@@ -565,7 +566,7 @@ export function PaymentVerificationPanel({ branchId }: { branchId: string }) {
                 {busy ? "Saving…" : "Confirm decision"}
               </button>
             </div>
-          </form>
+          </FormLayout>
         </Modal>
       )}
     </section>

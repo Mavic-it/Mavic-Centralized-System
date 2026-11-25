@@ -1,4 +1,6 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
+import { inquirySchema } from '../inquiries/contracts';
 
 import {
   loadWorkspaceBranchAccess,
@@ -377,6 +379,28 @@ export default function ReservationsWorkspace({
     specialRequests: "",
     notes: "",
   });
+  const [conversionInquiryId,setConversionInquiryId] = useState<string | undefined>();
+  const [conversionRequestKey,setConversionRequestKey] = useState<string | undefined>();
+  const conversionSourceId=searchParams.get('inquiryId');
+  useEffect(() => {
+    const inquiryId=conversionSourceId;
+    if(!inquiryId)return;
+    let active=true;
+    fetch(`/api/inquiries/${encodeURIComponent(inquiryId)}`,{cache:'no-store',credentials:'same-origin'})
+      .then(async response=>{if(!response.ok)throw new Error('Inquiry conversion is unavailable.');return response.json();})
+      .then(data=>{
+        if(!active)return;
+        const r=inquirySchema.parse(data.record);
+        if(!r||typeof r.clientName!=='string'||typeof r.branchId!=='string')throw new Error('Invalid inquiry data.');
+        const selected=r.preferredBranchIds?.[0]??r.branchId;
+        setBranchId(selected);
+        setConversionInquiryId(inquiryId);
+        setConversionRequestKey(crypto.randomUUID());
+        setDraft(d=>({...d,branchId:selected,roomId:'',date:r.preferredStart?localDay(r.preferredStart):localDay(new Date().toISOString()),start:r.preferredStart?new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Manila',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(new Date(r.preferredStart)):d.start,end:r.preferredEnd?new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Manila',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(new Date(r.preferredEnd)):d.end,guestCount:String(r.pax??1),customerName:r.clientName,customerEmail:r.client?.email??'',customerPhone:r.client?.phone??'',companyName:r.client?.companyName??'',specialRequests:r.requirements??'',purpose:r.description||'Reservation from inquiry',notes:`Inquiry ${r.reference}`}));
+        setCreateDate('inquiry');setReview(false);
+      }).catch(()=>{if(active)setError('Could not prepare this inquiry. Return to Inquiries and retry.');});
+    return ()=>{active=false;};
+  },[conversionSourceId]);
   const showError = (message: string) => {
     setError(message);
     notifyError(message);
@@ -472,6 +496,7 @@ export default function ReservationsWorkspace({
   }, [load, refresh]);
   const reload = () => setRefresh((v) => v + 1);
   const openCreate = (onDate = date) => {
+    setConversionInquiryId(undefined);setConversionRequestKey(undefined);
     const targetBranchId = branchId;
     if (targetBranchId)
       void reservationRequest<typeof settings>(
@@ -598,6 +623,8 @@ export default function ReservationsWorkspace({
       return;
     }
     const payload = {
+      inquiryId: editingBooking ? undefined : conversionInquiryId,
+      inquiryRequestKey: editingBooking ? undefined : conversionRequestKey,
       branchId: draft.branchId,
       roomId: draft.roomId,
       startAt: manilaIso(draft.date, draft.start),
@@ -618,6 +645,8 @@ export default function ReservationsWorkspace({
       editingBooking ? "Reservation updated." : "Reservation created.",
     );
     if (ok) {
+      setConversionInquiryId(undefined);setConversionRequestKey(undefined);
+      if(conversionSourceId)router.replace("/reservations/list");
       setCreateDate(null);
       setReview(false);
       setEditingBooking(false);
@@ -893,7 +922,8 @@ export default function ReservationsWorkspace({
                   ))}
                 </select>
               </label>
-              <form
+              <FormLayout
+                density="compact"
                 className={s.searchForm}
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -912,7 +942,7 @@ export default function ReservationsWorkspace({
                 <button className={s.secondary} type="submit">
                   Search
                 </button>
-              </form>
+              </FormLayout>
             </>
           )}
           {(section === "list" || section === "reports") && (
@@ -1167,7 +1197,7 @@ export default function ReservationsWorkspace({
                 Choose a branch to view its booking settings.
               </p>
             ) : (
-              <form
+              <FormLayout
                 className={s.settingsForm}
                 onSubmit={async (e) => {
                   e.preventDefault();
@@ -1387,7 +1417,7 @@ export default function ReservationsWorkspace({
                     {busy ? "Saving…" : "Save settings"}
                   </button>
                 </div>
-              </form>
+              </FormLayout>
             )}
           </>
         )}
@@ -1405,7 +1435,7 @@ export default function ReservationsWorkspace({
           }
           onClose={() => setCreateDate(null)}
         >
-          <form className={s.form} onSubmit={submitBooking}>
+          <FormLayout className={s.form} onSubmit={submitBooking}>
             {error && (
               <p className={s.error} role="alert">
                 {error}
@@ -1689,7 +1719,7 @@ export default function ReservationsWorkspace({
                     : "Review reservation"}
               </button>
             </div>
-          </form>
+          </FormLayout>
         </Modal>
       )}
       {reasonAction && (
@@ -1701,7 +1731,7 @@ export default function ReservationsWorkspace({
           }
           onClose={() => setReasonAction(null)}
         >
-          <form className={s.form} onSubmit={submitReason}>
+          <FormLayout className={s.form} onSubmit={submitReason}>
             <p className={s.reasonIntro}>
               Add a reason to keep the reservation history clear for the team.
             </p>
@@ -1737,7 +1767,7 @@ export default function ReservationsWorkspace({
                     : statusLabel(reasonAction)}
               </button>
             </div>
-          </form>
+          </FormLayout>
         </Modal>
       )}
       {detailId && (
@@ -1926,7 +1956,7 @@ export default function ReservationsWorkspace({
                 !["CANCELLED", "REJECTED"].includes(
                   String(detail.record.status),
                 ) && (
-                  <form
+                  <FormLayout
                     className={s.paymentForm}
                     onSubmit={async (e) => {
                       e.preventDefault();
@@ -1990,7 +2020,7 @@ export default function ReservationsWorkspace({
                     >
                       Record payment
                     </button>
-                  </form>
+                  </FormLayout>
                 )}
               {detail.payments.length > 0 && (
                 <>
@@ -2041,7 +2071,7 @@ export default function ReservationsWorkspace({
           }
           onClose={() => setSpaceDialog(false)}
         >
-          <form
+          <FormLayout
             className={s.form}
             onSubmit={async (e) => {
               e.preventDefault();
@@ -2168,7 +2198,7 @@ export default function ReservationsWorkspace({
                 Save space
               </button>
             </div>
-          </form>
+          </FormLayout>
         </Modal>
       )}
       {blockSpace && (
@@ -2176,7 +2206,7 @@ export default function ReservationsWorkspace({
           title={`Block ${blockSpace.name}`}
           onClose={() => setBlockSpace(null)}
         >
-          <form
+          <FormLayout
             className={s.form}
             onSubmit={async (e) => {
               e.preventDefault();
@@ -2219,7 +2249,7 @@ export default function ReservationsWorkspace({
                 Block time
               </button>
             </div>
-          </form>
+          </FormLayout>
         </Modal>
       )}
     </main>

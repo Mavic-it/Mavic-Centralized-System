@@ -19,13 +19,14 @@ const trimNullableString = ({ value }: { value: unknown }) =>
   typeof value === 'string' ? value.trim() || null : value;
 
 export class CreateBranchDto {
+  @IsOptional()
   @Transform(({ value }) =>
     typeof value === 'string' ? value.trim().toUpperCase() : value,
   )
   @IsString()
   @Length(2, 50)
   @Matches(/^[A-Z0-9][A-Z0-9_-]*$/)
-  code!: string;
+  code?: string;
 
   @Transform(trimString)
   @IsString()
@@ -99,6 +100,13 @@ export class CreateBranchDto {
   @IsOptional()
   @IsIn(['ACTIVE', 'INACTIVE'])
   status?: 'ACTIVE' | 'INACTIVE';
+}
+
+export class SuggestBranchCodeDto {
+  @Transform(trimString)
+  @IsString()
+  @Length(1, 200)
+  name!: string;
 }
 
 export class UpdateBranchDto {

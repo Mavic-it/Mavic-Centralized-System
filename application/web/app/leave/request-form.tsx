@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { LoadingLines, LoadingRegion } from "../components/content-loading";
 import { LeaveFormLoading } from "./leave-loading";
 import { FieldLabel } from "../components/field-label";
@@ -115,7 +116,7 @@ export function RequestForm({ onClose }: { onClose: () => void }) {
           Close
         </Button>
       </header>
-      <form onSubmit={save}>
+      <FormLayout onSubmit={save}>
         <div className={css.form}>
           {types.isPending ? (
             <LeaveFormLoading />
@@ -343,7 +344,7 @@ export function RequestForm({ onClose }: { onClose: () => void }) {
             {submit.isPending ? "Submitting…" : "Submit request"}
           </Button>
         </footer>
-      </form>
+      </FormLayout>
     </Modal>
   );
 }

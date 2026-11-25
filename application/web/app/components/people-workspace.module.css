@@ -4,6 +4,7 @@
   margin: 0;
   min-width: 0;
   width: 100%;
+  color: var(--ws-text, var(--foreground));
 }
 
 .pageHeader {
@@ -14,29 +15,29 @@
 }
 
 .pageHeader h1 {
-  color: #202421;
-  font-size: 25px;
+  color: var(--ws-text, var(--foreground));
+  font-size: var(--app-title-size);
   font-weight: 650;
   line-height: 1.25;
   margin: 0 0 5px;
 }
 
 .description {
-  color: #747b76;
-  font-size: 12px;
+  color: var(--ws-muted, var(--muted));
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.5;
   margin: 0;
 }
 
 .previewBadge {
   align-items: center;
-  background: #fff9ef;
+  background: var(--warning);
   border: 1px solid #f0dfc8;
   border-radius: 4px;
-  color: #795427;
+  color: var(--status-warning);
   display: inline-flex;
   flex: 0 0 auto;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   font-weight: 620;
   gap: 8px;
   padding: 7px 9px;
@@ -60,9 +61,9 @@
 }
 
 .previewNotice {
-  background: #f4f6f5;
-  border: 1px solid #e2e6e3;
-  color: #5b635e;
+  background: var(--ws-subtle, var(--surface-muted));
+  border: 1px solid var(--ws-border, var(--border));
+  color: var(--ws-text, var(--foreground));
 }
 
 .previewNotice svg,
@@ -73,7 +74,7 @@
 
 .previewNotice p,
 .accessNote p {
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   margin: 0;
 }
 
@@ -85,8 +86,8 @@
 
 .metric,
 .panel {
-  background: #fff;
-  border: 1px solid #e3e6e3;
+  background: var(--ws-surface, var(--surface));
+  border: 1px solid var(--ws-border, var(--border));
   border-radius: 5px;
   min-width: 0;
 }
@@ -102,9 +103,9 @@
 
 .metricTop {
   align-items: center;
-  color: #717773;
+  color: var(--ws-muted, var(--muted));
   display: flex;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   gap: 8px;
 }
 
@@ -118,37 +119,37 @@
 }
 
 .tone-red {
-  background: #fff0ef;
-  color: #b4232a;
+  background: var(--danger-soft);
+  color: var(--status-danger);
 }
 
 .tone-green {
-  background: #edf6f1;
-  color: #2e7659;
+  background: var(--success);
+  color: var(--success-foreground);
 }
 
 .tone-amber {
-  background: #fff4e7;
-  color: #a7641b;
+  background: var(--warning);
+  color: var(--warning-foreground);
 }
 
 .tone-gray {
-  background: #eff1ef;
-  color: #515954;
+  background: var(--surface-muted);
+  color: var(--text-secondary);
 }
 
 .metricValue {
   align-self: end;
-  color: #202421;
-  font-size: 25px;
+  color: var(--ws-text, var(--foreground));
+  font-size: calc(25px * var(--app-text-scale, 1));
   font-weight: 660;
   line-height: 1.1;
   margin-top: 10px;
 }
 
 .metricDetail {
-  color: #838a85;
-  font-size: 9px;
+  color: var(--text-muted);
+  font-size: calc(9px * var(--app-text-scale, 1));
   margin-top: 6px;
 }
 
@@ -177,8 +178,8 @@
 }
 
 .sectionSwitcherNav {
-  background: #fff;
-  border: 1px solid #e3e6e3;
+  background: var(--ws-surface, var(--surface));
+  border: 1px solid var(--ws-border, var(--border));
   border-radius: 5px;
   display: grid;
   gap: 4px;
@@ -189,8 +190,8 @@
 }
 
 .sectionSwitcherHeading {
-  color: #737a75;
-  font-size: 9px;
+  color: var(--ws-muted, var(--muted));
+  font-size: calc(9px * var(--app-text-scale, 1));
   font-weight: 680;
   letter-spacing: 0.11em;
   margin: 2px 8px 7px;
@@ -200,29 +201,29 @@
   background: transparent;
   border: 1px solid transparent;
   border-radius: 4px;
-  color: #515954;
+  color: var(--ws-text, var(--foreground));
   cursor: pointer;
   font: inherit;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   line-height: 1.4;
   padding: 9px 8px;
   text-align: left;
 }
 
 .sectionSwitcherButton:hover {
-  background: #f6f7f6;
-  color: #252a26;
+  background: var(--ws-hover, var(--surface-hover));
+  color: var(--ws-text, var(--foreground));
 }
 
 .sectionSwitcherButton[aria-pressed="true"] {
-  background: #fff0ef;
-  border-color: #f3d6d5;
-  color: #a51e27;
+  background: var(--ws-brand-soft, var(--primary-soft));
+  border-color: color-mix(in srgb, var(--ws-brand) 25%, var(--ws-border));
+  color: var(--primary-dark);
   font-weight: 650;
 }
 
 .sectionSwitcherNav button:focus-visible {
-  outline: 2px solid #b4232a;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
@@ -231,7 +232,7 @@
 }
 
 .profileForm {
-  border-top: 1px solid #eceeec;
+  border-top: 1px solid var(--border);
   margin-top: 14px;
   padding-top: 14px;
 }
@@ -246,8 +247,8 @@
 }
 
 .sectionTitle h2 {
-  color: #252a26;
-  font-size: 14px;
+  color: var(--ws-text, var(--foreground));
+  font-size: var(--app-header-size);
   font-weight: 650;
   line-height: 1.35;
   margin: 0;
@@ -263,9 +264,9 @@
 .backLink,
 .primaryLink {
   align-items: center;
-  color: #a51e27;
+  color: var(--primary-dark);
   display: inline-flex;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   font-weight: 620;
   gap: 4px;
   text-decoration: none;
@@ -276,7 +277,7 @@
 .simpleLink:hover,
 .backLink:hover,
 .primaryLink:hover {
-  color: #7f171e;
+  color: var(--primary-dark);
   text-decoration: underline;
 }
 
@@ -292,7 +293,7 @@
 .teamRow,
 .documentList li {
   align-items: center;
-  border-top: 1px solid #edf0ed;
+  border-top: 1px solid var(--ws-border, var(--border));
   display: flex;
   gap: 10px;
   min-width: 0;
@@ -302,12 +303,12 @@
 .avatar,
 .profileAvatar {
   align-items: center;
-  background: #eeefec;
+  background: var(--surface-muted);
   border-radius: 50%;
-  color: #535b55;
+  color: var(--text-secondary);
   display: inline-flex;
   flex: 0 0 auto;
-  font-size: 9px;
+  font-size: calc(9px * var(--app-text-scale, 1));
   font-weight: 700;
   height: 31px;
   justify-content: center;
@@ -338,16 +339,16 @@
 .queueMain strong,
 .teamIdentity strong,
 .documentList strong {
-  color: #343a36;
-  font-size: 10px;
+  color: var(--ws-text, var(--foreground));
+  font-size: calc(10px * var(--app-text-scale, 1));
   font-weight: 640;
 }
 
 .queueMain span,
 .teamIdentity small,
 .documentList small {
-  color: #7a817c;
-  font-size: 9px;
+  color: var(--ws-muted, var(--muted));
+  font-size: calc(9px * var(--app-text-scale, 1));
   line-height: 1.45;
 }
 
@@ -361,12 +362,12 @@
 }
 
 .teamRow > svg {
-  color: #838a85;
+  color: var(--text-muted);
   margin-left: auto;
 }
 
 .panelFooterLinks {
-  border-top: 1px solid #edf0ed;
+  border-top: 1px solid var(--ws-border, var(--border));
   display: flex;
   flex-wrap: wrap;
   gap: 10px 18px;
@@ -380,21 +381,21 @@
 }
 
 .attendanceSummary > strong {
-  color: #202421;
-  font-size: 25px;
+  color: var(--ws-text, var(--foreground));
+  font-size: calc(25px * var(--app-text-scale, 1));
   font-weight: 660;
   grid-row: span 2;
 }
 
 .attendanceSummary > span {
   align-self: end;
-  color: #737a75;
-  font-size: 9px;
+  color: var(--text-secondary);
+  font-size: calc(9px * var(--app-text-scale, 1));
 }
 
 .attendanceBar {
   align-self: center;
-  background: #e8ece9;
+  background: var(--ws-subtle, var(--surface-muted));
   border-radius: 2px;
   height: 7px;
   overflow: hidden;
@@ -408,10 +409,10 @@
 }
 
 .attendanceSummary p {
-  border-top: 1px solid #edf0ed;
-  color: #666e68;
+  border-top: 1px solid var(--ws-border, var(--border));
+  color: var(--ws-muted, var(--muted));
   display: flex;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   grid-column: 1 / -1;
   justify-content: space-between;
   margin: 2px 0 0;
@@ -419,7 +420,7 @@
 }
 
 .attendanceSummary p strong {
-  color: #343a36;
+  color: var(--ws-text, var(--foreground));
 }
 
 .reportList {
@@ -430,39 +431,39 @@
 
 .reportList li {
   align-items: center;
-  border-top: 1px solid #edf0ed;
-  color: #555d57;
+  border-top: 1px solid var(--ws-border, var(--border));
+  color: var(--ws-text, var(--foreground));
   display: flex;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   gap: 9px;
   min-height: 39px;
 }
 
 .reportList li > svg {
-  color: #8a918c;
+  color: var(--text-muted);
 }
 
 .reportList small {
-  color: #858c87;
-  font-size: 9px;
+  color: var(--ws-muted, var(--muted));
+  font-size: calc(9px * var(--app-text-scale, 1));
   margin-left: auto;
 }
 
 .mutedNote {
-  color: #828983;
-  font-size: 9px;
+  color: var(--text-secondary);
+  font-size: calc(9px * var(--app-text-scale, 1));
   line-height: 1.5;
   margin: 10px 0 0;
 }
 
 .statusPill {
   align-items: center;
-  background: #f0f2f0;
+  background: var(--surface-muted);
   border-radius: 3px;
-  color: #555d57;
+  color: var(--text-secondary);
   display: inline-flex;
   flex: 0 0 auto;
-  font-size: 8px;
+  font-size: calc(8px * var(--app-text-scale, 1));
   font-weight: 650;
   line-height: 1.25;
   padding: 5px 7px;
@@ -473,8 +474,8 @@
 .status-approved,
 .status-ready,
 .status-recorded {
-  background: #edf6f1;
-  color: #2d6d50;
+  background: var(--success);
+  color: var(--success-foreground);
 }
 
 .status-pending,
@@ -482,21 +483,21 @@
 .status-hr-review,
 .status-not-configured,
 .status-on-shift {
-  background: #fff4e7;
-  color: #88541f;
+  background: var(--warning);
+  color: var(--warning-foreground);
 }
 
 .status-inactive,
 .status-resigned,
 .status-rejected,
 .status-cancelled {
-  background: #f1f2f1;
-  color: #626a64;
+  background: var(--archived);
+  color: var(--archived-foreground);
 }
 
 .status-pending-manager {
-  background: #fff4e7;
-  color: #88541f;
+  background: var(--warning);
+  color: var(--warning-foreground);
 }
 
 .tableToolbar {
@@ -510,10 +511,10 @@
 
 .searchBox {
   align-items: center;
-  background: white;
-  border: 1px solid #dfe3df;
+  background: var(--ws-surface, var(--surface));
+  border: 1px solid var(--ws-border, var(--border));
   border-radius: 4px;
-  color: #858c87;
+  color: var(--ws-muted, var(--muted));
   display: flex;
   gap: 8px;
   height: 36px;
@@ -522,26 +523,26 @@
 }
 
 .searchBox:focus-within {
-  border-color: #b75654;
-  box-shadow: 0 0 0 3px rgb(194 45 50 / 9%);
+  border-color: var(--ws-brand, var(--primary));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ws-brand, var(--primary)) 18%, transparent);
 }
 
 .searchBox input {
   background: transparent;
   border: 0;
-  color: #2b302c;
+  color: var(--ws-text, var(--foreground));
   flex: 1;
   font: inherit;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   min-width: 0;
   outline: 0;
 }
 
 .filterLabel {
   align-items: center;
-  color: #747b76;
+  color: var(--ws-muted, var(--muted));
   display: flex;
-  font-size: 9px;
+  font-size: calc(9px * var(--app-text-scale, 1));
   gap: 6px;
 }
 
@@ -549,12 +550,12 @@
 .leaveForm select,
 .leaveForm input,
 .leaveForm textarea {
-  background: #fff;
-  border: 1px solid #dfe3df;
+  background: var(--ws-surface, var(--surface));
+  border: 1px solid var(--ws-border, var(--border));
   border-radius: 4px;
-  color: #343a36;
+  color: var(--ws-text, var(--foreground));
   font: inherit;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   min-height: 35px;
   padding: 0 9px;
 }
@@ -564,13 +565,13 @@
 .leaveForm input:focus-visible,
 .leaveForm textarea:focus-visible,
 .searchBox input:focus-visible {
-  outline: 2px solid #b4232a;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
 .resultCount {
-  color: #737a75;
-  font-size: 9px;
+  color: var(--ws-muted, var(--muted));
+  font-size: calc(9px * var(--app-text-scale, 1));
   margin-left: auto;
   padding-bottom: 9px;
   white-space: nowrap;
@@ -589,11 +590,11 @@
 }
 
 .dataTable th {
-  background: #f8f9f8;
-  border-bottom: 1px solid #e3e6e3;
-  border-top: 1px solid #e3e6e3;
-  color: #737a75;
-  font-size: 8px;
+  background: var(--ws-subtle, var(--surface-muted));
+  border-bottom: 1px solid var(--ws-border, var(--border));
+  border-top: 1px solid var(--ws-border, var(--border));
+  color: var(--ws-muted, var(--muted));
+  font-size: calc(8px * var(--app-text-scale, 1));
   font-weight: 660;
   height: 34px;
   letter-spacing: 0.06em;
@@ -603,9 +604,10 @@
 }
 
 .dataTable td {
-  border-bottom: 1px solid #edf0ed;
-  color: #545c56;
-  font-size: 9px;
+  background: var(--ws-surface, var(--surface));
+  border-bottom: 1px solid var(--ws-border, var(--border));
+  color: var(--ws-text, var(--foreground));
+  font-size: calc(9px * var(--app-text-scale, 1));
   min-height: 53px;
   padding: 8px 10px;
   vertical-align: middle;
@@ -617,17 +619,17 @@
 
 .dataTable td > small,
 .cellSecondary {
-  color: #7c837e;
+  color: var(--ws-muted, var(--muted));
   display: block;
-  font-size: 8px;
+  font-size: calc(8px * var(--app-text-scale, 1));
   line-height: 1.45;
   margin-top: 4px;
   white-space: normal;
 }
 
 .cellPrimary {
-  color: #343a36;
-  font-size: 9px;
+  color: var(--ws-text, var(--foreground));
+  font-size: calc(9px * var(--app-text-scale, 1));
   font-weight: 630;
 }
 
@@ -647,14 +649,14 @@
 }
 
 .personLink strong {
-  color: #343a36;
-  font-size: 9px;
+  color: var(--ws-text, var(--foreground));
+  font-size: calc(9px * var(--app-text-scale, 1));
   font-weight: 640;
 }
 
 .personLink small {
-  color: #7c837e;
-  font-size: 8px;
+  color: var(--ws-muted, var(--muted));
+  font-size: calc(8px * var(--app-text-scale, 1));
   overflow-wrap: anywhere;
 }
 
@@ -664,7 +666,7 @@
   background: transparent;
   border: 0;
   border-radius: 4px;
-  color: #646c66;
+  color: var(--text-secondary);
   display: inline-flex;
   height: 30px;
   justify-content: center;
@@ -674,25 +676,25 @@
 
 .rowAction:hover,
 .iconAction:not(:disabled):hover {
-  background: #f1f3f1;
-  color: #9f2027;
+  background: var(--ws-hover, var(--surface-hover));
+  color: var(--primary-dark);
 }
 
 .iconAction:disabled {
-  color: #adb3ae;
+  color: var(--text-muted);
   cursor: not-allowed;
 }
 
 .emptyState {
-  color: #737a75;
-  font-size: 11px;
+  color: var(--text-secondary);
+  font-size: calc(11px * var(--app-text-scale, 1));
   margin: 17px 0 3px;
   text-align: center;
 }
 
 .emptyStateLarge {
   align-items: center;
-  color: #737a75;
+  color: var(--text-secondary);
   display: flex;
   flex-direction: column;
   min-height: 270px;
@@ -701,35 +703,35 @@
 }
 
 .emptyStateLarge h2 {
-  color: #303632;
-  font-size: 17px;
+  color: var(--ws-text, var(--foreground));
+  font-size: var(--app-header-size);
   margin: 12px 0 5px;
 }
 
 .emptyStateLarge p {
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   margin: 0 0 14px;
 }
 
 .primaryLink {
-  background: #c22d32;
+  background: var(--ws-brand, var(--primary));
   border-radius: 4px;
-  color: #fff;
+  color: var(--primary-foreground);
   min-height: 35px;
   padding: 0 11px;
 }
 
 .primaryLink:hover {
-  background: #a51e27;
-  color: #fff;
+  background: var(--ws-brand-hover, var(--primary-hover));
+  color: var(--primary-foreground);
   text-decoration: none;
 }
 
 .profileHero,
 .portalHero {
   align-items: center;
-  background: #fff;
-  border: 1px solid #e3e6e3;
+  background: var(--ws-surface, var(--surface));
+  border: 1px solid var(--ws-border, var(--border));
   border-radius: 5px;
   display: flex;
   gap: 15px;
@@ -738,9 +740,9 @@
 }
 
 .profileAvatar {
-  background: #e9e5e0;
-  color: #4b4139;
-  font-size: 13px;
+  background: var(--ws-subtle, var(--surface-muted));
+  color: var(--ws-muted, var(--muted));
+  font-size: calc(13px * var(--app-text-scale, 1));
   height: 48px;
   width: 48px;
 }
@@ -751,22 +753,22 @@
 }
 
 .profileIdentity p {
-  color: #777e79;
-  font-size: 9px;
+  color: var(--text-secondary);
+  font-size: calc(9px * var(--app-text-scale, 1));
   margin: 0 0 4px;
 }
 
 .profileIdentity h2 {
-  color: #242925;
-  font-size: 18px;
+  color: var(--text-primary);
+  font-size: var(--app-header-size);
   font-weight: 650;
   line-height: 1.3;
   margin: 0 0 3px;
 }
 
 .profileIdentity > span {
-  color: #737a75;
-  font-size: 10px;
+  color: var(--text-secondary);
+  font-size: calc(10px * var(--app-text-scale, 1));
 }
 
 .backLink {
@@ -785,14 +787,14 @@
 }
 
 .detailItem dt {
-  color: #7b827d;
-  font-size: 9px;
+  color: var(--text-secondary);
+  font-size: calc(9px * var(--app-text-scale, 1));
   margin-bottom: 5px;
 }
 
 .detailItem dd {
-  color: #343a36;
-  font-size: 10px;
+  color: var(--text-primary);
+  font-size: calc(10px * var(--app-text-scale, 1));
   line-height: 1.45;
   margin: 0;
   overflow-wrap: anywhere;
@@ -810,9 +812,9 @@
 
 .documentIcon {
   align-items: center;
-  background: #f0f2f0;
+  background: var(--surface-muted);
   border-radius: 4px;
-  color: #626a64;
+  color: var(--text-secondary);
   display: inline-flex;
   flex: 0 0 auto;
   height: 31px;
@@ -821,8 +823,8 @@
 }
 
 .maskedValue {
-  color: #565e59;
-  font-size: 9px;
+  color: var(--text-secondary);
+  font-size: calc(9px * var(--app-text-scale, 1));
   white-space: nowrap;
 }
 
@@ -834,25 +836,25 @@
 }
 
 .balanceGrid > div {
-  border-left: 2px solid #c22d32;
+  border-left: 2px solid var(--primary);
   display: grid;
   gap: 5px;
   padding-left: 9px;
 }
 
 .balanceGrid strong {
-  color: #303632;
-  font-size: 17px;
+  color: var(--text-primary);
+  font-size: calc(17px * var(--app-text-scale, 1));
 }
 
 .balanceGrid span {
-  color: #777e79;
-  font-size: 9px;
+  color: var(--text-secondary);
+  font-size: calc(9px * var(--app-text-scale, 1));
 }
 
 .compactList > div {
   align-items: center;
-  border-top: 1px solid #edf0ed;
+  border-top: 1px solid var(--border);
   display: flex;
   flex-wrap: wrap;
   gap: 7px 11px;
@@ -861,17 +863,17 @@
 }
 
 .compactList strong {
-  color: #343a36;
-  font-size: 9px;
+  color: var(--text-primary);
+  font-size: calc(9px * var(--app-text-scale, 1));
 }
 
 .compactList span {
-  color: #747b76;
-  font-size: 9px;
+  color: var(--text-secondary);
+  font-size: calc(9px * var(--app-text-scale, 1));
 }
 
 .tableToolbar + .tableWrap {
-  border-top: 1px solid #edf0ed;
+  border-top: 1px solid var(--border);
 }
 
 .filterTabs {
@@ -887,22 +889,22 @@
   background: transparent;
   border: 1px solid transparent;
   border-radius: 4px;
-  color: #737a75;
+  color: var(--text-secondary);
   cursor: pointer;
   font: inherit;
-  font-size: 9px;
+  font-size: calc(9px * var(--app-text-scale, 1));
   min-height: 31px;
   padding: 0 8px;
 }
 
 .filterTab:hover {
-  background: #f4f5f4;
+  background: var(--surface-hover);
 }
 
 .filterTabActive {
-  background: #fff0ef;
-  border-color: #f4d0ce;
-  color: #9e2429;
+  background: var(--primary-soft);
+  border-color: color-mix(in srgb, var(--primary) 28%, var(--border));
+  color: var(--primary-dark);
   font-weight: 630;
 }
 
@@ -918,7 +920,7 @@
   cursor: pointer;
   display: inline-flex;
   font: inherit;
-  font-size: 9px;
+  font-size: calc(9px * var(--app-text-scale, 1));
   font-weight: 620;
   gap: 6px;
   justify-content: center;
@@ -928,51 +930,51 @@
 }
 
 .primaryButton {
-  background: #c22d32;
-  border-color: #c22d32;
-  color: white;
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-foreground);
 }
 
 .primaryButton:hover {
-  background: #a51e27;
+  background: var(--primary-hover);
 }
 
 .secondaryButton {
-  background: #fff;
-  border-color: #dfe3df;
-  color: #515954;
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text-secondary);
 }
 
 .secondaryButton:hover {
-  background: #f5f6f5;
+  background: var(--surface-hover);
 }
 
 .approveButton {
-  background: #edf6f1;
-  border-color: #d3e8da;
-  color: #2d6d50;
+  background: var(--success);
+  border-color: color-mix(in srgb, var(--status-success) 25%, var(--border));
+  color: var(--success-foreground);
 }
 
 .approveButton:hover {
-  background: #deefe5;
+  background: color-mix(in srgb, var(--status-success) 14%, var(--surface));
 }
 
 .rejectButton,
 .dangerButton {
-  background: #fff;
-  border-color: #ead2d0;
-  color: #a51e27;
+  background: var(--surface);
+  border-color: color-mix(in srgb, var(--status-danger) 28%, var(--border));
+  color: var(--status-danger);
 }
 
 .rejectButton:hover,
 .dangerButton:hover {
-  background: #fff2f0;
+  background: var(--danger-soft);
 }
 
 .unavailableButton {
-  background: #f2f3f2;
-  border-color: #e3e6e3;
-  color: #8a918c;
+  background: var(--surface-muted);
+  border-color: var(--border);
+  color: var(--text-muted);
   cursor: not-allowed;
 }
 
@@ -996,14 +998,14 @@
 }
 
 .modalHeader {
-  border-bottom: 1px solid #edf0ee;
+  border-bottom: 1px solid var(--border);
   gap: 16px;
   margin-bottom: 20px;
   padding-bottom: 16px;
 }
 
 .employeeEditorTabs {
-  border-bottom: 1px solid #e6e9e6;
+  border-bottom: 1px solid var(--border);
   display: flex;
   gap: 5px;
   margin-bottom: 16px;
@@ -1015,36 +1017,36 @@
   border: 1px solid transparent;
   border-bottom: 0;
   border-radius: 4px 4px 0 0;
-  color: #59615b;
+  color: var(--text-secondary);
   cursor: pointer;
   font: inherit;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   min-height: 40px;
   padding: 9px 12px;
   white-space: nowrap;
 }
 
 .employeeEditorTab:hover {
-  background: #f6f7f6;
-  color: #252a26;
+  background: var(--surface-hover);
+  color: var(--text-primary);
 }
 
 .employeeEditorTab[aria-selected="true"] {
-  background: #fff0ef;
-  border-color: #f3d6d5;
-  color: #a51e27;
+  background: var(--primary-soft);
+  border-color: color-mix(in srgb, var(--primary) 18%, var(--border));
+  color: var(--primary-dark);
   font-weight: 650;
   margin-bottom: -1px;
 }
 
 .employeeEditorTab:focus-visible {
-  outline: 2px solid #b4232a;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
 .modalHeader h2 {
-  color: #252a26;
-  font-size: 19px;
+  color: var(--text-primary);
+  font-size: var(--app-header-size);
   margin: 0;
 }
 
@@ -1056,9 +1058,9 @@
 .closeButton {
   background: transparent;
   border: 0;
-  color: #747b76;
+  color: var(--text-secondary);
   cursor: pointer;
-  font-size: 22px;
+  font-size: calc(22px * var(--app-text-scale, 1));
   line-height: 1;
   padding: 4px;
 }
@@ -1074,9 +1076,9 @@
 }
 
 .accountForm > label {
-  color: #4f5751;
+  color: var(--text-secondary);
   display: grid;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   gap: 7px;
   min-width: 0;
 }
@@ -1095,8 +1097,8 @@
 }
 
 .formSection {
-  background: #fbfcfb;
-  border: 1px solid #e6e9e6;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
   border-radius: 6px;
   grid-column: 1 / -1;
   margin: 0;
@@ -1105,8 +1107,8 @@
 }
 
 .formSection > legend {
-  color: #343a35;
-  font-size: 12px;
+  color: var(--text-primary);
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 650;
   padding: 0 6px;
 }
@@ -1123,8 +1125,8 @@
 }
 
 .formSectionFields > label {
-  color: #4f5751;
-  font-size: 11px;
+  color: var(--text-secondary);
+  font-size: calc(11px * var(--app-text-scale, 1));
   gap: 7px;
   min-width: 0;
 }
@@ -1149,31 +1151,31 @@
 }
 
 .formSectionFields input[type="file"]::file-selector-button {
-  background: #f4f5f4;
-  border: 1px solid #dfe3df;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
   border-radius: 4px;
-  color: #343a35;
+  color: var(--text-primary);
   cursor: pointer;
   margin-right: 10px;
   padding: 5px 8px;
 }
 
 .formSectionFields small {
-  color: #737a75;
-  font-size: 10px;
+  color: var(--text-secondary);
+  font-size: calc(10px * var(--app-text-scale, 1));
   line-height: 1.4;
 }
 
 .formHint {
-  color: #737a75;
-  font-size: 10px;
+  color: var(--text-secondary);
+  font-size: calc(10px * var(--app-text-scale, 1));
   line-height: 1.5;
   margin: 0;
 }
 
 .branchScheduleSummary {
-  background: #fff;
-  border: 1px solid #e3e6e3;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 4px;
   display: grid;
   gap: 5px;
@@ -1181,28 +1183,28 @@
 }
 
 .branchScheduleSummary > strong {
-  color: #303632;
-  font-size: 11px;
+  color: var(--text-primary);
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 
 .branchScheduleSummary > span,
 .branchScheduleSummary > small {
-  color: #737a75;
-  font-size: 10px;
+  color: var(--text-secondary);
+  font-size: calc(10px * var(--app-text-scale, 1));
 }
 
 .inlineChoice {
   align-items: center;
-  color: #4f5751;
+  color: var(--text-secondary);
   display: flex;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   gap: 7px;
   margin-top: 4px;
 }
 
 .inlineChoice input,
 .workDaysFieldset input {
-  accent-color: #a51e27;
+  accent-color: var(--primary);
 }
 
 .workScheduleFields {
@@ -1212,9 +1214,9 @@
 }
 
 .workScheduleFields > label {
-  color: #4f5751;
+  color: var(--text-secondary);
   display: grid;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   gap: 6px;
 }
 
@@ -1227,7 +1229,7 @@
 }
 
 .workDaysFieldset {
-  border: 1px solid #e3e6e3;
+  border: 1px solid var(--border);
   border-radius: 4px;
   grid-column: 1 / -1;
   margin: 0;
@@ -1235,8 +1237,8 @@
 }
 
 .workDaysFieldset legend {
-  color: #4f5751;
-  font-size: 10px;
+  color: var(--text-secondary);
+  font-size: calc(10px * var(--app-text-scale, 1));
   padding: 0 4px;
 }
 
@@ -1248,9 +1250,9 @@
 
 .workDaysFieldset label {
   align-items: center;
-  color: #4f5751;
+  color: var(--text-secondary);
   display: inline-flex;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   gap: 4px;
 }
 
@@ -1267,12 +1269,12 @@
 
 .accountScopeNote {
   align-items: flex-start;
-  background: #f4f6f5;
-  border: 1px solid #e2e6e3;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
   border-radius: 4px;
-  color: #515954;
+  color: var(--text-secondary);
   display: flex;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   gap: 9px;
   line-height: 1.5;
   margin: 0;
@@ -1280,7 +1282,7 @@
 }
 
 .accountScopeNote > svg {
-  color: #53675b;
+  color: var(--text-secondary);
   flex: 0 0 auto;
   margin-top: 1px;
 }
@@ -1291,18 +1293,18 @@
 }
 
 .accountScopeNote strong {
-  color: #303632;
-  font-size: 10px;
+  color: var(--text-primary);
+  font-size: calc(10px * var(--app-text-scale, 1));
 }
 
 .queryError {
   align-items: center;
-  background: #fff7f6;
-  border: 1px solid #efd8d6;
+  background: var(--danger-soft);
+  border: 1px solid color-mix(in srgb, var(--status-danger) 25%, var(--border));
   border-radius: 4px;
-  color: #a51e27;
+  color: var(--status-danger);
   display: flex;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   gap: 12px;
   justify-content: space-between;
   line-height: 1.45;
@@ -1319,9 +1321,9 @@
 }
 
 .accountForm label {
-  color: #4f5751;
+  color: var(--text-secondary);
   display: grid;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   gap: 7px;
   min-width: 0;
 }
@@ -1336,11 +1338,11 @@
 
 .accountForm input,
 .accountForm select {
-  border: 1px solid #dfe3df;
+  border: 1px solid var(--border);
   border-radius: 4px;
-  color: #252a26;
+  color: var(--text-primary);
   font: inherit;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   min-height: 40px;
   padding: 0 11px;
 }
@@ -1360,10 +1362,10 @@
 
 .passwordToggle {
   align-items: center;
-  background: #fff;
-  border: 1px solid #dfe3df;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 4px;
-  color: #515954;
+  color: var(--text-secondary);
   cursor: pointer;
   display: inline-flex;
   flex: 0 0 36px;
@@ -1373,11 +1375,11 @@
 }
 
 .passwordToggle:hover {
-  background: #f5f6f5;
+  background: var(--surface-subtle);
 }
 
 .passwordToggle:focus-visible {
-  outline: 2px solid #b4232a;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
@@ -1387,32 +1389,32 @@
 
 .accountForm input:focus,
 .accountForm select:focus {
-  border-color: #b4232a;
-  outline: 2px solid #f4d0ce;
+  border-color: var(--focus-ring);
+  outline: 2px solid color-mix(in srgb, var(--focus-ring) 25%, transparent);
   outline-offset: 1px;
 }
 
 .modalCopy,
 .fieldHint {
-  color: #626a64;
-  font-size: 10px;
+  color: var(--text-secondary);
+  font-size: calc(10px * var(--app-text-scale, 1));
   line-height: 1.5;
   margin: 0;
 }
 
 .fieldHint {
-  color: #7d847f;
+  color: var(--text-secondary);
   margin-top: -7px;
 }
 
 .formError {
-  color: #a51e27;
-  font-size: 10px;
+  color: var(--status-danger);
+  font-size: calc(10px * var(--app-text-scale, 1));
   margin: 0;
 }
 
 .modalActions {
-  border-top: 1px solid #edf0ee;
+  border-top: 1px solid var(--border);
   gap: 8px;
   justify-content: flex-end;
   margin-top: 8px;
@@ -1420,8 +1422,8 @@
 }
 
 .employeeEditorActions {
-  background: #fff;
-  border-top: 1px solid #e6e9e6;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
   bottom: -24px;
   margin: 16px -24px -24px;
   padding: 16px 24px 24px;
@@ -1473,22 +1475,22 @@
 }
 
 .leaveForm {
-  background: #f8f9f8;
-  border: 1px solid #e3e6e3;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
   border-radius: 4px;
   margin: 0 0 16px;
   padding: 15px;
 }
 
 .leaveForm h3 {
-  color: #303632;
-  font-size: 12px;
+  color: var(--text-primary);
+  font-size: var(--app-header-size);
   margin: 0 0 13px;
 }
 
 .leaveForm h3 span {
-  color: #858c87;
-  font-size: 9px;
+  color: var(--text-secondary);
+  font-size: var(--app-header-size);
   font-weight: 450;
   margin-left: 5px;
 }
@@ -1500,9 +1502,9 @@
 }
 
 .formGrid label {
-  color: #5c645e;
+  color: var(--text-secondary);
   display: grid;
-  font-size: 9px;
+  font-size: calc(9px * var(--app-text-scale, 1));
   gap: 6px;
   min-width: 0;
 }
@@ -1523,8 +1525,8 @@
 }
 
 .formGrid small {
-  color: #7d847f;
-  font-size: 8px;
+  color: var(--text-secondary);
+  font-size: calc(8px * var(--app-text-scale, 1));
 }
 
 .formActions,
@@ -1557,34 +1559,34 @@
 }
 
 .confirmActions > span {
-  color: #7f2b2d;
-  font-size: 8px;
+  color: var(--status-danger);
+  font-size: calc(8px * var(--app-text-scale, 1));
   flex-basis: 100%;
 }
 
 .sessionCount {
-  color: #4c554f;
+  color: var(--text-secondary);
   display: block;
-  font-size: 9px;
+  font-size: calc(9px * var(--app-text-scale, 1));
   white-space: nowrap;
 }
 
 .inlineDisabled {
   background: transparent;
   border: 0;
-  color: #9ca29e;
+  color: var(--text-secondary);
   cursor: not-allowed;
   font: inherit;
-  font-size: 8px;
+  font-size: calc(8px * var(--app-text-scale, 1));
   margin-top: 4px;
   padding: 0;
 }
 
 .accessNote {
-  background: #f4f6f5;
-  border-top: 1px solid #e6e9e6;
+  background: var(--surface-subtle);
+  border-top: 1px solid var(--border);
   border-radius: 0;
-  color: #626a64;
+  color: var(--text-secondary);
   margin: 12px -19px -18px;
   padding: 12px 19px;
 }
@@ -1648,8 +1650,8 @@
 
 .employeeFilePage .profilePictureUploadBadge {
   align-items: center;
-  background: #b4232a;
-  border: 2px solid #fff;
+  background: var(--primary);
+  border: 2px solid var(--border);
   border-radius: 50%;
   bottom: -2px;
   display: inline-flex;
@@ -1666,7 +1668,7 @@
   border-radius: 50%;
   display: flex;
   flex-direction: column;
-  font-size: 9px;
+  font-size: calc(9px * var(--app-text-scale, 1));
   gap: 4px;
   inset: 0;
   justify-content: center;
@@ -1701,19 +1703,19 @@
 }
 
 .employeeFilePage .profilePictureUploadButton:focus-visible {
-  outline: 2px solid #b4232a;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
 .employeeFilePage .profileIdentity p,
 .portalPage .profileIdentity p {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   margin-bottom: 6px;
 }
 
 .employeeFilePage .profileIdentity h2,
 .portalPage .profileIdentity h2 {
-  font-size: 24px;
+  font-size: var(--app-header-size);
   line-height: 1.2;
   margin-bottom: 5px;
   overflow-wrap: anywhere;
@@ -1721,7 +1723,7 @@
 
 .employeeFilePage .profileIdentity > span,
 .portalPage .profileIdentity > span {
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   line-height: 1.45;
 }
 
@@ -1739,13 +1741,13 @@
 
 .employeeFilePage .sectionSwitcherHeading,
 .portalPage .sectionSwitcherHeading {
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   margin: 3px 9px 8px;
 }
 
 .employeeFilePage .sectionSwitcherButton,
 .portalPage .sectionSwitcherButton {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   padding: 10px 9px;
 }
 
@@ -1757,7 +1759,7 @@
 
 .employeeFilePage .sectionSwitcherContent .sectionTitle h2,
 .portalPage .sectionSwitcherContent .sectionTitle h2 {
-  font-size: 16px;
+  font-size: var(--app-header-size);
 }
 
 .employeeFilePage .sectionSwitcherContent > .panel .detailGrid,
@@ -1767,13 +1769,13 @@
 
 .employeeFilePage .sectionSwitcherContent > .panel .detailItem dt,
 .portalPage .sectionSwitcherContent > .panel .detailItem dt {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   margin-bottom: 6px;
 }
 
 .employeeFilePage .sectionSwitcherContent > .panel .detailItem dd,
 .portalPage .sectionSwitcherContent > .panel .detailItem dd {
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
 }
 
 .portalPage .portalHero {
@@ -1783,7 +1785,7 @@
 }
 
 .portalPage .portalHero .secondaryLink {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 
 .portalPage .portalMetricGrid {
@@ -1799,11 +1801,11 @@
 
 .portalPage .portalMetricGrid .metricTop,
 .portalPage .portalMetricGrid .metricDetail {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 
 .portalPage .portalMetricGrid .metricValue {
-  font-size: 23px;
+  font-size: calc(23px * var(--app-text-scale, 1));
 }
 
 .announcementList {
@@ -1811,24 +1813,24 @@
 }
 
 .announcementList article {
-  border-top: 1px solid #edf0ed;
+  border-top: 1px solid var(--border);
   padding-top: 11px;
 }
 
 .announcementList article > span {
-  color: #8a918c;
-  font-size: 8px;
+  color: var(--text-muted);
+  font-size: calc(8px * var(--app-text-scale, 1));
 }
 
 .announcementList h3 {
-  color: #343a36;
-  font-size: 10px;
+  color: var(--text-primary);
+  font-size: var(--app-header-size);
   margin: 5px 0 3px;
 }
 
 .announcementList p {
-  color: #707771;
-  font-size: 9px;
+  color: var(--text-secondary);
+  font-size: calc(9px * var(--app-text-scale, 1));
   line-height: 1.5;
   margin: 0;
 }
@@ -1848,7 +1850,7 @@
 .page select:focus-visible,
 .page input:focus-visible,
 .page textarea:focus-visible {
-  outline: 2px solid #b4232a;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
@@ -1909,7 +1911,7 @@
   }
 
   .pageHeader h1 {
-    font-size: 25px;
+    font-size: var(--app-title-size);
   }
 
   .metricGrid {
@@ -1922,7 +1924,7 @@
   }
 
   .metricValue {
-    font-size: 21px;
+    font-size: calc(21px * var(--app-text-scale, 1));
   }
 
   .panel {
@@ -1976,12 +1978,12 @@
   }
 
   .profileIdentity h2 {
-    font-size: 15px;
+    font-size: var(--app-header-size);
   }
 
   .employeeFilePage .profileIdentity h2,
   .portalPage .profileIdentity h2 {
-    font-size: 20px;
+    font-size: var(--app-header-size);
   }
 
   .portalHero .secondaryLink {
@@ -2049,15 +2051,15 @@
 }
 
 .leaveSubpanel {
-  border-top: 1px solid #e4e7e4;
+  border-top: 1px solid var(--border);
   margin-top: 22px;
   padding-top: 18px;
 }
 
 .leaveSubpanel h3,
 .leaveSubheading {
-  color: #303632;
-  font-size: 12px;
+  color: var(--text-primary);
+  font-size: var(--app-header-size);
   margin: 0 0 12px;
 }
 
@@ -2066,8 +2068,8 @@
 }
 
 .leaveHint {
-  color: #747b76;
-  font-size: 10px;
+  color: var(--text-secondary);
+  font-size: calc(10px * var(--app-text-scale, 1));
   line-height: 1.5;
   margin: -4px 0 14px;
 }
@@ -2092,18 +2094,18 @@
 }
 
 .payrollRange label {
-  color: #5c645e;
+  color: var(--text-secondary);
   display: grid;
-  font-size: 9px;
+  font-size: calc(9px * var(--app-text-scale, 1));
   gap: 6px;
   min-width: 160px;
 }
 
 .payrollRange input {
-  background: white;
-  border: 1px solid #dfe3df;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 4px;
-  color: #303632;
+  color: var(--text-primary);
   font: inherit;
   height: 34px;
   padding: 0 8px;
@@ -2125,9 +2127,9 @@
 
 .leaveFilters label,
 .inlineLeaveFilter {
-  color: #4f5751;
+  color: var(--text-secondary);
   display: grid;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   gap: 5px;
   min-width: 0;
 }
@@ -2135,11 +2137,11 @@
 .leaveFilters input,
 .leaveFilters select,
 .inlineLeaveFilter select {
-  background: #fff;
-  border: 1px solid #d8ddd9;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 4px;
   box-sizing: border-box;
-  color: #252b27;
+  color: var(--text-primary);
   font: inherit;
   min-height: 38px;
   min-width: 0;
@@ -2153,9 +2155,9 @@
 }
 
 .leaveRequestDetails > summary {
-  color: #59635d;
+  color: var(--text-secondary);
   cursor: pointer;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -2168,22 +2170,22 @@
 }
 
 .leaveRequestDetailGrid dt {
-  color: #68716c;
-  font-size: 10px;
+  color: var(--text-secondary);
+  font-size: calc(10px * var(--app-text-scale, 1));
   font-weight: 600;
 }
 
 .leaveRequestDetailGrid dd {
-  color: #303632;
-  font-size: 10px;
+  color: var(--text-primary);
+  font-size: calc(10px * var(--app-text-scale, 1));
   margin: 0;
   overflow-wrap: anywhere;
   white-space: pre-wrap;
 }
 
 .leaveRequestDetails h4 {
-  color: #303632;
-  font-size: 11px;
+  color: var(--text-primary);
+  font-size: var(--app-header-size);
   margin: 12px 0 6px;
 }
 
@@ -2195,8 +2197,8 @@
 }
 
 .leaveApprovalHistory li {
-  color: #4f5751;
-  font-size: 10px;
+  color: var(--text-secondary);
+  font-size: calc(10px * var(--app-text-scale, 1));
   padding-left: 2px;
 }
 
@@ -2206,7 +2208,7 @@
 }
 
 .leaveApprovalHistory li > time {
-  color: #737a75;
+  color: var(--text-secondary);
   margin-top: 3px;
 }
 
@@ -2225,13 +2227,13 @@
 }
 
 .leaveReviewForm > label {
-  color: #4f5751;
-  font-size: 11px;
+  color: var(--text-secondary);
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 600;
 }
 
 .leaveReviewForm > textarea {
-  border: 1px solid #d8ddd9;
+  border: 1px solid var(--border);
   border-radius: 4px;
   box-sizing: border-box;
   font: inherit;
@@ -2284,15 +2286,15 @@
 }
 .employeeWorkspace .pageHeader h1 {
   color: var(--ws-text);
-  font-size: 25px;
+  font-size: var(--app-title-size);
   font-weight: 650;
   letter-spacing: 0;
   line-height: 1.25;
   margin: 7px 0 5px;
 }
 .pageHeader .employeeEyebrow {
-  color: #b42332;
-  font-size: 10px;
+  color: var(--primary-dark);
+  font-size: calc(10px * var(--app-text-scale, 1));
   font-weight: 670;
   letter-spacing: 0.11em;
   margin: 0;
@@ -2300,7 +2302,7 @@
 }
 .employeeWorkspace .description {
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.5;
 }
 .employeeWorkspace .previewBadge {
@@ -2308,7 +2310,7 @@
   border-color: var(--ws-border);
   border-radius: 8px;
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   padding: 8px 12px;
 }
 .employeeWorkspace .previewBadge > span {
@@ -2333,18 +2335,18 @@
 .employeeSummaryCard > span,
 .employeeSummaryCard small {
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .employeeSummaryCard strong {
   color: var(--ws-text);
-  font-size: 30px;
+  font-size: calc(30px * var(--app-text-scale, 1));
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums;
 }
 .employeeSummaryCard small {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 .employeeSkeletonLine {
   display: block;
@@ -2399,7 +2401,7 @@
   min-width: 0;
 }
 .employeeWorkspace .searchBox input {
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   min-height: 40px;
   padding: 8px 0;
   border: 0;
@@ -2408,7 +2410,7 @@
 .employeeWorkspace .filterLabel {
   display: grid;
   gap: 7px;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   color: var(--ws-muted);
   min-width: 140px;
   flex: 0 1 160px;
@@ -2417,7 +2419,7 @@
   width: 100%;
 }
 .employeeWorkspace .resultCount {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   color: var(--ws-muted);
   padding: 10px 0;
 }
@@ -2431,7 +2433,7 @@
   min-height: 42px;
   max-width: 100%;
   min-width: 0;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   color: var(--ws-text);
   border-color: var(--ws-border);
   border-radius: var(--ws-control-radius);
@@ -2443,7 +2445,7 @@
   min-height: 42px;
   padding: 9px 16px;
   border-radius: var(--ws-control-radius);
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   font-weight: 550;
   gap: 8px;
 }
@@ -2484,7 +2486,7 @@
 .employeeWorkspace .dataTable th {
   height: 48px;
   padding: 12px 16px;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 600;
   letter-spacing: 0.015em;
   text-transform: none;
@@ -2493,7 +2495,7 @@
   border-color: var(--ws-border);
 }
 .employeeWorkspace .dataTable td {
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   color: var(--ws-text);
   padding: 16px;
   border-color: var(--ws-border);
@@ -2518,13 +2520,13 @@
 .employeeWorkspace .personLink strong,
 .employeeWorkspace .cellPrimary {
   color: var(--ws-text);
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   font-weight: 550;
 }
 .employeeWorkspace .personLink small,
 .employeeWorkspace .cellSecondary {
   color: var(--ws-muted);
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   line-height: 1.6;
   margin-top: 4px;
 }
@@ -2532,7 +2534,7 @@
   width: 40px;
   height: 40px;
   flex-shrink: 0;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
 }
 .employeeWorkspace .rowAction {
   width: 34px;
@@ -2543,7 +2545,7 @@
 .employeeWorkspace .statusPill {
   padding: 5px 9px;
   border-radius: 6px;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 .employeeWorkspace .status-active,
 .employeeWorkspace .status-approved {
@@ -2561,14 +2563,14 @@
   gap: 12px;
 }
 .employeeWorkspace .emptyStateLarge h2 {
-  font-size: 18px;
+  font-size: var(--app-header-size);
   font-weight: 600;
 }
 .employeeWorkspace .emptyStateLarge p,
 .employeeWorkspace .emptyState,
 .employeeWorkspace .queryError,
 .employeeWorkspace .formError {
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   color: var(--ws-muted);
   line-height: 1.65;
 }
@@ -2584,7 +2586,7 @@
 }
 .employeeWorkspace .backLink {
   color: var(--ws-muted);
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   gap: 8px;
   padding: 4px 0;
 }
@@ -2601,7 +2603,7 @@
   min-width: 0;
 }
 .employeeWorkspace .profileIdentity h2 {
-  font-size: 26px;
+  font-size: var(--app-header-size);
   font-weight: 600;
   color: var(--ws-text);
   letter-spacing: -0.03em;
@@ -2610,11 +2612,11 @@
 .employeeWorkspace .profileIdentity p,
 .employeeWorkspace .profileIdentity > span {
   color: var(--ws-muted);
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
 }
 .employeeWorkspace .accountScopeNote {
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .employeeWorkspace .sectionSwitcherLayout {
   display: grid;
@@ -2640,7 +2642,7 @@
   padding: 8px 10px 2px;
   margin: 0;
   color: var(--ws-muted);
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   letter-spacing: 0.1em;
 }
 .employeeWorkspace .sectionSwitcherButton {
@@ -2648,13 +2650,13 @@
   padding: 10px 12px;
   min-height: 42px;
   border-radius: 7px;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 500;
   color: var(--ws-muted);
   text-align: center;
 }
 .employeeWorkspace .sectionSwitcherButton[aria-pressed="true"] {
-  color: var(--ws-brand);
+  color: var(--primary-dark);
   background: var(--ws-brand-soft);
   border-color: transparent;
 }
@@ -2668,7 +2670,7 @@
   border-radius: var(--ws-radius);
 }
 .employeeWorkspace .sectionSwitcherContent .sectionTitle h2 {
-  font-size: 18px;
+  font-size: var(--app-header-size);
   color: var(--ws-text);
   font-weight: 600;
 }
@@ -2677,11 +2679,11 @@
 }
 .employeeWorkspace .sectionSwitcherContent > .panel .detailItem dt {
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .employeeWorkspace .sectionSwitcherContent > .panel .detailItem dd {
   color: var(--ws-text);
-  font-size: 14px;
+  font-size: calc(14px * var(--app-text-scale, 1));
   overflow-wrap: anywhere;
 }
 .employeeWorkspace :global([data-employee-panel]) {
@@ -2699,39 +2701,39 @@
 }
 .employeeWorkspace :global([data-employee-panel]) h2 {
   color: var(--ws-text);
-  font-size: 18px;
+  font-size: var(--app-header-size);
   font-weight: 600;
 }
 .employeeWorkspace :global([data-employee-panel]) h3 {
   color: var(--ws-text);
-  font-size: 14px;
+  font-size: var(--app-header-size);
   font-weight: 550;
 }
 .employeeWorkspace :global([data-employee-panel]) :is(dt, label, legend) {
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .employeeWorkspace :global([data-employee-panel]) dd {
   color: var(--ws-text);
-  font-size: 14px;
+  font-size: calc(14px * var(--app-text-scale, 1));
   overflow-wrap: anywhere;
 }
 .employeeWorkspace :global([data-employee-panel]) :is(p, small) {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.65;
 }
 .employeeWorkspace :global([data-employee-panel]) th {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   background: var(--ws-subtle);
   color: var(--ws-muted);
   padding: 12px;
 }
 .employeeWorkspace :global([data-employee-panel]) td {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   padding: 12px;
 }
 .employeeWorkspace :global([data-employee-panel]) button {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   min-height: 32px;
 }
 .employeeWorkspace .modal {
@@ -2739,7 +2741,7 @@
   padding: 24px;
 }
 .employeeWorkspace .modalHeader h2 {
-  font-size: 20px;
+  font-size: var(--app-header-size);
   color: var(--ws-text);
 }
 .employeeWorkspace .formSection {
@@ -2751,7 +2753,7 @@
 .employeeWorkspace .formSectionFields > label,
 .employeeWorkspace .fieldLabel {
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .employeeWorkspace .formSectionFields {
   gap: 16px;
@@ -2759,7 +2761,7 @@
 .employeeWorkspace .formHint,
 .employeeWorkspace .formSectionFields small {
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.6;
 }
 .employeeWorkspace .modalActions {
@@ -2825,10 +2827,10 @@
     gap: 8px;
   }
   .employeeSummaryCard strong {
-    font-size: 28px;
+    font-size: calc(28px * var(--app-text-scale, 1));
   }
   .employeeSummaryCard > span {
-    font-size: 11px;
+    font-size: calc(11px * var(--app-text-scale, 1));
   }
   .employeeWorkspace .panel,
   .employeeWorkspace .sectionSwitcherContent > .panel,
@@ -2849,7 +2851,7 @@
     flex: 1 1 180px;
   }
   .employeeWorkspace .profileIdentity h2 {
-    font-size: 23px;
+    font-size: var(--app-header-size);
   }
   .employeeWorkspace .sectionSwitcherButton {
     flex-basis: 42%;
@@ -2878,35 +2880,35 @@
 }
 
 .userWorkspace .filterTabs { flex-basis: 100%; gap: 4px; background: var(--ws-subtle); border-radius: 10px; padding: 4px; width: fit-content; }
-.userWorkspace .filterTab, .userWorkspace .filterTabActive { min-height: 42px; padding: 10px 16px; border-radius: 8px; font-size: 13px; border: 0; color: var(--ws-muted); }
-.userWorkspace .filterTabActive { background: var(--ws-surface); color: var(--ws-brand); box-shadow: var(--ws-shadow); }
+.userWorkspace .filterTab, .userWorkspace .filterTabActive { min-height: 42px; padding: 10px 16px; border-radius: 8px; font-size: calc(13px * var(--app-text-scale, 1)); border: 0; color: var(--ws-muted); }
+.userWorkspace .filterTabActive { background: var(--ws-surface); color: var(--primary-dark); box-shadow: var(--ws-shadow); }
 .userWorkspace .dataTable { min-width: 900px; }
 .userWorkspace .accountActions { gap: 6px; flex-wrap: wrap; }
 .userWorkspace .accountActionHeader { width: 200px; }
-.userWorkspace .accessNote { color: var(--ws-muted); font-size: 12px; border-color: var(--ws-border); margin-top: 20px; }
+.userWorkspace .accessNote { color: var(--ws-muted); font-size: calc(12px * var(--app-text-scale, 1)); border-color: var(--ws-border); margin-top: 20px; }
 .userWorkspace .accessNote p { margin: 0; }
 .userWorkspace .status-pending { color: var(--ws-warning); background: var(--ws-warning-soft); }
 .userWorkspace .status-archived { color: var(--ws-muted); background: var(--ws-subtle); }
 
 .portalSummary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; min-width: 0; }
-.portalSummary .portalMetricValue { font-size: 25px; line-height: 1.2; overflow-wrap: anywhere; }
-.portalSummary .textLink { background: transparent; border: 0; padding: 4px 0; min-height: 32px; color: var(--ws-brand); cursor: pointer; font: inherit; font-size: 12px; text-align: left; }
+.portalSummary .portalMetricValue { font-size: calc(25px * var(--app-text-scale, 1)); line-height: 1.2; overflow-wrap: anywhere; }
+.portalSummary .textLink { background: transparent; border: 0; padding: 4px 0; min-height: 32px; color: var(--primary-dark); cursor: pointer; font: inherit; font-size: calc(12px * var(--app-text-scale, 1)); text-align: left; }
 .employeeWorkspace.portalPage .portalHero { border: 1px solid var(--ws-border); border-top: 3px solid var(--ws-brand); border-radius: var(--ws-radius); background: var(--ws-surface); padding: 28px; gap: 20px; flex-wrap: wrap; box-shadow: var(--ws-shadow); }
-.employeeWorkspace.portalPage .portalHero .profileAvatar { width: 72px; height: 72px; border-radius: 50%; background: var(--ws-brand-soft); color: var(--ws-brand); }
+.employeeWorkspace.portalPage .portalHero .profileAvatar { width: 72px; height: 72px; border-radius: 50%; background: var(--ws-brand-soft); color: var(--primary-dark); }
 .employeeWorkspace.portalPage .portalHero .profileIdentity { flex: 1 1 260px; }
-.employeeWorkspace.portalPage .portalHero .profileIdentity h2 { font-size: 26px; margin: 4px 0 8px; }
-.employeeWorkspace.portalPage .portalHero .profileIdentity p, .employeeWorkspace.portalPage .portalHero .profileIdentity > span { font-size: 13px; color: var(--ws-muted); }
+.employeeWorkspace.portalPage .portalHero .profileIdentity h2 { font-size: var(--app-header-size); margin: 4px 0 8px; }
+.employeeWorkspace.portalPage .portalHero .profileIdentity p, .employeeWorkspace.portalPage .portalHero .profileIdentity > span { font-size: calc(13px * var(--app-text-scale, 1)); color: var(--ws-muted); }
 .employeeWorkspace.portalPage .compactList > div { border-color: var(--ws-border); padding: 16px 0; gap: 8px; min-width: 0; }
-.employeeWorkspace.portalPage .compactList strong { font-size: 14px; color: var(--ws-text); overflow-wrap: anywhere; }
-.employeeWorkspace.portalPage .compactList span, .employeeWorkspace.portalPage .mutedNote { font-size: 13px; color: var(--ws-muted); overflow-wrap: anywhere; }
+.employeeWorkspace.portalPage .compactList strong { font-size: calc(14px * var(--app-text-scale, 1)); color: var(--ws-text); overflow-wrap: anywhere; }
+.employeeWorkspace.portalPage .compactList span, .employeeWorkspace.portalPage .mutedNote { font-size: calc(13px * var(--app-text-scale, 1)); color: var(--ws-muted); overflow-wrap: anywhere; }
 .employeeWorkspace.portalPage .announcementList article { border-color: var(--ws-border); border-radius: 10px; padding: 20px; }
-.employeeWorkspace.portalPage .announcementList h3 { font-size: 16px; color: var(--ws-text); }
-.employeeWorkspace.portalPage .announcementList p { font-size: 14px; color: var(--ws-text); line-height: 1.65; overflow-wrap: anywhere; }
-.employeeWorkspace.portalPage .announcementList span { color: var(--ws-muted); font-size: 12px; }
-.employeeWorkspace.portalPage .documentList strong { font-size: 14px; color: var(--ws-text); }
-.employeeWorkspace.portalPage .documentList small { font-size: 13px; color: var(--ws-muted); }
+.employeeWorkspace.portalPage .announcementList h3 { font-size: var(--app-header-size); color: var(--ws-text); }
+.employeeWorkspace.portalPage .announcementList p { font-size: calc(14px * var(--app-text-scale, 1)); color: var(--ws-text); line-height: 1.65; overflow-wrap: anywhere; }
+.employeeWorkspace.portalPage .announcementList span { color: var(--ws-muted); font-size: calc(12px * var(--app-text-scale, 1)); }
+.employeeWorkspace.portalPage .documentList strong { font-size: calc(14px * var(--app-text-scale, 1)); color: var(--ws-text); }
+.employeeWorkspace.portalPage .documentList small { font-size: calc(13px * var(--app-text-scale, 1)); color: var(--ws-muted); }
 .employeeWorkspace.portalPage .sectionSwitcherContent .sectionTitle { flex-wrap: wrap; gap: 12px; }
-.employeeWorkspace.portalPage .sectionSwitcherContent .textLink { font-size: 13px; }
+.employeeWorkspace.portalPage .sectionSwitcherContent .textLink { font-size: calc(13px * var(--app-text-scale, 1)); }
 .portalListLoading { display: grid; min-width: 0; }
 .portalListLoading > div { display: grid; gap: 10px; padding: 20px 0; border-bottom: 1px solid var(--ws-border); }
 .employeeWorkspace.portalPage .portalHero .profileIdentity > * { max-width: 100%; }
@@ -2918,77 +2920,77 @@
 .myLeaveBalances { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; min-width: 0; }
 .leaveManagementSummary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; min-width: 0; }
 .leaveManagementWorkspace .filterTabs { display: flex; flex-wrap: wrap; width: 100%; gap: 4px; padding: 6px; background: var(--ws-subtle); border-radius: 10px; }
-.leaveManagementWorkspace .filterTab, .leaveManagementWorkspace .filterTabActive { flex: 1 1 150px; min-height: 42px; padding: 10px 16px; border: 0; border-radius: 8px; font-size: 13px; color: var(--ws-muted); }
-.leaveManagementWorkspace .filterTabActive { color: var(--ws-brand); background: var(--ws-surface); box-shadow: var(--ws-shadow); }
+.leaveManagementWorkspace .filterTab, .leaveManagementWorkspace .filterTabActive { flex: 1 1 150px; min-height: 42px; padding: 10px 16px; border: 0; border-radius: 8px; font-size: calc(13px * var(--app-text-scale, 1)); color: var(--ws-muted); }
+.leaveManagementWorkspace .filterTabActive { color: var(--primary-dark); background: var(--ws-surface); box-shadow: var(--ws-shadow); }
 .leaveManagementWorkspace .leaveFilters { gap: 16px; padding: 20px; margin: 0 0 24px; border: 1px solid var(--ws-border); border-radius: 10px; background: var(--ws-subtle); }
-.leaveManagementWorkspace .leaveFilters label { font-size: 12px; color: var(--ws-muted); gap: 7px; }
+.leaveManagementWorkspace .leaveFilters label { font-size: calc(12px * var(--app-text-scale, 1)); color: var(--ws-muted); gap: 7px; }
 .leaveManagementWorkspace .dataTable { min-width: 1120px; }
 .leaveManagementWorkspace .dataTable td { white-space: normal; overflow-wrap: anywhere; }
 .leaveManagementWorkspace .leaveSubpanel { padding: 24px; margin: 0 0 24px; border: 1px solid var(--ws-border); background: var(--ws-subtle); border-radius: var(--ws-radius); min-width: 0; }
-.leaveManagementWorkspace .leaveSubpanel h3, .leaveManagementWorkspace .leaveForm h3 { font-size: 18px; color: var(--ws-text); margin: 0 0 16px; }
-.leaveManagementWorkspace .leaveHint, .leaveManagementWorkspace .mutedNote { font-size: 13px; color: var(--ws-muted); line-height: 1.65; }
+.leaveManagementWorkspace .leaveSubpanel h3, .leaveManagementWorkspace .leaveForm h3 { font-size: var(--app-header-size); color: var(--ws-text); margin: 0 0 16px; }
+.leaveManagementWorkspace .leaveHint, .leaveManagementWorkspace .mutedNote { font-size: calc(13px * var(--app-text-scale, 1)); color: var(--ws-muted); line-height: 1.65; }
 .leaveManagementWorkspace .leaveForm { padding: 20px 0; margin: 0 0 24px; border: 0; border-top: 1px solid var(--ws-border); background: transparent; }
-.leaveManagementWorkspace .leaveForm label, .leaveManagementWorkspace .payrollRange label { font-size: 12px; color: var(--ws-muted); }
+.leaveManagementWorkspace .leaveForm label, .leaveManagementWorkspace .payrollRange label { font-size: calc(12px * var(--app-text-scale, 1)); color: var(--ws-muted); }
 .leaveManagementWorkspace .leaveForm .formGrid { gap: 20px; }
 .leaveManagementWorkspace .formGrid { gap: 20px; }
-.leaveManagementWorkspace .formGrid label { font-size: 12px; color: var(--ws-muted); gap: 7px; }
-.leaveManagementWorkspace .formGrid :is(input:not([type="checkbox"]), select, textarea) { border: 1px solid var(--ws-border); border-radius: 8px; background: var(--ws-surface); color: var(--ws-text); min-height: 42px; min-width: 0; width: 100%; padding: 9px 11px; font: inherit; font-size: 13px; }
-.leaveManagementWorkspace .leaveForm .formWide { font-size: 13px; line-height: 1.65; color: var(--ws-muted); }
+.leaveManagementWorkspace .formGrid label { font-size: calc(12px * var(--app-text-scale, 1)); color: var(--ws-muted); gap: 7px; }
+.leaveManagementWorkspace .formGrid :is(input:not([type="checkbox"]), select, textarea) { border: 1px solid var(--ws-border); border-radius: 8px; background: var(--ws-surface); color: var(--ws-text); min-height: 42px; min-width: 0; width: 100%; padding: 9px 11px; font: inherit; font-size: calc(13px * var(--app-text-scale, 1)); }
+.leaveManagementWorkspace .leaveForm .formWide { font-size: calc(13px * var(--app-text-scale, 1)); line-height: 1.65; color: var(--ws-muted); }
 .leaveManagementWorkspace .leaveCheck { gap: 10px !important; min-height: 42px; }
 .leaveManagementWorkspace .leaveCheck input { width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--ws-brand); }
 .leaveManagementWorkspace .formActions { gap: 10px; padding-top: 20px; }
 .leaveManagementWorkspace .rowActions { display: flex; flex-wrap: wrap; gap: 8px; }
-.leaveManagementWorkspace .approveButton, .leaveManagementWorkspace .rejectButton { min-height: 42px; padding: 9px 14px; border-radius: 8px; font-size: 13px; }
+.leaveManagementWorkspace .approveButton, .leaveManagementWorkspace .rejectButton { min-height: 42px; padding: 9px 14px; border-radius: 8px; font-size: calc(13px * var(--app-text-scale, 1)); }
 .leaveManagementWorkspace .approveButton { color: var(--ws-success); background: var(--ws-success-soft); }
 .leaveManagementWorkspace .rejectButton { color: var(--ws-danger); background: var(--ws-danger-soft); }
-.leaveManagementWorkspace .leaveRequestDetails summary { padding: 8px 0; color: var(--ws-brand); font-size: 12px; }
+.leaveManagementWorkspace .leaveRequestDetails summary { padding: 8px 0; color: var(--primary-dark); font-size: calc(12px * var(--app-text-scale, 1)); }
 .leaveManagementWorkspace .dataTable tbody tr:has(details[open]) > td { vertical-align: top; }
 .leaveManagementWorkspace .leaveRequestDetailGrid { padding: 16px; gap: 10px 16px; border-radius: 8px; background: var(--ws-subtle); }
-.leaveManagementWorkspace .leaveRequestDetailGrid dt { font-size: 12px; color: var(--ws-muted); }
-.leaveManagementWorkspace .leaveRequestDetailGrid dd { font-size: 13px; color: var(--ws-text); }
-.leaveManagementWorkspace .leaveRequestDetails h4, .leaveManagementWorkspace .leaveSubheading { font-size: 14px; color: var(--ws-text); }
-.leaveManagementWorkspace .leaveApprovalHistory li { color: var(--ws-muted); font-size: 12px; line-height: 1.6; }
+.leaveManagementWorkspace .leaveRequestDetailGrid dt { font-size: calc(12px * var(--app-text-scale, 1)); color: var(--ws-muted); }
+.leaveManagementWorkspace .leaveRequestDetailGrid dd { font-size: calc(13px * var(--app-text-scale, 1)); color: var(--ws-text); }
+.leaveManagementWorkspace .leaveRequestDetails h4, .leaveManagementWorkspace .leaveSubheading { font-size: var(--app-header-size); color: var(--ws-text); }
+.leaveManagementWorkspace .leaveApprovalHistory li { color: var(--ws-muted); font-size: calc(12px * var(--app-text-scale, 1)); line-height: 1.6; }
 .leaveManagementWorkspace .leaveReviewForm { grid-template-columns: minmax(0, 1fr); width: min(100%, 720px); max-width: 100%; padding: 20px; background: var(--ws-subtle); border-radius: 10px; }
-.leaveManagementWorkspace .leaveReviewForm label { font-size: 13px; color: var(--ws-text); }
+.leaveManagementWorkspace .leaveReviewForm label { font-size: calc(13px * var(--app-text-scale, 1)); color: var(--ws-text); }
 .leaveManagementWorkspace .status-pending, .leaveManagementWorkspace .status-pending-manager, .leaveManagementWorkspace .status-pending-hr { color: var(--ws-warning); background: var(--ws-warning-soft); }
 .leaveManagementWorkspace .status-rejected, .leaveManagementWorkspace .status-cancelled { color: var(--ws-danger); background: var(--ws-danger-soft); }
 @media (max-width: 768px) { .leaveManagementWorkspace .leaveForm .formGrid, .leaveManagementWorkspace .leaveSubpanel .formGrid, .leaveManagementWorkspace .leaveFilters { grid-template-columns: repeat(2, minmax(0, 1fr)); } .leaveManagementWorkspace .leaveSubpanel { padding: 20px; } }
 @media (max-width: 480px) { .leaveManagementSummary { grid-template-columns: minmax(0, 1fr); gap: 12px; } .leaveManagementWorkspace .leaveForm .formGrid, .leaveManagementWorkspace .leaveSubpanel .formGrid, .leaveManagementWorkspace .leaveFilters { grid-template-columns: minmax(0, 1fr); } .leaveManagementWorkspace .leaveFilters, .leaveManagementWorkspace .leaveSubpanel { padding: 20px 16px; } .leaveManagementWorkspace .filterTabs button { flex-basis: 42%; padding: 10px 8px; } .leaveManagementWorkspace .formActions > button { width: 100%; } .leaveManagementWorkspace .payrollRange { flex-direction: column; } .leaveManagementWorkspace .payrollRange label { flex: auto; width: 100%; } }
 .myLeaveBalances strong { color: var(--ws-text); }
-.myLeaveBalances strong small { margin-left: 6px; letter-spacing: normal; font-size: 13px; font-weight: 400; color: var(--ws-muted); }
+.myLeaveBalances strong small { margin-left: 6px; letter-spacing: normal; font-size: calc(13px * var(--app-text-scale, 1)); font-weight: 400; color: var(--ws-muted); }
 .myLeaveBalanceDetails { display: flex; flex-wrap: wrap; gap: 24px; border-top: 1px solid var(--ws-border); padding-top: 16px; margin: 4px 0 0; }
 .myLeaveBalanceDetails > div { display: grid; gap: 4px; }
-.myLeaveBalanceDetails dt { font-size: 12px; color: var(--ws-muted); }
-.myLeaveBalanceDetails dd { font-size: 14px; color: var(--ws-text); margin: 0; }
+.myLeaveBalanceDetails dt { font-size: calc(12px * var(--app-text-scale, 1)); color: var(--ws-muted); }
+.myLeaveBalanceDetails dd { font-size: calc(14px * var(--app-text-scale, 1)); color: var(--ws-text); margin: 0; }
 .myLeaveWorkspace .filterTabs { display: flex; flex-wrap: wrap; gap: 4px; border-radius: 10px; background: var(--ws-subtle); padding: 4px; }
-.myLeaveWorkspace .filterTab, .myLeaveWorkspace .filterTabActive { min-height: 42px; border: 0; padding: 10px 16px; font-size: 13px; border-radius: 8px; color: var(--ws-muted); }
-.myLeaveWorkspace .filterTabActive { background: var(--ws-surface); box-shadow: var(--ws-shadow); color: var(--ws-brand); }
-.myLeaveWorkspace .inlineLeaveFilter { display: grid; gap: 6px; color: var(--ws-muted); font-size: 12px; }
+.myLeaveWorkspace .filterTab, .myLeaveWorkspace .filterTabActive { min-height: 42px; border: 0; padding: 10px 16px; font-size: calc(13px * var(--app-text-scale, 1)); border-radius: 8px; color: var(--ws-muted); }
+.myLeaveWorkspace .filterTabActive { background: var(--ws-surface); box-shadow: var(--ws-shadow); color: var(--primary-dark); }
+.myLeaveWorkspace .inlineLeaveFilter { display: grid; gap: 6px; color: var(--ws-muted); font-size: calc(12px * var(--app-text-scale, 1)); }
 .myLeaveWorkspace .leaveForm { margin: 0 0 24px; padding: 24px; background: var(--ws-subtle); border: 1px solid var(--ws-border); border-radius: var(--ws-radius); }
-.myLeaveWorkspace .leaveForm h3 { margin: 0 0 20px; font-size: 18px; color: var(--ws-text); }
-.myLeaveWorkspace .leaveForm h3 span { display: block; margin-top: 6px; font-size: 13px; font-weight: 400; color: var(--ws-muted); }
-.myLeaveWorkspace .leaveForm label { font-size: 12px; color: var(--ws-muted); }
+.myLeaveWorkspace .leaveForm h3 { margin: 0 0 20px; font-size: var(--app-header-size); color: var(--ws-text); }
+.myLeaveWorkspace .leaveForm h3 span { display: block; margin-top: 6px; font-size: var(--app-header-size); font-weight: 400; color: var(--ws-muted); }
+.myLeaveWorkspace .leaveForm label { font-size: calc(12px * var(--app-text-scale, 1)); color: var(--ws-muted); }
 .myLeaveWorkspace .leaveForm .formGrid { gap: 20px; }
 .myLeaveWorkspace .leaveForm .formActions { border-top: 1px solid var(--ws-border); padding-top: 20px; gap: 10px; }
 .myLeaveWorkspace .dataTable { min-width: 960px; }
 .myLeaveWorkspace .leaveRequestDetails { margin-top: 10px; }
-.myLeaveWorkspace .leaveRequestDetails summary { color: var(--ws-brand); font-size: 12px; padding: 6px 0; cursor: pointer; }
+.myLeaveWorkspace .leaveRequestDetails summary { color: var(--primary-dark); font-size: calc(12px * var(--app-text-scale, 1)); padding: 6px 0; cursor: pointer; }
 .myLeaveWorkspace .leaveRequestDetailGrid { padding: 16px; background: var(--ws-subtle); border-radius: 8px; gap: 10px 16px; }
-.myLeaveWorkspace .leaveRequestDetailGrid dt { font-size: 12px; color: var(--ws-muted); }
-.myLeaveWorkspace .leaveRequestDetailGrid dd { font-size: 13px; color: var(--ws-text); overflow-wrap: anywhere; }
-.myLeaveWorkspace .leaveRequestDetails h4 { font-size: 13px; color: var(--ws-text); }
-.myLeaveWorkspace .leaveApprovalHistory { color: var(--ws-muted); font-size: 12px; line-height: 1.6; }
+.myLeaveWorkspace .leaveRequestDetailGrid dt { font-size: calc(12px * var(--app-text-scale, 1)); color: var(--ws-muted); }
+.myLeaveWorkspace .leaveRequestDetailGrid dd { font-size: calc(13px * var(--app-text-scale, 1)); color: var(--ws-text); overflow-wrap: anywhere; }
+.myLeaveWorkspace .leaveRequestDetails h4 { font-size: var(--app-header-size); color: var(--ws-text); }
+.myLeaveWorkspace .leaveApprovalHistory { color: var(--ws-muted); font-size: calc(12px * var(--app-text-scale, 1)); line-height: 1.6; }
 .myLeaveWorkspace .leaveApprovalHistory p { overflow-wrap: anywhere; }
 .myLeaveWorkspace .rowActions, .myLeaveWorkspace .confirmActions { display: flex; flex-wrap: wrap; gap: 8px; }
-.myLeaveWorkspace .rejectButton { min-height: 42px; padding: 9px 14px; border-radius: 8px; color: var(--ws-danger); background: var(--ws-danger-soft); font-size: 13px; }
-.myLeaveWorkspace .mutedNote, .myLeaveWorkspace .leaveSubheading { font-size: 14px; color: var(--ws-text); }
+.myLeaveWorkspace .rejectButton { min-height: 42px; padding: 9px 14px; border-radius: 8px; color: var(--ws-danger); background: var(--ws-danger-soft); font-size: calc(13px * var(--app-text-scale, 1)); }
+.myLeaveWorkspace .mutedNote, .myLeaveWorkspace .leaveSubheading { font-size: calc(14px * var(--app-text-scale, 1)); color: var(--ws-text); }
 .myLeaveWorkspace .status-pending, .myLeaveWorkspace .status-pending-manager, .myLeaveWorkspace .status-pending-hr { color: var(--ws-warning); background: var(--ws-warning-soft); }
 .myLeaveWorkspace .status-rejected, .myLeaveWorkspace .status-cancelled { color: var(--ws-danger); background: var(--ws-danger-soft); }
 @media (max-width: 768px) { .myLeaveBalances { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } .myLeaveWorkspace .leaveForm .formGrid { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 480px) { .myLeaveBalances { grid-template-columns: minmax(0, 1fr); } .myLeaveWorkspace .filterTabs { width: 100%; } .myLeaveWorkspace .filterTabs button { flex: 1; padding: 10px 8px; } .myLeaveWorkspace .leaveForm { padding: 20px 16px; } .myLeaveWorkspace .inlineLeaveFilter { flex: 1; } .myLeaveWorkspace .leaveForm .formActions > button { width: 100%; } }
 @media (max-width: 1100px) { .portalSummary { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 768px) { .portalSummary { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } .employeeWorkspace.portalPage .portalHero { padding: 24px 20px; } }
-@media (max-width: 480px) { .employeeWorkspace.portalPage .portalHero { padding: 24px 16px; } .employeeWorkspace.portalPage .portalHero .profileIdentity { flex-basis: 150px; } .employeeWorkspace.portalPage .portalHero .profileIdentity h2 { font-size: 22px; } .employeeWorkspace.portalPage .portalHero .secondaryLink { width: 100%; } .portalSummary .portalMetricValue { font-size: 22px; } }
+@media (max-width: 480px) { .employeeWorkspace.portalPage .portalHero { padding: 24px 16px; } .employeeWorkspace.portalPage .portalHero .profileIdentity { flex-basis: 150px; } .employeeWorkspace.portalPage .portalHero .profileIdentity h2 { font-size: var(--app-header-size); } .employeeWorkspace.portalPage .portalHero .secondaryLink { width: 100%; } .portalSummary .portalMetricValue { font-size: calc(22px * var(--app-text-scale, 1)); } }
 @media (max-width: 420px) { .portalSummary { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 480px) {
   .userWorkspace .filterTabs { width: 100%; }
@@ -3012,7 +3014,7 @@
 }
 .createEmployeeModal .accountForm label {
   align-content: start;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.5;
 }
 .createEmployeeModal .accountForm input:not([type="radio"]):not([type="checkbox"]):not([type="hidden"]),
@@ -3021,16 +3023,16 @@
   min-height: 42px;
   padding: 10px 12px;
   border-radius: 7px;
-  font-size: 13px;
-  background: #fff;
+  font-size: calc(13px * var(--app-text-scale, 1));
+  background: var(--surface);
 }
 .createEmployeeModal .accountForm input[type="file"] {
   padding: 6px;
 }
 .createEmployeeModal .accountForm input:disabled,
 .createEmployeeModal .accountForm select:disabled {
-  background: #f2f4f3;
-  color: #737a75;
+  background: var(--surface-subtle);
+  color: var(--text-secondary);
   cursor: not-allowed;
 }
 .createEmployeeModal .formSection > .formHint {
@@ -3043,11 +3045,11 @@
   margin-bottom: 18px;
 }
 .createEmployeeModal .branchScheduleSummary > strong {
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
 }
 .createEmployeeModal .branchScheduleSummary > span,
 .createEmployeeModal .branchScheduleSummary > small {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.5;
 }
 .createEmployeeModal .accountForm .inlineChoice,
@@ -3058,15 +3060,15 @@
   min-height: 42px;
   padding: 10px 12px;
   margin: 0;
-  border: 1px solid #dfe3df;
+  border: 1px solid var(--border);
   border-radius: 7px;
-  background: #fff;
+  background: var(--surface);
   cursor: pointer;
 }
 .createEmployeeModal .inlineChoice:has(input:checked),
 .createEmployeeModal .workDaysFieldset label:has(input:checked) {
-  background: #fff4f4;
-  border-color: #bd283f;
+  background: var(--primary-soft);
+  border-color: var(--primary);
 }
 .createEmployeeModal .accountForm input:is([type="radio"], [type="checkbox"]) {
   appearance: auto;
@@ -3077,7 +3079,7 @@
   min-height: 16px;
   padding: 0;
   margin: 0;
-  accent-color: #b4232a;
+  accent-color: var(--primary);
 }
 .createEmployeeModal .workDaysFieldset {
   padding: 14px;
@@ -3085,7 +3087,7 @@
   min-width: 0;
 }
 .createEmployeeModal .workDaysFieldset legend {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 600;
 }
 .createEmployeeModal .workDaysFieldset > div {
@@ -3122,13 +3124,13 @@
 }
 
 .leavePolicyEditor .formGrid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin-top:20px; }
-.leavePolicyEditor .formGrid > label { display:grid; align-content:start; gap:8px; min-width:0; font-size:12px; }
+.leavePolicyEditor .formGrid > label { display:grid; align-content:start; gap:8px; min-width:0; font-size:calc(12px * var(--app-text-scale, 1)); }
 .leavePolicyEditor fieldset { min-width:0; border:1px solid #e1e7e3; border-radius:8px; margin:8px 0; padding:16px; }
-.leavePolicyEditor fieldset legend { font-size:13px; font-weight:600; padding:0 6px; }
-.leavePolicyEditor :is(input,select,textarea) { box-sizing:border-box; width:100%; min-width:0; min-height:42px; padding:10px 12px; border:1px solid #dfe5e1; border-radius:7px; background:#fff; font:inherit; font-size:13px; }
+.leavePolicyEditor fieldset legend { font-size:calc(13px * var(--app-text-scale, 1)); font-weight:600; padding:0 6px; }
+.leavePolicyEditor :is(input,select,textarea) { box-sizing:border-box; width:100%; min-width:0; min-height:42px; padding:10px 12px; border:1px solid #dfe5e1; border-radius:7px; background:var(--surface); font:inherit; font-size:calc(13px * var(--app-text-scale, 1)); }
 .leavePolicyEditor .leaveCheck, .leaveManagementWorkspace .leaveCheck { display:flex; align-items:center; gap:10px; }
-.leavePolicyEditor input:is([type="checkbox"],[type="radio"]), .leaveManagementWorkspace .leaveCheck input { appearance:auto; flex:0 0 16px; width:16px; height:16px; min-height:16px; padding:0; margin:0; accent-color:#b4233c; }
-.leavePolicyEditor :is(input,select,textarea):focus-visible { outline:2px solid #b4233c; outline-offset:2px; }
+.leavePolicyEditor input:is([type="checkbox"],[type="radio"]), .leaveManagementWorkspace .leaveCheck input { appearance:auto; flex:0 0 16px; width:16px; height:16px; min-height:16px; padding:0; margin:0; accent-color:var(--primary); }
+.leavePolicyEditor :is(input,select,textarea):focus-visible { outline:2px solid var(--focus-ring); outline-offset:2px; }
 @media(max-width:640px) { .leavePolicyEditor .formGrid { grid-template-columns:1fr; } }
 
 .leaveManagementWorkspace, .myLeaveWorkspace { width:100%; min-width:0; grid-template-columns:minmax(0,1fr); }
@@ -3140,11 +3142,11 @@
 
 /* Employee 201 file: scoped identity and compact section navigation. */
 .employeeWorkspace.employeeFilePage .pageHeader .previewBadge { display:none; }
-.employeeWorkspace.employeeFilePage .backLink { justify-self:start; font-size:12px; }
-.employeeWorkspace.employeeFilePage .profileHero { border-top:3px solid var(--ws-brand); background:linear-gradient(110deg,#fff 60%,#f8fafc); border-radius:14px; padding:26px; gap:20px; flex-wrap:wrap; }
+.employeeWorkspace.employeeFilePage .backLink { justify-self:start; font-size:calc(12px * var(--app-text-scale, 1)); }
+.employeeWorkspace.employeeFilePage .profileHero { border-top:3px solid var(--ws-brand); background:linear-gradient(110deg,var(--surface) 60%,var(--surface-subtle)); border-radius:14px; padding:26px; gap:20px; flex-wrap:wrap; }
 .employeeWorkspace.employeeFilePage .profileIdentity { flex:1 1 250px; min-width:0; }
-.employeeWorkspace.employeeFilePage .profileIdentity h2 { font-size:28px; margin:5px 0 8px; line-height:1.25; }
-.employeeWorkspace.employeeFilePage .profileAvatar { border-radius:50%; background:var(--ws-brand-soft); color:var(--ws-brand); }
+.employeeWorkspace.employeeFilePage .profileIdentity h2 { font-size:var(--app-header-size); margin:5px 0 8px; line-height:1.25; }
+.employeeWorkspace.employeeFilePage .profileAvatar { border-radius:50%; background:var(--ws-brand-soft); color:var(--primary-dark); }
 .employeeWorkspace.employeeFilePage .employeeFileNav { border:0; border-bottom:1px solid var(--ws-border); border-radius:0; padding:0; gap:3px; flex-wrap:nowrap; overflow-x:auto; scrollbar-width:thin; background:transparent; box-shadow:none; }
 .employeeWorkspace.employeeFilePage .employeeFileNav .sectionSwitcherButton { display:inline-flex; align-items:center; justify-content:center; gap:8px; flex:0 0 auto; border:0; border-bottom:2px solid transparent; border-radius:8px 8px 0 0; min-height:48px; padding:12px 16px; white-space:nowrap; }
 .employeeWorkspace.employeeFilePage .employeeFileNav .sectionSwitcherButton[aria-pressed="true"] { border-bottom-color:var(--ws-brand); background:transparent; }
@@ -3152,7 +3154,7 @@
 .employeeWorkspace.employeeFilePage .profileFactsLoading > div { display:grid; gap:12px; min-width:0; padding:20px; border-right:1px solid var(--ws-border); }
 .employeeWorkspace.employeeFilePage .profileFactsLoading > div:last-child { border-right:0; }
 @media(max-width:760px) { .employeeWorkspace.employeeFilePage .profileFactsLoading { grid-template-columns:repeat(2,minmax(0,1fr)); } .employeeWorkspace.employeeFilePage .profileFactsLoading > div:nth-child(2) { border-right:0; } .employeeWorkspace.employeeFilePage .profileFactsLoading > div:nth-child(-n+2) { border-bottom:1px solid var(--ws-border); } }
-@media(max-width:600px) { .employeeWorkspace.employeeFilePage .profileHero { padding:22px 18px; gap:16px; } .employeeWorkspace.employeeFilePage .profileIdentity { flex-basis:160px; } .employeeWorkspace.employeeFilePage .profileIdentity h2 { font-size:23px; } .employeeWorkspace.employeeFilePage .employeeFileNav .sectionSwitcherButton { padding:12px; } }
+@media(max-width:600px) { .employeeWorkspace.employeeFilePage .profileHero { padding:22px 18px; gap:16px; } .employeeWorkspace.employeeFilePage .profileIdentity { flex-basis:160px; } .employeeWorkspace.employeeFilePage .profileIdentity h2 { font-size:var(--app-header-size); } .employeeWorkspace.employeeFilePage .employeeFileNav .sectionSwitcherButton { padding:12px; } }
 
 .accessNote { composes: note from './ui/guidance-motion.module.css'; }
 

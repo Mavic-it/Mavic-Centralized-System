@@ -52,6 +52,7 @@ export function TaskAssigneePicker({
   return (
     <section
       className={css.assigneePicker}
+      data-form-section=""
       aria-labelledby="task-assignees-title"
     >
       <div className={css.taskAssigneeHeader}>

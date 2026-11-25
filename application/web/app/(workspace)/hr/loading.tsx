@@ -1,5 +1,2 @@
-import { PeopleWorkspaceLoading } from "../../components/page-loading";
-
-export default function Loading() {
-  return <PeopleWorkspaceLoading variant="hr" />;
-}
+import { AnalyticsLoading } from "../../analytics/loading";
+export default function Loading() { return <AnalyticsLoading />; }

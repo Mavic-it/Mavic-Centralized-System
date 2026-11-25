@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 
 import { FieldLabel } from "../components/field-label";
 import type { FormEvent } from "react";
@@ -55,12 +56,13 @@ export function IncidentWorkspace({
       <DetailOverview kind="incidents" detail={detail} />
 
       {!!available.length && (
-        <form
+        <FormLayout
           id="incident-update-composer"
           onSubmit={onSubmit}
-          className={`${css.form} ${css.incidentComposer}`}
+          className={`${css.form} ${css.incidentComposer} ${css.recordDetailCard}`}
+          data-form-scroll="contained"
         >
-          <fieldset disabled={busy}>
+          <fieldset data-form-contents="" disabled={busy}>
             <div className={css.incidentSectionHeading}>
               <MessageSquare size={18} aria-hidden="true" />
               <div>
@@ -220,11 +222,11 @@ export function IncidentWorkspace({
               {busy ? "Saving..." : actionLabels[currentAction]}
             </button>
           </fieldset>
-        </form>
+        </FormLayout>
       )}
 
       <details
-        className={css.incidentActivity}
+        className={`${css.incidentActivity} ${css.recordDetailCard}`}
         aria-labelledby="incident-history-title"
       >
         <summary className={css.incidentHistorySummary} id="incident-history-title">

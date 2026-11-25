@@ -17,7 +17,7 @@ const employeeRecord: EmployeeApiRecord = {
   department: "Operations",
   status: "ACTIVE",
   phone: "09171234567",
-  manager: "Jordan Lee",
+  manager: "Mavic",
   employment: { employeeType: "FULL_TIME", startDate: "2026-10-01" },
   emergencyContact: {
     name: "Alex Santos",

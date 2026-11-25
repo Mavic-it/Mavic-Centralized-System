@@ -1,6 +1,6 @@
 .card {
-  background: #fff;
-  border: 1px solid #e3e6e3;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 8px;
   box-shadow: none;
   gap: 0;
@@ -39,17 +39,17 @@
 }
 .previewHeader p {
   margin: 0;
-  color: #747b76;
-  font-size: 12px;
+  color: var(--text-secondary);
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .previewFrame {
   flex: 1;
   width: 100%;
   min-height: 0;
   height: 100%;
-  border: 1px solid #e3e6e4;
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: #f3f4f6;
+  background: var(--surface-muted);
 }
 .previewImage {
   display: block;
@@ -73,8 +73,8 @@
 }
 .viewSwitch {
   display: flex;
-  border: 1px solid #e2e8f0;
-  background: #f4f6f9;
+  border: 1px solid var(--border);
+  background: var(--surface-subtle);
   border-radius: 10px;
   padding: 3px;
   gap: 3px;
@@ -87,18 +87,18 @@
   border-radius: 7px;
   padding: 8px 11px;
   background: transparent;
-  color: #64748b;
+  color: var(--text-secondary);
   font: inherit;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   cursor: pointer;
 }
 .viewSwitch button[aria-pressed="true"] {
-  background: #fff;
-  color: #c22d32;
+  background: var(--surface);
+  color: var(--primary-dark);
   box-shadow: 0 1px 4px #17203312;
 }
 .viewSwitch button:focus-visible {
-  outline: 2px solid #c22d32;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 1px;
 }
 .list.gridView {
@@ -112,7 +112,7 @@
   grid-template-columns: 1fr auto;
   align-items: start;
   gap: 12px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   border-radius: 14px;
   padding: 18px;
   min-width: 0;
@@ -128,18 +128,18 @@
   width: 46px;
   height: 46px;
   border-radius: 13px;
-  background: #fff0f2;
-  color: #b42332;
+  background: var(--surface-muted);
+  color: var(--primary-dark);
 }
 .gridView .fileDetails {
   grid-column: 1/-1;
 }
 .gridView .fileDetails strong {
-  font-size: 14px;
+  font-size: calc(14px * var(--app-text-scale, 1));
   line-height: 1.5;
 }
 .gridView .fileDetails small {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.7;
   margin-top: 6px;
 }
@@ -150,7 +150,7 @@
 .gridView .actions {
   grid-column: 1/-1;
   justify-content: flex-end;
-  border-top: 1px solid #edf1f6;
+  border-top: 1px solid var(--border);
   padding-top: 12px;
 }
 @media (max-width: 1000px) {
@@ -171,7 +171,7 @@
 
 .header {
   align-items: center;
-  border-bottom: 1px solid #eceeec;
+  border-bottom: 1px solid var(--border);
   display: flex;
   gap: 16px;
   justify-content: space-between;
@@ -179,23 +179,23 @@
 }
 
 .header h2 {
-  color: #252a26;
-  font-size: 16px;
+  color: var(--text-primary);
+  font-size: var(--app-header-size);
   font-weight: 650;
   margin: 0;
 }
 
 .header p {
-  color: #747b76;
-  font-size: 12px;
+  color: var(--text-secondary);
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.5;
   margin: 5px 0 0;
 }
 
 .uploadForm {
   align-items: end;
-  background: #f8f9f8;
-  border: 1px solid #e5e8e5;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
   border-radius: 6px;
   display: grid;
   gap: 12px;
@@ -205,9 +205,9 @@
 }
 
 .uploadForm label {
-  color: #4f5751;
+  color: var(--text-secondary);
   display: grid;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   gap: 6px;
   min-width: 0;
 }
@@ -219,12 +219,12 @@
 
 .uploadForm input,
 .uploadForm select {
-  background: #fff;
-  border: 1px solid #dfe3df;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 5px;
-  color: #303632;
+  color: var(--text-primary);
   font: inherit;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   min-height: 40px;
   min-width: 0;
   padding: 7px 9px;
@@ -237,18 +237,18 @@
 
 .uploadHint,
 .error {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   grid-column: 1 / -1;
   line-height: 1.5;
   margin: 0;
 }
 
 .uploadHint {
-  color: #747b76;
+  color: var(--text-secondary);
 }
 
 .error {
-  color: #a51e27;
+  color: var(--status-danger);
 }
 
 .formActions {
@@ -260,13 +260,13 @@
 
 .filter:focus-visible,
 .filterActive:focus-visible {
-  outline: 2px solid #a51e27;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
 .documentToolbar {
   align-items: center;
-  border-bottom: 1px solid #edf0ed;
+  border-bottom: 1px solid var(--border);
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
@@ -283,40 +283,40 @@
 
 .filter,
 .filterActive {
-  background: #fff;
-  border: 1px solid #e1e5e1;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 16px;
-  color: #515954;
+  color: var(--text-secondary);
   cursor: pointer;
   font: inherit;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   min-height: 34px;
   padding: 0 12px;
   white-space: nowrap;
 }
 
 .filter:hover {
-  background: #f5f6f5;
+  background: var(--surface-subtle);
 }
 
 .filterActive {
-  background: #fff0ef;
+  background: var(--primary-soft);
   border-color: #f0cfcd;
-  color: #9e2429;
+  color: var(--primary-dark);
   font-weight: 650;
 }
 
 .archiveControl {
   align-items: center;
-  color: #68706a;
+  color: var(--text-secondary);
   display: flex;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   gap: 8px;
 }
 
 .idDetails {
-  background: #f8f9f8;
-  border: 1px solid #e8ebe8;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
   border-radius: 6px;
   margin-top: 14px;
   padding: 12px;
@@ -324,8 +324,8 @@
 
 .idDetails h3,
 .legacySection h3 {
-  color: #404742;
-  font-size: 12px;
+  color: var(--text-primary);
+  font-size: var(--app-header-size);
   font-weight: 650;
   margin: 0 0 7px;
 }
@@ -341,20 +341,20 @@
 
 .idDetails li {
   align-items: center;
-  color: #59615b;
+  color: var(--text-secondary);
   display: flex;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   gap: 8px;
   min-width: 0;
 }
 
 .idDetails li svg {
-  color: #727a74;
+  color: var(--text-secondary);
   flex: 0 0 auto;
 }
 
 .idDetails li strong {
-  color: #343a36;
+  color: var(--text-primary);
   font-weight: 600;
   margin-left: auto;
   white-space: nowrap;
@@ -374,7 +374,7 @@
 
 .loadingRow {
   align-items: center;
-  border-bottom: 1px solid #edf0ed;
+  border-bottom: 1px solid var(--border);
   display: grid;
   gap: 10px;
   grid-template-columns: 38px minmax(0, 1fr);
@@ -415,7 +415,7 @@
 
 .row {
   align-items: center;
-  border-bottom: 1px solid #edf0ed;
+  border-bottom: 1px solid var(--border);
   display: grid;
   gap: 10px;
   grid-template-columns: 38px minmax(0, 1fr) auto auto;
@@ -425,9 +425,9 @@
 
 .fileIcon {
   align-items: center;
-  background: #f0f2f0;
+  background: var(--surface-muted);
   border-radius: 6px;
-  color: #647069;
+  color: var(--text-secondary);
   display: inline-flex;
   height: 36px;
   justify-content: center;
@@ -441,15 +441,15 @@
 }
 
 .fileDetails strong {
-  color: #303632;
-  font-size: 12px;
+  color: var(--text-primary);
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 600;
   overflow-wrap: anywhere;
 }
 
 .fileDetails small {
-  color: #747b76;
-  font-size: 10px;
+  color: var(--text-secondary);
+  font-size: calc(10px * var(--app-text-scale, 1));
   line-height: 1.45;
 }
 
@@ -460,7 +460,7 @@
 
 .status {
   border-radius: 12px;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   font-weight: 600;
   padding: 4px 8px;
   white-space: nowrap;
@@ -473,8 +473,8 @@
 }
 
 .referenceOnly {
-  color: #747b76;
-  font-size: 10px;
+  color: var(--text-secondary);
+  font-size: calc(10px * var(--app-text-scale, 1));
   white-space: nowrap;
 }
 
@@ -484,21 +484,21 @@
 
 .muted,
 .empty {
-  color: #747b76;
-  font-size: 12px;
+  color: var(--text-secondary);
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.5;
   margin: 14px 0 0;
 }
 
 .empty {
-  background: #f8f9f8;
+  background: var(--surface-subtle);
   border-radius: 6px;
   padding: 14px;
 }
 
 .errorRow {
   align-items: center;
-  color: #a51e27;
+  color: var(--status-danger);
   display: flex;
   gap: 12px;
   justify-content: space-between;
@@ -506,7 +506,7 @@
 }
 
 .errorRow p {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   line-height: 1.5;
   margin: 0;
   overflow-wrap: anywhere;
@@ -580,8 +580,8 @@
 .documentSearchRow label {
   display: grid;
   gap: 7px;
-  color: #627188;
-  font-size: 12px;
+  color: var(--text-secondary);
+  font-size: calc(12px * var(--app-text-scale, 1));
   width: min(360px, 100%);
 }
 .documentSearchRow input {
@@ -590,13 +590,13 @@
   min-height: 42px;
   padding: 10px 12px;
   font: inherit;
-  font-size: 13px;
-  background: white;
+  font-size: calc(13px * var(--app-text-scale, 1));
+  background: var(--surface);
   width: 100%;
 }
 .documentSearchRow > span {
-  color: #627188;
-  font-size: 12px;
+  color: var(--text-secondary);
+  font-size: calc(12px * var(--app-text-scale, 1));
   padding-bottom: 10px;
 }
 .uploadDrawer.uploadDrawer.uploadDrawer {
@@ -611,8 +611,8 @@
   border: 0;
   border-left: 1px solid #dce3ed;
   border-radius: 0;
-  background: white;
-  color: #20324b;
+  background: var(--surface);
+  color: var(--text-primary);
 }
 .uploadDrawer.uploadDrawer[open] {
   display: flex;
@@ -627,23 +627,23 @@
   justify-content: space-between;
   gap: 16px;
   padding: 24px;
-  border-bottom: 1px solid #e2e7ed;
+  border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
 .drawerHeader span {
-  color: #b42332;
-  font-size: 10px;
+  color: var(--primary-dark);
+  font-size: calc(10px * var(--app-text-scale, 1));
   font-weight: 600;
   letter-spacing: 0.12em;
 }
 .drawerHeader h2 {
-  font-size: 22px;
+  font-size: var(--app-header-size);
   margin: 8px 0;
   font-weight: 650;
 }
 .drawerHeader p {
-  font-size: 13px;
-  color: #627188;
+  font-size: calc(13px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
   margin: 0;
   overflow-wrap: anywhere;
 }
@@ -656,37 +656,37 @@
   flex: 1;
   margin: 0;
   padding: 24px;
-  background: white;
+  background: var(--surface);
   border: 0;
   border-radius: 0;
 }
 .uploadDrawer .uploadForm label {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   gap: 8px;
 }
 .uploadDrawer .uploadForm input,
 .uploadDrawer .uploadForm select {
   min-height: 44px;
   border-radius: 8px;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   padding: 10px 12px;
 }
 .uploadDrawer .formActions {
   margin-top: auto;
   padding-top: 20px;
-  border-top: 1px solid #e2e7ed;
+  border-top: 1px solid var(--border);
 }
 .uploadDrawer .uploadHint {
   padding: 14px;
   border-radius: 9px;
-  color: #627188;
-  background: #f6f8fa;
-  font-size: 12px;
+  color: var(--text-secondary);
+  background: var(--surface-subtle);
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.7;
 }
 .uploadDrawer :is(button, input, select):focus-visible,
 .documentSearchRow input:focus-visible {
-  outline: 2px solid #b42332;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }
 @media (max-width: 480px) {

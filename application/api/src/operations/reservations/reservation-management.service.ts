@@ -1,4 +1,5 @@
 import { bookingConflict } from './booking-capacity.js';
+import { InquiryManagementService } from '../../crm/inquiries/inquiry-management.service.js';
 import { canViewReservations } from './cancellation-recipients.js';
 import type { RoleName } from '../../foundation/roles/role.service.js';
 import {
@@ -213,10 +214,20 @@ export class ReservationManagementService {
   }
   async create(user: AuthUserContext, d: CreateReservationDto) {
     this.authorize(user, d.branchId);
+    const inquiries = new InquiryManagementService(this.db);
+    if (d.inquiryId) { await inquiries.authorize(user,'convert',true);if(!d.inquiryRequestKey)throw new BadRequestException('An inquiry conversion request key is required.'); }
     const [a, b] = this.range(d.startAt, d.endAt, 1);
     if (a.getTime() < Date.now() - 60000)
       throw new BadRequestException('Past bookings are not allowed.');
     return this.db.transaction(async (m) => {
+      if (d.inquiryId) {
+        const inquiry = await inquiries.owned(m,user,d.inquiryId,true);
+        const [linked] = await m.query<{id:string}[]>(`SELECT id FROM reservations WHERE inquiry_id=$1 AND inquiry_request_key=$2`,[d.inquiryId,d.inquiryRequestKey]);
+        if (linked) return this.record(m,user,linked.id);
+        if (inquiry.archivedAt || ['LOST','CLOSED','CONVERTED','NEEDS_REVIEW'].includes(inquiry.status)) throw new BadRequestException('Reopen and resolve this inquiry before converting.');
+        const [eligible] = await m.query<Row[]>(`SELECT 1 FROM inquiry_services s JOIN inquiry_lookups l ON l.id=s.service_id WHERE s.inquiry_id=$1 AND l.reservable AND EXISTS(SELECT 1 FROM inquiry_preferred_branches p WHERE p.inquiry_id=$1 AND p.branch_id=$2) LIMIT 1`,[d.inquiryId,d.branchId]);
+        if (!eligible) throw new BadRequestException('Choose an eligible service and preferred branch.');
+      }
       const room = await this.lockRoom(m, d.roomId);
       if (String(room.branch_id) !== d.branchId)
         throw new BadRequestException('Choose a space in the selected branch.');
@@ -284,6 +295,10 @@ export class ReservationManagementService {
         ],
       );
       await this.event(m, id, 'CREATED', user.userId, null, status);
+      if (d.inquiryId) {
+        await m.query(`UPDATE reservations SET inquiry_id=$2,inquiry_request_key=$3 WHERE id=$1`,[id,d.inquiryId,d.inquiryRequestKey]);
+        await inquiries.event(m,d.inquiryId,user,'RESERVATION_CREATED','Reservation linked using the existing booking workflow');
+      }
       if (status === 'PENDING')
         await this.notify(
           m,

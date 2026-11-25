@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { LoadingList } from "./content-loading";
 
 import { FieldLabel } from "./field-label";
@@ -320,7 +321,7 @@ export default function EmployeeDocumentChecklist({
                 {canUpload && (
                   <div className={styles.requirementActions}>
                     {!item.isComplete && attachable.length > 0 && (
-                      <form
+                      <FormLayout
                         className={styles.attachForm}
                         onSubmit={(event) => {
                           event.preventDefault();
@@ -363,7 +364,7 @@ export default function EmployeeDocumentChecklist({
                           disabled={isPending}
                           type="submit"
                         />
-                      </form>
+                      </FormLayout>
                     )}
                   </div>
                 )}
@@ -376,7 +377,7 @@ export default function EmployeeDocumentChecklist({
       {showRequirementForm && canManageRequirements && (
         <div className={styles.configPanel}>
           <h4>Branch requirements</h4>
-          <form className={styles.configForm} onSubmit={createRequirement}>
+          <FormLayout className={styles.configForm} onSubmit={createRequirement}>
             <label>
               <span>
                 Requirement name <RequiredMark />
@@ -412,7 +413,7 @@ export default function EmployeeDocumentChecklist({
                 ? "Adding…"
                 : "Add requirement"}
             </Button>
-          </form>
+          </FormLayout>
           {requirementsQuery.isLoading && <LoadingList label="Loading document requirements" items={3} />}
           <ul className={styles.requirementSettings}>
             {(requirementsQuery.data ?? []).map((requirement) => (

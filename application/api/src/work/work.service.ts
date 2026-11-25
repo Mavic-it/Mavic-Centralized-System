@@ -351,6 +351,11 @@ export class WorkService {
       throw new NotFoundException('Record not found.');
     return { r, own, manage, assigned, reporter, subject, supervisor };
   }
+  private visibility(kind: WorkKind) {
+    return kind === 'tasks'
+        ? `t.deleted_at IS NULL AND (EXISTS(SELECT 1 FROM work_task_assignees mine WHERE mine.task_id=t.id AND mine.employee_id=$2) OR ($3 AND ($1::text[] IS NULL OR t.branch_id=ANY($1)) AND ($1::text[] IS NULL OR NOT EXISTS(SELECT 1 FROM work_task_assignees scope_assignee JOIN employees se ON se.id=scope_assignee.employee_id WHERE scope_assignee.task_id=t.id AND (NOT(scope_assignee.branch_id=ANY($1)) OR NOT(se.branch_id=ANY($1)))))))`
+        : `(t.reporter_id=$4 OR (t.employee_id=$2 AND (${managementReportSql} OR EXISTS(SELECT 1 FROM work_events ev WHERE ev.incident_id=t.id AND ev.action='NOTICE'))) OR ($3 AND t.reporter_id<>$4 AND ($2::text IS NULL OR t.employee_id IS DISTINCT FROM $2) AND ($1::text[] IS NULL OR t.branch_id=ANY($1)) AND (e.id IS NULL OR $1::text[] IS NULL OR e.branch_id=ANY($1)) AND ($5 OR t.reviewer_id=$4)) OR ($3 AND ${supervisorReportSql} AND ($1::text[] IS NULL OR t.branch_id=ANY($1)) AND ($1::text[] IS NULL OR e.branch_id=ANY($1))))`;
+  }
   async list(
     u: AuthUserContext,
     kind: WorkKind,
@@ -366,10 +371,7 @@ export class WorkService {
     const manager = this.manager(u) && f.view !== 'mine';
     const supervisorIds =
       kind === 'incidents' ? await this.managedEmployeeIds(u, own) : [];
-    const visible =
-      kind === 'tasks'
-        ? `t.deleted_at IS NULL AND (EXISTS(SELECT 1 FROM work_task_assignees mine WHERE mine.task_id=t.id AND mine.employee_id=$2) OR ($3 AND ($1::text[] IS NULL OR t.branch_id=ANY($1)) AND ($1::text[] IS NULL OR NOT EXISTS(SELECT 1 FROM work_task_assignees scope_assignee JOIN employees se ON se.id=scope_assignee.employee_id WHERE scope_assignee.task_id=t.id AND (NOT(scope_assignee.branch_id=ANY($1)) OR NOT(se.branch_id=ANY($1)))))))`
-        : `(t.reporter_id=$4 OR (t.employee_id=$2 AND (${managementReportSql} OR EXISTS(SELECT 1 FROM work_events ev WHERE ev.incident_id=t.id AND ev.action='NOTICE'))) OR ($3 AND t.reporter_id<>$4 AND ($2::text IS NULL OR t.employee_id IS DISTINCT FROM $2) AND ($1::text[] IS NULL OR t.branch_id=ANY($1)) AND (e.id IS NULL OR $1::text[] IS NULL OR e.branch_id=ANY($1)) AND ($5 OR t.reviewer_id=$4)) OR ($3 AND ${supervisorReportSql} AND ($1::text[] IS NULL OR t.branch_id=ANY($1)) AND ($1::text[] IS NULL OR e.branch_id=ANY($1))))`;
+    const visible = this.visibility(kind);
     if (f.from) validDate(f.from);
     if (f.to) validDate(f.to);
     if (f.from && f.to && f.from > f.to)
@@ -497,6 +499,32 @@ export class WorkService {
     if (f.format === 'xlsx') return incidentWorkbook(result.items);
     if (f.format === 'pdf') return incidentPdf(result.items);
     return incidentCsv(result.items);
+  }
+  // Aggregate the same row visibility as the private workspace, without selecting narratives.
+  async analytics(u: AuthUserContext, kind: WorkKind, branchIds: string[], from: string, to: string, grouping: string, status?: string) {
+    this.allowed(u);
+    if (!this.manager(u)) throw new ForbiddenException('Management reporting access required.');
+    if (branchIds.some(id => !this.inScope(u, id))) throw new ForbiddenException('Branch access denied.');
+    const own = await this.own(u);
+    const supervisorIds = kind === 'incidents' ? await this.managedEmployeeIds(u, own) : [];
+    const visible = this.visibility(kind).replaceAll('$12', '$6');
+    const date = kind === 'tasks' ? "(t.created_at AT TIME ZONE 'Asia/Manila')::date" : 't.incident_date';
+    const table = kind === 'tasks' ? 'work_tasks' : 'workplace_incidents';
+    const attention = kind === 'tasks'
+      ? "t.due_date<(now() AT TIME ZONE 'Asia/Manila')::date AND t.status NOT IN ('COMPLETED','CANCELLED')"
+      : "t.status NOT IN ('RESOLVED','CLOSED','WITHDRAWN','DISMISSED')";
+    const rows = await this.db.query<import('../reporting/analytics.types.js').AggregateRow[]>(
+      `SELECT to_char(date_trunc($9::text,${date}::timestamp),'YYYY-MM-DD') AS period,b.id AS "branchId",b.name AS branch,t.status,count(*)::int AS count,0::float8 AS amount,count(*) FILTER(WHERE ${attention})::int AS attention
+       FROM ${table} t LEFT JOIN employees e ON e.id=t.employee_id JOIN branches b ON b.id=t.branch_id
+       WHERE ${visible} AND t.branch_id=ANY($7::text[]) AND b.is_active
+       AND (e.branch_id IS NULL OR e.branch_id=ANY($1::text[]))
+       AND $4::text IS NOT NULL AND $5::boolean IS NOT NULL AND $6::text[] IS NOT NULL
+       AND ${date} BETWEEN $8::date AND $10::date AND ($11::text IS NULL OR t.status=$11)
+       GROUP BY 1,b.id,b.name,t.status ORDER BY 1,b.name,b.id,t.status LIMIT 5001`,
+      [this.scope(u), own?.id ?? null, true, u.userId, this.hr(u), supervisorIds, branchIds, from, grouping, to, status || null],
+    );
+    if (rows.length > 5000) throw new BadRequestException('Narrow the report filters or increase the grouping interval.');
+    return rows;
   }
   async exportTasks(u: AuthUserContext, filter: TaskExportQueryDto) {
     if (filter.branchId && !this.inScope(u, filter.branchId))

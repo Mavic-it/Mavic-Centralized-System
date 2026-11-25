@@ -10,20 +10,20 @@
   white-space: normal;
   overflow-wrap: anywhere;
   border: 1px solid #e8dcba;
-  background: #fff8e8;
-  color: #805c16;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
   border-radius: 7px;
   padding: 6px 8px;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   text-decoration: none;
   line-height: 1.5;
 }
 .badge[data-approved="true"] {
-  background: #eaf5ff;
+  background: var(--info-soft);
   border-color: #cfe3f5;
-  color: #275b85;
+  color: var(--status-info);
 }
 .badge:focus-visible {
-  outline: 2px solid #b42332;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }

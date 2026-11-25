@@ -1,9 +1,9 @@
 .pagination {
   align-items: center;
-  color: #737a75;
+  color: var(--text-secondary);
   display: flex;
   flex-wrap: wrap;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   gap: 8px 16px;
   justify-content: space-between;
   padding-top: 10px;
@@ -16,10 +16,10 @@
 
 .controls button {
   align-items: center;
-  background: #fff;
-  border: 1px solid #dfe3df;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 4px;
-  color: #454c47;
+  color: var(--text-primary);
   cursor: pointer;
   display: inline-flex;
   height: 32px;
@@ -28,16 +28,16 @@
 }
 
 .controls button:hover:not(:disabled) {
-  background: #f5f6f5;
-  border-color: #cbd1cc;
+  background: var(--surface-subtle);
+  border-color: var(--border);
 }
 
 .controls button:focus-visible {
-  outline: 2px solid #b4232a;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
 .controls button:disabled {
-  color: #b2b7b3;
+  color: var(--text-muted);
   cursor: default;
 }

@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { Skeleton } from "./loading-ui";
 
 import { PageHeading, PageHeader } from "./page-heading";
@@ -677,7 +678,7 @@ function PasswordResetQueueContent() {
               )}
             </section>
             {rejecting && (
-              <form
+              <FormLayout
                 className={styles.rejectForm}
                 onSubmit={(event) => {
                   event.preventDefault();
@@ -719,7 +720,7 @@ function PasswordResetQueueContent() {
                     Confirm rejection
                   </button>
                 </div>
-              </form>
+              </FormLayout>
             )}
           </div>
           <footer className={styles.drawerFooter}>

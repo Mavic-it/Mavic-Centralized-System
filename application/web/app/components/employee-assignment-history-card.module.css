@@ -1,6 +1,6 @@
 .card {
-  background: #fff;
-  border: 1px solid #e2e6e2;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 6px;
   margin-top: 16px;
   min-width: 0;
@@ -15,28 +15,28 @@
   margin: 8px 0 20px;
 }
 .toolbar p {
-  color: #64748b;
-  font-size: 13px;
+  color: var(--text-secondary);
+  font-size: calc(13px * var(--app-text-scale, 1));
   margin: 0;
 }
 .toolbar label {
   display: flex;
   align-items: center;
   gap: 9px;
-  color: #64748b;
-  font-size: 12px;
+  color: var(--text-secondary);
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .toolbar select {
-  background: #fff;
-  border: 1px solid #e2e8f0;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 10px 12px;
-  color: #172033;
+  color: var(--text-primary);
   font: inherit;
 }
 .event.event {
   padding: 0;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   border-radius: 14px;
   overflow: hidden;
   margin-bottom: 12px;
@@ -52,7 +52,7 @@
   cursor: pointer;
   list-style: none;
   padding: 18px;
-  background: #f8fafc;
+  background: var(--surface-subtle);
   align-items: center;
 }
 .event summary::-webkit-details-marker {
@@ -60,18 +60,18 @@
 }
 .event summary::after {
   content: "+";
-  color: #64748b;
-  font-size: 22px;
+  color: var(--text-secondary);
+  font-size: calc(22px * var(--app-text-scale, 1));
   margin-left: auto;
 }
 .event details[open] summary::after {
   content: "−";
 }
 .event .eventHeading h3 {
-  font-size: 14px;
+  font-size: var(--app-header-size);
 }
 .event .eventHeading p {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   margin-top: 6px;
 }
 .event .assignmentGrid {
@@ -81,19 +81,19 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .event .assignmentGrid dt {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .event .assignmentGrid dd {
-  font-size: 14px;
+  font-size: calc(14px * var(--app-text-scale, 1));
 }
 .event .actor {
   margin: 0;
   padding: 0 20px 18px;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 .event summary:focus-visible,
 .toolbar select:focus-visible {
-  outline: 2px solid #c22d32;
+  outline: 2px solid var(--focus-ring);
   outline-offset: -3px;
 }
 @media (max-width: 640px) {
@@ -122,18 +122,18 @@
 }
 
 .cardHeader h2 {
-  color: #303632;
-  font-size: 14px;
+  color: var(--text-primary);
+  font-size: var(--app-header-size);
   font-weight: 650;
   margin: 0;
 }
 
 .count {
-  background: #f4f6f4;
+  background: var(--surface-muted);
   border-radius: 20px;
-  color: #59615b;
+  color: var(--text-secondary);
   flex: 0 0 auto;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   padding: 5px 9px;
 }
 
@@ -146,7 +146,7 @@
 }
 
 .event {
-  border-top: 1px solid #edf0ed;
+  border-top: 1px solid var(--border);
   min-width: 0;
   padding: 14px 0 12px;
 }
@@ -164,7 +164,7 @@
 }
 
 .marker {
-  background: #b4232a;
+  background: var(--primary);
   border: 3px solid #f8e8e7;
   border-radius: 50%;
   flex: 0 0 12px;
@@ -178,16 +178,16 @@
 }
 
 .eventHeading h3 {
-  color: #343a36;
-  font-size: 11px;
+  color: var(--text-primary);
+  font-size: var(--app-header-size);
   font-weight: 650;
   margin: 0;
 }
 
 .eventHeading p,
 .actor {
-  color: #777f79;
-  font-size: 9px;
+  color: var(--text-secondary);
+  font-size: calc(9px * var(--app-text-scale, 1));
   line-height: 1.5;
   margin: 4px 0 0;
 }
@@ -205,14 +205,14 @@
 }
 
 .assignmentGrid dt {
-  color: #858c87;
-  font-size: 9px;
+  color: var(--text-secondary);
+  font-size: calc(9px * var(--app-text-scale, 1));
   margin-bottom: 3px;
 }
 
 .assignmentGrid dd {
-  color: #343a36;
-  font-size: 10px;
+  color: var(--text-primary);
+  font-size: calc(10px * var(--app-text-scale, 1));
   line-height: 1.45;
   margin: 0;
   overflow-wrap: anywhere;
@@ -223,10 +223,10 @@
 }
 
 .empty {
-  background: #f8f9f8;
+  background: var(--surface-subtle);
   border-radius: 4px;
-  color: #69716b;
-  font-size: 10px;
+  color: var(--text-secondary);
+  font-size: calc(10px * var(--app-text-scale, 1));
   line-height: 1.5;
   margin: 0;
   padding: 13px;
@@ -234,10 +234,10 @@
 
 .error {
   align-items: center;
-  background: #fff7f6;
+  background: var(--danger-soft);
   border: 1px solid #efd8d6;
   border-radius: 4px;
-  color: #8f2026;
+  color: var(--status-danger);
   display: flex;
   gap: 12px;
   justify-content: space-between;
@@ -245,19 +245,19 @@
 }
 
 .error p {
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   line-height: 1.5;
   margin: 0;
   overflow-wrap: anywhere;
 }
 
 .error :global(.ui-icon-button) {
-  color: #8f2026;
+  color: var(--status-danger);
   flex: 0 0 40px;
 }
 
 .skeleton {
-  border-top: 1px solid #edf0ed;
+  border-top: 1px solid var(--border);
   display: grid;
   gap: 9px;
   padding-top: 14px;
@@ -267,7 +267,7 @@
 .skeletonMeta,
 .skeletonGrid span {
   animation: shimmer 1.4s ease-in-out infinite;
-  background: linear-gradient(90deg, #eef0ee, #f7f8f7, #eef0ee);
+  background: linear-gradient(90deg, var(--skeleton-base), var(--skeleton-highlight), var(--skeleton-base));
   background-size: 200% 100%;
   border-radius: 4px;
   display: block;
@@ -302,7 +302,7 @@
   .skeletonMeta,
   .skeletonGrid span {
     animation: none;
-    background: #eef0ee;
+    background: var(--surface-muted);
   }
 }
 

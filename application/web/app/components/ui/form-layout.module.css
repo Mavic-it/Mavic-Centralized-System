@@ -1,0 +1,261 @@
+.formLayout {
+  min-width: 0;
+  color: var(--text-primary);
+}
+
+.formLayout.formLayout[data-form-layout="standard"]:not([data-form-density="compact"]) {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  gap: 14px;
+}
+
+.formLayout.formLayout[data-form-frame="flush"] {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+}
+
+.formLayout.formLayout[hidden] {
+  display: none;
+}
+
+.formLayout.formLayout[data-form-layout="standard"]:not([data-form-density="compact"]) :global(fieldset) {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  gap: 12px 14px;
+  min-width: 0;
+  padding: 16px 18px 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.formLayout.formLayout[data-form-layout="standard"]:not([data-form-density="compact"]) :global(fieldset[data-form-contents]) {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  gap: 14px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.formLayout.formLayout[data-form-layout="standard"] :global([data-form-section]) {
+  display: grid;
+  grid-column: 1 / -1;
+  align-content: start;
+  gap: 14px;
+  min-width: 0;
+  padding: 16px 18px 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.formLayout.formLayout[data-form-layout="standard"] :global([data-form-section] > :is(div, section, fieldset, header, p, [role="alert"], [role="status"])) {
+  grid-column: 1 / -1;
+}
+
+.formLayout.formLayout[data-form-layout="standard"] :global([data-form-span="full"]) {
+  grid-column: 1 / -1;
+}
+
+.formLayout.formLayout[data-form-layout="standard"] :global([data-form-section] h3 + p) {
+  margin: 4px 0 0;
+  color: var(--text-secondary);
+  font-size: calc(12px * var(--app-text-scale, 1));
+  line-height: 1.5;
+}
+
+.formLayout.formLayout[data-form-layout="standard"]:not([data-form-density="compact"]) :global(fieldset > legend) {
+  grid-column: 1 / -1;
+  max-width: 100%;
+  padding: 0 7px 0 0;
+  color: var(--text-primary);
+  font-size: calc(15px * var(--app-text-scale, 1));
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.formLayout.formLayout[data-form-layout="standard"]:not([data-form-density="compact"]) :global(fieldset > :is(p, div, header, footer, section, [role="alert"], [role="status"])) {
+  grid-column: 1 / -1;
+}
+
+.formLayout.formLayout[data-form-layout="standard"]:not([data-form-density="compact"]) > :is(div, section, footer, p, details, h1, h2, h3, h4, [role="alert"], [role="status"]) {
+  grid-column: 1 / -1;
+}
+
+.formLayout.formLayout[data-form-layout="standard"] :global(h3),
+.formLayout.formLayout[data-form-layout="standard"] :global(h4),
+.formLayout.formLayout[data-form-layout="standard"] :global(fieldset h2) {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: calc(15px * var(--app-text-scale, 1));
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.formLayout.formLayout[data-form-layout="standard"]:not([data-form-density="compact"]) > label:has(> textarea),
+.formLayout.formLayout[data-form-layout="standard"]:not([data-form-density="compact"]) :global(fieldset > label:has(> textarea)) {
+  grid-column: 1 / -1;
+}
+
+.formLayout.formLayout[data-form-layout="standard"] :global(div:has(> label):not([data-form-grid="custom"])) {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 13px 14px;
+  min-width: 0;
+}
+
+.formLayout.formLayout[data-form-layout="standard"] :global(h3 + div:has(> label):not([data-form-grid="custom"])) {
+  padding: 16px 18px 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.formLayout.formLayout[data-form-layout="standard"] :global(label:has(> textarea)) {
+  grid-column: 1 / -1;
+}
+
+.formLayout.formLayout[data-form-layout="standard"] :global(div:has(> button[type="submit"], > button:not([type]))) {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.formLayout.formLayout[data-form-layout="standard"] :global(div:has(> button[type="submit"], > button:not([type])) > button),
+.formLayout.formLayout[data-form-layout="standard"] :global(footer > button) {
+  box-sizing: border-box;
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font: inherit;
+  font-size: calc(13px * var(--app-text-scale, 1));
+  font-weight: 650;
+}
+
+.formLayout.formLayout[data-form-layout="standard"]:not([data-form-density="compact"]) > :is(div, footer):has(> button[type="submit"], > button:not([type])) {
+  grid-column: 1 / -1;
+}
+
+.formLayout.formLayout[data-form-layout="standard"]:not([data-form-density="compact"]) > button[type="submit"] {
+  grid-column: 1 / -1;
+  justify-self: end;
+  box-sizing: border-box;
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font: inherit;
+  font-size: calc(13px * var(--app-text-scale, 1));
+  font-weight: 650;
+}
+
+.formLayout.formLayout[data-form-layout="standard"] :global(label:has(> input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="range"]):not([type="hidden"]), > select, > textarea)) {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+  color: var(--text-secondary);
+  font-size: calc(12px * var(--app-text-scale, 1));
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.formLayout.formLayout[data-form-layout="standard"] :global(input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="range"]):not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"]):not([type="image"]):not([type="color"])),
+.formLayout.formLayout[data-form-layout="standard"] :global(select),
+.formLayout.formLayout[data-form-layout="standard"] :global(textarea) {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 40px;
+  padding: 8px 11px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-subtle);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: calc(13px * var(--app-text-scale, 1));
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.formLayout.formLayout[data-form-layout="standard"] :global(textarea) {
+  min-height: 88px;
+  resize: vertical;
+}
+
+.formLayout.formLayout[data-form-layout="standard"] :global(input::placeholder),
+.formLayout.formLayout[data-form-layout="standard"] :global(textarea::placeholder) {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.formLayout.formLayout[data-form-layout="standard"] :global(input:focus-visible),
+.formLayout.formLayout[data-form-layout="standard"] :global(select:focus-visible),
+.formLayout.formLayout[data-form-layout="standard"] :global(textarea:focus-visible),
+.formLayout.formLayout[data-form-layout="standard"] :global(button:focus-visible) {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.formLayout.formLayout[data-form-layout="standard"] :global(input:disabled),
+.formLayout.formLayout[data-form-layout="standard"] :global(select:disabled),
+.formLayout.formLayout[data-form-layout="standard"] :global(textarea:disabled),
+.formLayout.formLayout[data-form-layout="standard"] :global(button:disabled) {
+  cursor: not-allowed;
+}
+
+.formLayout.formLayout[data-form-layout="standard"][data-form-density="compact"] > fieldset {
+  padding: 12px 14px 14px;
+}
+
+.formLayout.formLayout[data-form-layout="standard"][data-form-density="compact"] :global(input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="range"]):not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"]):not([type="image"]):not([type="color"])),
+.formLayout.formLayout[data-form-layout="standard"][data-form-density="compact"] :global(select),
+.formLayout.formLayout[data-form-layout="standard"][data-form-density="compact"] :global(textarea) {
+  min-height: 36px;
+  padding: 7px 9px;
+}
+
+@media (max-width: 640px) {
+  .formLayout.formLayout[data-form-layout="standard"]:not([data-form-density="compact"]) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .formLayout.formLayout[data-form-layout="standard"]:not([data-form-density="compact"]) :global(fieldset) {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 14px;
+  }
+
+  .formLayout.formLayout[data-form-layout="standard"] :global(div:has(> label):not([data-form-grid="custom"])) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .formLayout.formLayout[data-form-layout="standard"] :global(h3 + div:has(> label):not([data-form-grid="custom"])) {
+    padding: 14px;
+  }
+
+  .formLayout.formLayout[data-form-layout="standard"]:not([data-form-density="compact"]) :global(fieldset[data-form-contents]) {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0;
+  }
+
+  .formLayout.formLayout[data-form-layout="standard"] :global([data-form-section]) {
+    padding: 14px;
+  }
+}

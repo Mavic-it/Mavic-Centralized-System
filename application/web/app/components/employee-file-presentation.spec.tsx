@@ -23,7 +23,7 @@ const employee: WorkspaceEmployee = {
   status: "ACTIVE",
   employmentType: "FULL_TIME",
   hiredOn: "2026-10-23",
-  manager: "Jordan Supervisor",
+  manager: "Mavic Supervisor",
   emergencyContact: { name: "", relationship: "", phone: "" },
   governmentIds: [],
   documents: [],
@@ -57,7 +57,7 @@ describe("Employee 201 file presentation", () => {
     );
     expect(html).toContain("Makati");
     expect(html).toContain("Full time");
-    expect(html).toContain("Jordan Supervisor");
+    expect(html).toContain("Mavic Supervisor");
     expect(html).toContain('aria-label="Employee employment summary"');
     expect(html).not.toContain("salary");
   });

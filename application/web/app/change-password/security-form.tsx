@@ -1,5 +1,6 @@
 "use client";
 
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { FieldLabel } from "../components/field-label";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
@@ -74,59 +75,69 @@ export default function ChangePasswordForm() {
     }
   }
   return (
-    <form className={styles.form} onSubmit={submit}>
-      <div className={styles.field}>
-        <label htmlFor="current-password">
-          <FieldLabel required={true}>Current or temporary password</FieldLabel>
-        </label>
-        <div className={styles.inputRow}>
-          <input
-            id="current-password"
-            type={showCurrent ? "text" : "password"}
-            autoComplete="current-password"
-            required
-            value={currentPassword}
-            onChange={(event) => setCurrent(event.target.value)}
-          />
-          <button
-            type="button"
-            aria-label={
-              showCurrent ? "Hide current password" : "Show current password"
-            }
-            aria-pressed={showCurrent}
-            onClick={() => setShowCurrent((value) => !value)}
-          >
-            {showCurrent ? "Hide" : "Show"}
-          </button>
+    <FormLayout onSubmit={submit}>
+      <div className={styles.fields} data-form-span="full">
+        <div className={styles.field} data-form-grid="custom">
+          <label htmlFor="current-password">
+            <FieldLabel required={true}>
+              Current or temporary password
+            </FieldLabel>
+          </label>
+          <div className={styles.inputRow}>
+            <input
+              id="current-password"
+              type={showCurrent ? "text" : "password"}
+              autoComplete="current-password"
+              required
+              value={currentPassword}
+              onChange={(event) => setCurrent(event.target.value)}
+            />
+            <button
+              type="button"
+              aria-label={
+                showCurrent ? "Hide current password" : "Show current password"
+              }
+              aria-pressed={showCurrent}
+              onClick={() => setShowCurrent((value) => !value)}
+            >
+              {showCurrent ? "Hide" : "Show"}
+            </button>
+          </div>
         </div>
-      </div>
-      <div className={styles.field}>
-        <label htmlFor="new-password">
-          <FieldLabel required={true}>New password</FieldLabel>
-        </label>
-        <div className={styles.inputRow}>
-          <input
-            id="new-password"
-            type={showNew ? "text" : "password"}
-            autoComplete="new-password"
-            minLength={12}
-            maxLength={128}
-            required
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          <button
-            type="button"
-            aria-label={showNew ? "Hide new password" : "Show new password"}
-            aria-pressed={showNew}
-            onClick={() => setShowNew((value) => !value)}
-          >
-            {showNew ? "Hide" : "Show"}
-          </button>
+        <div className={styles.field} data-form-grid="custom">
+          <label htmlFor="new-password">
+            <FieldLabel required={true}>New password</FieldLabel>
+          </label>
+          <div className={styles.inputRow}>
+            <input
+              id="new-password"
+              type={showNew ? "text" : "password"}
+              autoComplete="new-password"
+              minLength={12}
+              maxLength={128}
+              required
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <button
+              type="button"
+              aria-label={showNew ? "Hide new password" : "Show new password"}
+              aria-pressed={showNew}
+              onClick={() => setShowNew((value) => !value)}
+            >
+              {showNew ? "Hide" : "Show"}
+            </button>
+          </div>
         </div>
-        <div className={styles.checklist} aria-label="Password requirements">
+        <section
+          className={styles.checklist}
+          data-form-span="full"
+          aria-labelledby="password-requirements-label"
+        >
           <div className={styles.checklistHeader}>
-            <strong>Password requirements</strong>
+            <strong id="password-requirements-label">
+              Password requirements
+            </strong>
             <span aria-live="polite">
               {password ? `${strength} of 4 met` : "Start typing to check"}
             </span>
@@ -139,46 +150,46 @@ export default function ChangePasswordForm() {
               </li>
             ))}
           </ul>
+        </section>
+        <div className={styles.field} data-form-grid="custom">
+          <label htmlFor="confirm-password">
+            <FieldLabel required={true}>Confirm new password</FieldLabel>
+          </label>
+          <div className={styles.inputRow}>
+            <input
+              id="confirm-password"
+              type={showConfirm ? "text" : "password"}
+              autoComplete="new-password"
+              minLength={12}
+              maxLength={128}
+              required
+              value={confirm}
+              onChange={(event) => setConfirm(event.target.value)}
+            />
+            <button
+              type="button"
+              aria-label={
+                showConfirm
+                  ? "Hide confirmation password"
+                  : "Show confirmation password"
+              }
+              aria-pressed={showConfirm}
+              onClick={() => setShowConfirm((value) => !value)}
+            >
+              {showConfirm ? "Hide" : "Show"}
+            </button>
+          </div>
+          {confirm && password !== confirm && (
+            <small className={styles.error} role="status">
+              Passwords do not match.
+            </small>
+          )}
+          {confirm && password === confirm && (
+            <small className={styles.match} role="status">
+              Passwords match.
+            </small>
+          )}
         </div>
-      </div>
-      <div className={styles.field}>
-        <label htmlFor="confirm-password">
-          <FieldLabel required={true}>Confirm new password</FieldLabel>
-        </label>
-        <div className={styles.inputRow}>
-          <input
-            id="confirm-password"
-            type={showConfirm ? "text" : "password"}
-            autoComplete="new-password"
-            minLength={12}
-            maxLength={128}
-            required
-            value={confirm}
-            onChange={(event) => setConfirm(event.target.value)}
-          />
-          <button
-            type="button"
-            aria-label={
-              showConfirm
-                ? "Hide confirmation password"
-                : "Show confirmation password"
-            }
-            aria-pressed={showConfirm}
-            onClick={() => setShowConfirm((value) => !value)}
-          >
-            {showConfirm ? "Hide" : "Show"}
-          </button>
-        </div>
-        {confirm && password !== confirm && (
-          <small className={styles.error} role="status">
-            Passwords do not match.
-          </small>
-        )}
-        {confirm && password === confirm && (
-          <small className={styles.match} role="status">
-            Passwords match.
-          </small>
-        )}
       </div>
       {error && (
         <p className={styles.error} role="alert">
@@ -190,9 +201,11 @@ export default function ChangePasswordForm() {
           Password changed. Sign in with your new password.
         </p>
       )}
-      <button className={styles.submit} disabled={busy}>
-        {busy ? "Updating password…" : "Update password"}
-      </button>
-    </form>
+      <div data-form-span="full">
+        <button className={styles.submit} type="submit" disabled={busy}>
+          {busy ? "Updating password…" : "Update password"}
+        </button>
+      </div>
+    </FormLayout>
   );
 }

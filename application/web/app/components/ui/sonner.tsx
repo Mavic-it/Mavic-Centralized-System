@@ -11,11 +11,26 @@ import {
 import { createPortal } from "react-dom";
 import { getServerModal, getTopModal, subscribeToModals } from "./modal-layer";
 
+function subscribeToTheme(onChange: () => void) {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  return () => observer.disconnect();
+}
+
+function getTheme(): "light" | "dark" {
+  return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+}
+
 export function Toaster(props: ToasterProps) {
   const modal = useSyncExternalStore(
     subscribeToModals,
     getTopModal,
     getServerModal,
+  );
+  const theme: "light" | "dark" = useSyncExternalStore(
+    subscribeToTheme,
+    getTheme,
+    () => "light" as const,
   );
   const [host, setHost] = useState<HTMLDivElement | null>(null);
   const attachHost = useCallback((marker: HTMLSpanElement | null) => {
@@ -42,15 +57,15 @@ export function Toaster(props: ToasterProps) {
           "--normal-bg": "var(--popover)",
           "--normal-text": "var(--popover-foreground)",
           "--normal-border": "var(--border)",
-          "--success-bg": "#f2f8f4",
-          "--success-border": "#d8e9de",
+          "--success-bg": "var(--success)",
+          "--success-border": "color-mix(in srgb, var(--status-success) 25%, var(--border))",
           "--success-text": "var(--success-foreground)",
-          "--error-bg": "#fff6f5",
-          "--error-border": "#f2d9d8",
-          "--error-text": "var(--primary-dark)",
+          "--error-bg": "var(--danger-soft)",
+          "--error-border": "color-mix(in srgb, var(--status-danger) 25%, var(--border))",
+          "--error-text": "var(--status-danger)",
         } as CSSProperties
       }
-      theme="light"
+      theme={theme}
       {...props}
     />
   );

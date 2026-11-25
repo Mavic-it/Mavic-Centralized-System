@@ -16,7 +16,7 @@ const employee: WorkspaceEmployee = {
   status: "ACTIVE",
   employmentType: "FULL_TIME",
   hiredOn: "2026-10-01",
-  manager: "Jordan Lee",
+  manager: "Mavic Lee",
   emergencyContact: { name: "", relationship: "", phone: "" },
   governmentIds: [],
   documents: [],

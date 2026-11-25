@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { LoadingList } from "../components/content-loading";
 import { RequiredMark } from "../components/required-mark";
 import { useState, type FormEvent } from "react";
@@ -117,7 +118,7 @@ export function DtrReview({
           draft. Free-text remarks do not grant paid time.
         </p>
         {!!c.officialBusiness?.length&&<div className={styles.notice}><strong>Approved Official Business: {c.obCreditedMinutes??0} credited minutes.</strong>{c.officialBusiness.map(ob=><p key={ob.id}>{ob.destination} / {ob.id}</p>)}<p>Original punches stay separate. Cancel the OB request through its review workflow to remove this credit.</p></div>}
-        <form onSubmit={submit}>
+        <FormLayout onSubmit={submit}>
           <div className={styles.grid}>
             <label className={styles.field}>
               <span>Actual IN · UTC</span>
@@ -242,7 +243,7 @@ export function DtrReview({
           >
             {save.isPending ? "Saving…" : "Save audited correction"}
           </button>
-        </form>
+        </FormLayout>
         <details>
           <summary>Original punches / source status / reconciliation</summary>
           <pre className={styles.audit}>

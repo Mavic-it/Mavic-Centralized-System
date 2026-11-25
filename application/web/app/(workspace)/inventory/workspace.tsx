@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { InventoryOverviewLoading, InventoryItemsLoading } from "./inventory-loading";
 
 import {
@@ -562,11 +563,11 @@ export default function InventoryWorkspace() {
               <button className={`${styles.iconButton} ${styles.categoryDeleteButton}`} type="button" onClick={() => { setError(""); setDialog({ type: "categoryDelete", category }); }} disabled={saving || category.itemCount > 0} aria-label={`Delete ${category.name} category`} title={category.itemCount > 0 ? "Reassign all items before deleting this category" : "Delete category"}><Trash2 size={15} /></button>
             </div>
           </div>)}</div> : <Empty title="No categories yet" detail="Add a category to organize the shared item catalog." />}
-        </> : <form onSubmit={saveCategory} className={styles.form}>
+        </> : <FormLayout onSubmit={saveCategory} className={styles.form}>
           <label className={styles.formField}><FieldLabel required>Category name</FieldLabel><input name="name" defaultValue={dialog.category?.name ?? ""} required maxLength={120} placeholder="e.g. Office supplies" /></label>
           <label className={styles.formField}><FieldLabel>Description</FieldLabel><textarea name="description" defaultValue={dialog.category?.description ?? ""} rows={3} maxLength={2000} placeholder="Describe which items belong in this category" /></label>
           <DialogActions busy={saving} onCancel={() => { setError(""); setDialog({ type: "category", mode: "list" }); }} submit={dialog.mode === "edit" ? "Save changes" : "Add category"} />
-        </form>}
+        </FormLayout>}
       </div></Modal>}
       {dialog?.type === "categoryDelete" && <Modal onClose={() => !saving && setDialog({ type: "category", mode: "list" })} busy={saving} aria-labelledby="delete-category-title"><div className={styles.dialog}>
         <div className={styles.dialogHeader}><div><span className={styles.eyebrow}>CATALOG SETTINGS</span><h2 id="delete-category-title">Delete category?</h2><p>This cannot be undone.</p></div><button className={styles.closeButton} type="button" onClick={() => setDialog({ type: "category", mode: "list" })} disabled={saving} aria-label="Close">×</button></div>
@@ -574,7 +575,7 @@ export default function InventoryWorkspace() {
         <DialogActions busy={saving} busyLabel="Deleting…" onCancel={() => { setError(""); setDialog({ type: "category", mode: "list" }); }} submit="Delete category" onSubmit={() => void removeCategory(dialog.category)} />
       </div></Modal>}
       {dialog?.type === "movement" && <StockMovementDialog key={movementKey} item={dialog.item} movementType={dialog.movementType} branchId={stockBranchId} branchName={branches.find(branch => branch.id === stockBranchId)?.name ?? "Selected branch"} busy={saving} onClose={() => !saving && setDialog(null)} onSubmit={postMovement} />}
-      {dialog?.type === "register" && <Modal onClose={() => !saving && setDialog(null)} busy={saving} aria-labelledby="register-dialog-title"><div className={styles.dialog}><div className={styles.dialogHeader}><div><span className={styles.eyebrow}>BRANCH STOCK</span><h2 id="register-dialog-title">Register item at branch</h2><p>{dialog.item.name} · {dialog.item.sku}</p></div><button className={styles.closeButton} type="button" onClick={() => setDialog(null)} disabled={saving} aria-label="Close">×</button></div><form onSubmit={registerAtBranch} className={styles.form}><label className={styles.formField}><FieldLabel required>Branch</FieldLabel><select name="branchId" defaultValue={stockBranchId} required>{branches.map(branch => <option key={branch.id} value={branch.id}>{branch.name}</option>)}</select></label><label className={styles.formField}><FieldLabel>Storage location</FieldLabel><input name="storageLocation" maxLength={200} placeholder="Main storage" /></label><label className={styles.formField}><FieldLabel required>Opening stock</FieldLabel><input name="openingStock" type="number" min="0" step="1" defaultValue="0" required /></label><p className={styles.formHint}>Opening stock is recorded as a movement with its own history entry.</p><DialogActions busy={saving} onCancel={() => setDialog(null)} submit="Register item" /></form></div></Modal>}
+      {dialog?.type === "register" && <Modal onClose={() => !saving && setDialog(null)} busy={saving} aria-labelledby="register-dialog-title"><div className={styles.dialog}><div className={styles.dialogHeader}><div><span className={styles.eyebrow}>BRANCH STOCK</span><h2 id="register-dialog-title">Register item at branch</h2><p>{dialog.item.name} · {dialog.item.sku}</p></div><button className={styles.closeButton} type="button" onClick={() => setDialog(null)} disabled={saving} aria-label="Close">×</button></div><FormLayout onSubmit={registerAtBranch} className={styles.form}><label className={styles.formField}><FieldLabel required>Branch</FieldLabel><select name="branchId" defaultValue={stockBranchId} required>{branches.map(branch => <option key={branch.id} value={branch.id}>{branch.name}</option>)}</select></label><label className={styles.formField}><FieldLabel>Storage location</FieldLabel><input name="storageLocation" maxLength={200} placeholder="Main storage" /></label><label className={styles.formField}><FieldLabel required>Opening stock</FieldLabel><input name="openingStock" type="number" min="0" step="1" defaultValue="0" required /></label><p className={styles.formHint}>Opening stock is recorded as a movement with its own history entry.</p><DialogActions busy={saving} onCancel={() => setDialog(null)} submit="Register item" /></FormLayout></div></Modal>}
       {dialog?.type === "archive" && <Modal onClose={() => !saving && setDialog(null)} busy={saving} aria-labelledby="archive-dialog-title"><div className={styles.dialog}><div className={styles.dialogHeader}><div><span className={styles.eyebrow}>CATALOG LIFECYCLE</span><h2 id="archive-dialog-title">Archive item?</h2></div><button className={styles.closeButton} type="button" onClick={() => setDialog(null)} disabled={saving} aria-label="Close">×</button></div><p className={styles.confirmText}>Archive <strong>{dialog.item.name}</strong> ({dialog.item.sku})? Its stock and movement history will remain available.</p><DialogActions busy={saving} onCancel={() => setDialog(null)} submit="Archive item" onSubmit={() => void archiveItem(dialog.item)} /></div></Modal>}
     </main>
   );
@@ -616,7 +617,7 @@ function ItemDialog({ title, busy, onClose, onSubmit, categories, branches, init
 }) {
   return <Modal onClose={onClose} busy={busy} aria-labelledby="item-dialog-title"><div className={styles.dialog}>
     <div className={styles.dialogHeader}><div><span className={styles.eyebrow}>MASTER ITEM</span><h2 id="item-dialog-title">{title}</h2></div><button className={styles.closeButton} type="button" onClick={onClose} disabled={busy} aria-label="Close">×</button></div>
-    <form onSubmit={onSubmit} className={styles.form}>
+    <FormLayout onSubmit={onSubmit} className={styles.form}>
       <div className={styles.formGrid}>
         <label className={styles.formField}><FieldLabel required>Item name</FieldLabel><input name="name" defaultValue={initial.name} required maxLength={200} placeholder="e.g. Bond paper A4" /></label>
         <label className={styles.formField}><FieldLabel required>SKU</FieldLabel><input name="sku" defaultValue={initial.sku} required maxLength={100} placeholder="e.g. PAPER-A4-001" /></label>
@@ -633,7 +634,7 @@ function ItemDialog({ title, busy, onClose, onSubmit, categories, branches, init
       </div>
       {create && <p className={styles.formHint}>Opening stock, when entered, is saved as a permanent movement record.</p>}
       <DialogActions busy={busy} onCancel={onClose} submit={create ? "Create item" : "Save changes"} />
-    </form>
+    </FormLayout>
   </div></Modal>;
 }
 
@@ -652,7 +653,7 @@ function StockMovementDialog({ item, movementType, branchId, branchName, busy, o
       <div><span className={styles.eyebrow}>{branchName}</span><h2 id="stock-action-title">{receiving ? "Receive stock" : "Issue stock"}</h2><p>{item.name} · {item.sku}</p></div>
       <button className={styles.closeButton} type="button" onClick={onClose} disabled={busy} aria-label="Close">×</button>
     </div>
-    <form className={styles.form} onSubmit={onSubmit}>
+    <FormLayout className={styles.form} onSubmit={onSubmit}>
       <input type="hidden" name="branchId" value={branchId} />
       <fieldset className={styles.movementFields} disabled={busy}>
         <label className={styles.formField} htmlFor="stock-quantity"><FieldLabel required>Quantity ({item.unit})</FieldLabel></label>
@@ -670,7 +671,7 @@ function StockMovementDialog({ item, movementType, branchId, branchName, busy, o
         </div></details>
       </fieldset>
       <div className={styles.stockSubmit}><button type="button" className={styles.secondaryButton} disabled={busy} onClick={onClose}>Cancel</button><button type="submit" className={styles.primaryButton} disabled={busy || !valid}>{busy ? "Posting…" : `${receiving ? "Receive" : "Issue"} ${valid ? quantity(units) : ""} ${item.unit}`}</button></div>
-    </form>
+    </FormLayout>
   </Modal>;
 }
 

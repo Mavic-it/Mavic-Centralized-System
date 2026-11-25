@@ -42,7 +42,10 @@ export function TaskReassignment({
   }
 
   return (
-    <section className={css.taskReassignment} aria-labelledby="reassign-title">
+    <section
+      className={`${css.taskReassignment} ${css.recordDetailCard}`}
+      aria-labelledby="reassign-title"
+    >
       <div className={css.taskReassignmentHeading}>
         <div>
           <h3 id="reassign-title">Task assignees</h3>

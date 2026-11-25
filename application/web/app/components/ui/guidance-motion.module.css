@@ -30,9 +30,9 @@
   15%,
   75% {
     box-shadow: 0 0 0 4px rgb(180 35 50 / 16%);
-    border-color: #b42332;
-    background-color: #fff1f2;
-    color: #b42332;
+    border-color: var(--primary-dark);
+    background-color: var(--surface-subtle);
+    color: var(--primary-dark);
   }
 }
 @keyframes guideReveal {

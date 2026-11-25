@@ -2,7 +2,7 @@
 import { LoadingFields } from "../components/content-loading";
 
 import { FieldLabel } from "../components/field-label";
-import { BookmarkPlus, CalendarClock, RotateCcw } from "lucide-react";
+import { BookmarkPlus, RotateCcw } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { TaskTemplate } from "./types";
 import css from "./workspace.module.css";
@@ -64,12 +64,10 @@ export function TaskAutomationOptions({
   return (
     <section
       className={css.taskAutomation}
+      data-form-section=""
       aria-label="Task templates and schedule"
     >
       <div className={css.taskAutomationHeading}>
-        <span className={css.taskAutomationIcon} aria-hidden="true">
-          <CalendarClock size={17} />
-        </span>
         <div>
           <h3>Templates & repeat schedule</h3>
           <p>Reuse a task or create this task again automatically.</p>

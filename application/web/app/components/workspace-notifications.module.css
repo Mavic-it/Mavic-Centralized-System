@@ -9,7 +9,7 @@
   color: white;
   border-radius: 12px;
   padding: 2px 5px;
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   pointer-events: none;
 }
 .panel {
@@ -18,10 +18,10 @@
   margin: 0;
   width: min(420px, calc(100vw - 24px));
   padding: 0;
-  border: 1px solid #dce2eb;
+  border: 1px solid var(--border);
   border-radius: 16px;
-  background: #fff;
-  color: #20324b;
+  background: var(--surface);
+  color: var(--text-primary);
   box-shadow:
     0 16px 60px #14243a26,
     0 3px 12px #14243a14;
@@ -45,7 +45,7 @@
 }
 .heading h2 {
   margin: 0;
-  font-size: 19px;
+  font-size: var(--app-header-size);
   font-weight: 700;
   letter-spacing: -0.5px;
 }
@@ -54,8 +54,8 @@
 }
 .heading p {
   margin: 5px 0 0;
-  font-size: 12px;
-  color: #62748d;
+  font-size: calc(12px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
 }
 .toolbar {
   display: flex;
@@ -63,7 +63,7 @@
   justify-content: space-between;
   gap: 8px;
   padding: 0 12px 9px;
-  border-bottom: 1px solid #e7ecf2;
+  border-bottom: 1px solid var(--border);
 }
 .filters {
   display: flex;
@@ -77,18 +77,18 @@
   border: 0;
   border-radius: 22px;
   padding: 6px 10px;
-  color: #52647b;
+  color: var(--text-secondary);
   background: transparent;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   font-weight: 600;
 }
 .filters button[aria-pressed="true"] {
-  color: #ad2030;
-  background: #fcecef;
+  color: var(--primary-dark);
+  background: var(--primary-soft);
 }
 .filters span {
   margin-left: 3px;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 .readAll {
   display: flex;
@@ -96,9 +96,9 @@
   gap: 5px;
   border: 0;
   background: transparent;
-  color: #ad2030;
+  color: var(--primary-dark);
   padding: 8px 4px;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 .content {
   overflow-y: auto;
@@ -118,7 +118,7 @@
   overflow-wrap: anywhere;
 }
 .unread {
-  background: #f3f6fb;
+  background: var(--surface-subtle);
 }
 .destination {
   display: flex;
@@ -130,7 +130,7 @@
   border-radius: 12px;
 }
 a.destination:hover {
-  background: #eaf0f7;
+  background: var(--surface-muted);
 }
 .avatar {
   flex-shrink: 0;
@@ -139,22 +139,22 @@ a.destination:hover {
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: #e9edf4;
-  color: #536b89;
+  background: var(--surface-muted);
+  color: var(--text-secondary);
 }
 .success {
-  background: #e5f3eb;
-  color: #276546;
+  background: var(--surface-muted);
+  color: var(--text-secondary);
 }
 .warning {
-  background: #fff1d6;
-  color: #865a12;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
 }
 .error {
-  color: #b12638;
+  color: var(--status-danger);
 }
 .avatar.error {
-  background: #fbe8ed;
+  background: var(--surface-subtle);
 }
 .copy {
   flex: 1;
@@ -162,16 +162,16 @@ a.destination:hover {
 }
 .copy strong {
   display: block;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   font-weight: 650;
   line-height: 1.35;
 }
 .message {
   display: block;
   margin-top: 2px;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.4;
-  color: #596b81;
+  color: var(--text-secondary);
 }
 .message + .message {
   display: -webkit-box;
@@ -181,12 +181,12 @@ a.destination:hover {
 }
 .copy time {
   display: block;
-  color: #697e99;
-  font-size: 11px;
+  color: var(--text-secondary);
+  font-size: calc(11px * var(--app-text-scale, 1));
   margin-top: 3px;
 }
 .unread time {
-  color: #af2333;
+  color: var(--primary-dark);
   font-weight: 600;
 }
 .dot {
@@ -211,22 +211,22 @@ a.destination:hover {
   border: 0;
   background: transparent;
   padding: 4px 0;
-  color: #546983;
-  font-size: 11px;
+  color: var(--text-secondary);
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 .actions button:hover {
-  color: #b12638;
+  color: var(--primary-dark);
 }
 .actions span {
-  font-size: 11px;
-  color: #62748d;
+  font-size: calc(11px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
 }
 .confirm {
   margin: 8px 12px;
   padding: 12px;
   border: 1px solid #eed8df;
   border-radius: 9px;
-  background: white;
+  background: var(--surface);
   display: flex;
   gap: 8px;
   justify-content: flex-end;
@@ -235,14 +235,14 @@ a.destination:hover {
 .confirm p {
   width: 100%;
   margin: 0 0 5px;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .confirm button {
-  border: 1px solid #dce2eb;
-  background: #fff;
+  border: 1px solid var(--border);
+  background: var(--surface);
   border-radius: 7px;
   padding: 6px 10px;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .confirm .deleteConfirm {
   background: #b12638;
@@ -251,18 +251,18 @@ a.destination:hover {
 }
 .state {
   padding: 24px;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   line-height: 1.6;
 }
 .state button {
   border: 0;
   background: transparent;
-  color: #b12638;
+  color: var(--primary-dark);
   text-decoration: underline;
 }
 .content > .error {
   padding: 10px 20px;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .empty {
   min-height: 190px;
@@ -272,15 +272,15 @@ a.destination:hover {
   justify-content: center;
   padding: 24px;
   text-align: center;
-  color: #71829a;
+  color: var(--text-secondary);
 }
 .empty strong {
   margin-top: 14px;
-  font-size: 14px;
-  color: #354b67;
+  font-size: calc(14px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
 }
 .empty p {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.6;
   margin: 6px 0 0;
 }
@@ -290,9 +290,9 @@ a.destination:hover {
   align-items: center;
   gap: 12px;
   padding: 12px 20px;
-  border-top: 1px solid #e7ecf2;
-  font-size: 11px;
-  color: #62748d;
+  border-top: 1px solid var(--border);
+  font-size: calc(11px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
 }
 .paging {
   display: flex;
@@ -302,12 +302,12 @@ a.destination:hover {
 .paging button {
   display: grid;
   place-items: center;
-  border: 1px solid #dce2eb;
+  border: 1px solid var(--border);
   border-radius: 7px;
-  background: white;
+  background: var(--surface);
   width: 28px;
   height: 28px;
-  color: #405a78;
+  color: var(--text-secondary);
 }
 .panel button:disabled {
   cursor: default;

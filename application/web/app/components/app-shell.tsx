@@ -68,14 +68,18 @@ function constrainSidebarWidth(width: number): number {
 
 const navigationGroups: {
   label: string;
-  items: { label: string; icon: LucideIcon; href?: string; roles?: WorkspaceRole[] }[];
+  items: {
+    label: string;
+    icon: LucideIcon;
+    href?: string;
+    roles?: WorkspaceRole[];
+  }[];
 }[] = [
   {
     label: "Workspace",
     items: [
       { label: "Overview", icon: LayoutDashboard, href: "/" },
       { label: "HR dashboard", icon: CalendarDays, href: "/hr" },
-      { label: "Reports", icon: ChartNoAxesCombined },
     ],
   },
   {
@@ -100,7 +104,7 @@ const navigationGroups: {
     label: "Business",
     items: [
       { label: "Reservations", icon: CalendarDays, href: "/reservations" },
-      { label: "Inquiries", icon: MessageSquareText },
+      { label: "Inquiries", icon: MessageSquareText, href: "/inquiries" },
       { label: "Inventory", icon: Package, href: "/inventory" },
     ],
   },
@@ -108,26 +112,36 @@ const navigationGroups: {
     label: "Administration",
     items: [
       { label: "User access", icon: ShieldCheck, href: "/system/users" },
-      { label: "Module access", icon: ShieldCheck, href: "/system/module-access", roles: ["SUPER_ADMIN","IT_ADMIN"] },
-      { label: "Password reset requests", icon: KeyRound, href: "/system/password-reset-requests" },
+      {
+        label: "Module access",
+        icon: ShieldCheck,
+        href: "/system/module-access",
+        roles: ["SUPER_ADMIN", "IT_ADMIN"],
+      },
+      {
+        label: "Password reset requests",
+        icon: KeyRound,
+        href: "/system/password-reset-requests",
+      },
       { label: "Branches", icon: MapPinned, href: "/branches" },
-      { label: "Settings", icon: Settings },
+      { label: "Appearance", icon: Settings, href: "/system/appearance" },
     ],
   },
 ];
 
-export default function AppShell({
-  role,
-  children,
-}: AppShellProps) {
+export default function AppShell({ role, children }: AppShellProps) {
   const pathname = usePathname();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(DEFAULT_SIDEBAR_WIDTH);
   const [isResizingSidebar, setIsResizingSidebar] = useState(false);
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const [deniedPermissionKeys, setDeniedPermissionKeys] = useState<string[]>([]);
-  const [grantedPermissionKeys, setGrantedPermissionKeys] = useState<string[]>([]);
+  const [deniedPermissionKeys, setDeniedPermissionKeys] = useState<string[]>(
+    [],
+  );
+  const [grantedPermissionKeys, setGrantedPermissionKeys] = useState<string[]>(
+    [],
+  );
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const logoutButtonRef = useRef<HTMLButtonElement>(null);
   const logoutCancelButtonRef = useRef<HTMLButtonElement>(null);
@@ -137,7 +151,37 @@ export default function AppShell({
   const resizePointerRef = useRef<number | null>(null);
   const wasMobileNavOpen = useRef(false);
   const isSidebarCollapsed = sidebarWidth === COLLAPSED_SIDEBAR_WIDTH;
-  useEffect(() => { let active=true; const syncPermissions=()=>{fetch("/api/auth/me",{cache:"no-store",credentials:"same-origin"}).then(response=>response.ok?response.json():null).then(data=>{if(!active)return;if(Array.isArray(data?.deniedPermissionKeys))setDeniedPermissionKeys(data.deniedPermissionKeys.filter((key:unknown):key is string=>typeof key==="string"));if(Array.isArray(data?.grantedPermissionKeys))setGrantedPermissionKeys(data.grantedPermissionKeys.filter((key:unknown):key is string=>typeof key==="string"));}).catch(()=>{});};syncPermissions();const interval=window.setInterval(syncPermissions,15000);window.addEventListener("focus",syncPermissions);return()=>{active=false;window.clearInterval(interval);window.removeEventListener("focus",syncPermissions);}; },[pathname]);
+  useEffect(() => {
+    let active = true;
+    const syncPermissions = () => {
+      fetch("/api/auth/me", { cache: "no-store", credentials: "same-origin" })
+        .then((response) => (response.ok ? response.json() : null))
+        .then((data) => {
+          if (!active) return;
+          if (Array.isArray(data?.deniedPermissionKeys))
+            setDeniedPermissionKeys(
+              data.deniedPermissionKeys.filter(
+                (key: unknown): key is string => typeof key === "string",
+              ),
+            );
+          if (Array.isArray(data?.grantedPermissionKeys))
+            setGrantedPermissionKeys(
+              data.grantedPermissionKeys.filter(
+                (key: unknown): key is string => typeof key === "string",
+              ),
+            );
+        })
+        .catch(() => {});
+    };
+    syncPermissions();
+    const interval = window.setInterval(syncPermissions, 15000);
+    window.addEventListener("focus", syncPermissions);
+    return () => {
+      active = false;
+      window.clearInterval(interval);
+      window.removeEventListener("focus", syncPermissions);
+    };
+  }, [pathname]);
   const roleNavigationGroups = navigationGroups.map((group) => ({
     ...group,
     items: group.items.map((item) =>
@@ -146,30 +190,57 @@ export default function AppShell({
         : item,
     ),
   }));
-  const currentItem = pathname === '/attendance/official-business' ? {label:'Official Business'} : roleNavigationGroups
-    .flatMap((group) => group.items)
-    .filter(item=>{
-      if(!item.roles || item.roles.includes(role)) return true;
-      const area=item.href?workspaceAreaForPath(item.href):undefined;
-      const key=area&&item.href?permissionKeyForPath(item.href,area):undefined;
-      return Boolean(key&&grantedPermissionKeys.includes(key));
-    })
-    .find(
-      (item) =>
-        item.href === pathname ||
-        (role === "SUPER_ADMIN" && item.href === "/my-profile" && pathname === "/me") ||
-        (item.href !== "/" && pathname.startsWith(`${item.href}/`)),
-    );
+  const currentItem =
+    pathname === "/attendance/official-business"
+      ? { label: "Official Business" }
+      : roleNavigationGroups
+          .flatMap((group) => group.items)
+          .filter((item) => {
+            if (!item.roles || item.roles.includes(role)) return true;
+            const area = item.href
+              ? workspaceAreaForPath(item.href)
+              : undefined;
+            const key =
+              area && item.href
+                ? permissionKeyForPath(item.href, area)
+                : undefined;
+            return Boolean(key && grantedPermissionKeys.includes(key));
+          })
+          .find(
+            (item) =>
+              item.href === pathname ||
+              (role === "SUPER_ADMIN" &&
+                item.href === "/my-profile" &&
+                pathname === "/me") ||
+              (item.href !== "/" && pathname.startsWith(`${item.href}/`)),
+          );
   const visibleNavigationGroups = roleNavigationGroups
     .map((group) => ({
       ...group,
       items: group.items.filter((item) => {
-        if (!item.href) return item.roles ? item.roles.includes(role) : role === "SUPER_ADMIN";
+        if (!item.href)
+          return item.roles
+            ? item.roles.includes(role)
+            : role === "SUPER_ADMIN";
         const area = workspaceAreaForPath(item.href);
-        const key=area?permissionKeyForPath(item.href!,area):undefined;
-        if(item.roles && !item.roles.includes(role) && (!key||!grantedPermissionKeys.includes(key))) return false;
-        if (item.href === "/" && role !== "SUPER_ADMIN" && !grantedPermissionKeys.includes("workspace.overview")) return false;
-        return area ? (canAccessWorkspaceArea(role, area, grantedPermissionKeys)||Boolean(key&&grantedPermissionKeys.includes(key))) && (!key||!deniedPermissionKeys.includes(key)) : false;
+        const key = item.href==="/inquiries"?"crm.inquiries":area ? permissionKeyForPath(item.href!, area) : undefined;
+        if (
+          item.roles &&
+          !item.roles.includes(role) &&
+          (!key || !grantedPermissionKeys.includes(key))
+        )
+          return false;
+        if (
+          item.href === "/" &&
+          role !== "SUPER_ADMIN" &&
+          !grantedPermissionKeys.includes("workspace.overview")
+        )
+          return false;
+        return area
+          ? (canAccessWorkspaceArea(role, area, grantedPermissionKeys) ||
+              Boolean(key && grantedPermissionKeys.includes(key))) &&
+              (!key || !deniedPermissionKeys.includes(key))
+          : false;
       }),
     }))
     .filter((group) => group.items.length > 0);
@@ -181,9 +252,10 @@ export default function AppShell({
       document.body.style.overflow = "hidden";
       const focusMenu = () => {
         if (sidebarRef.current?.contains(document.activeElement)) return;
-        (sidebarRef.current?.querySelector<HTMLAnchorElement>("a[href]") ??
-          sidebarRef.current?.querySelector<HTMLButtonElement>(".sidebar-close"))
-          ?.focus();
+        (
+          sidebarRef.current?.querySelector<HTMLAnchorElement>("a[href]") ??
+          sidebarRef.current?.querySelector<HTMLButtonElement>(".sidebar-close")
+        )?.focus();
       };
       const focusFrame = window.requestAnimationFrame(focusMenu);
       const focusAfterTransition = window.setTimeout(focusMenu, 200);
@@ -217,8 +289,12 @@ export default function AppShell({
         );
         if (savedExpandedWidth !== null) {
           const parsedExpandedWidth = Number(savedExpandedWidth);
-          if (Number.isFinite(parsedExpandedWidth) && parsedExpandedWidth >= MIN_SIDEBAR_WIDTH) {
-            lastExpandedWidthRef.current = constrainSidebarWidth(parsedExpandedWidth);
+          if (
+            Number.isFinite(parsedExpandedWidth) &&
+            parsedExpandedWidth >= MIN_SIDEBAR_WIDTH
+          ) {
+            lastExpandedWidthRef.current =
+              constrainSidebarWidth(parsedExpandedWidth);
           }
         }
         const savedWidth = window.localStorage.getItem(SIDEBAR_STORAGE_KEY);
@@ -249,7 +325,10 @@ export default function AppShell({
 
   function rememberSidebarWidth() {
     try {
-      window.localStorage.setItem(SIDEBAR_STORAGE_KEY, String(sidebarWidthRef.current));
+      window.localStorage.setItem(
+        SIDEBAR_STORAGE_KEY,
+        String(sidebarWidthRef.current),
+      );
       window.localStorage.setItem(
         SIDEBAR_EXPANDED_STORAGE_KEY,
         String(lastExpandedWidthRef.current),
@@ -268,7 +347,9 @@ export default function AppShell({
 
   function toggleSidebarWidth() {
     updateSidebarWidth(
-      isSidebarCollapsed ? lastExpandedWidthRef.current : COLLAPSED_SIDEBAR_WIDTH,
+      isSidebarCollapsed
+        ? lastExpandedWidthRef.current
+        : COLLAPSED_SIDEBAR_WIDTH,
     );
     rememberSidebarWidth();
   }
@@ -361,44 +442,183 @@ export default function AppShell({
               <p className="nav-group-label">{group.label}</p>
               <ul>
                 {group.items.map((item) => {
-                  if(item.href === "/leave") return <SidebarNavGroup key={item.href} label="Leave Management" icon={CalendarDays} items={[
-                    {label:"Requests & Approvals",icon:CalendarDays,href:"/leave"},
-                    {label:"Leave Balances",icon:UsersRound,href:"/leave/balances"},
-                    ...(canAccessWorkspaceArea(role,"leave-settings",grantedPermissionKeys)?[{label:"Leave Settings",icon:Settings,href:"/leave/settings"}]:[]),
-                    {label:"Reports & Analytics",icon:ChartNoAxesCombined,href:"/leave/reports"},
-                  ].filter(entry=>{const area=workspaceAreaForPath(entry.href);const key=area?permissionKeyForPath(entry.href,area):undefined;return !key||!deniedPermissionKeys.includes(key);})} pathname={pathname} compact={isSidebarCollapsed && !isMobileNavOpen} onNavigate={()=>setIsMobileNavOpen(false)}/>;
-                  const profileHref = role === "SUPER_ADMIN" ? "/my-profile" : "/me";
-                  const parentHref = item.href === "/me/security" ? profileHref
-                    : item.href === "/system/password-reset-requests" ? "/system/users" : undefined;
-                  if (parentHref && group.items.some(entry => entry.href === parentHref)) return null;
-                  const childHref = item.href === profileHref ? "/me/security"
-                    : item.href === "/system/users" ? "/system/password-reset-requests" : undefined;
-                  const child = group.items.find(entry => entry.href === childHref);
-                  if (item.href && child?.href) return <SidebarNavGroup
-                    key={item.label} label={item.label} icon={item.icon}
-                    items={[{ ...item, label: item.href === profileHref ? "Profile details" : "Manage accounts", href: item.href }, ...(item.href===profileHref?[{label:'Official Business',icon:CalendarDays,href:'/attendance/official-business'}]:[]), { ...child, href: child.href }].filter(entry=>{const area=workspaceAreaForPath(entry.href!);const key=area?permissionKeyForPath(entry.href!,area):undefined;return !key||!deniedPermissionKeys.includes(key);})}
-                    pathname={pathname} compact={isSidebarCollapsed && !isMobileNavOpen}
-                    onNavigate={() => setIsMobileNavOpen(false)}
-                  />;
+                  if (item.href === "/inquiries")
+                    return (
+                      <SidebarNavGroup
+                        key={item.href}
+                        label="Inquiries"
+                        icon={MessageSquareText}
+                        items={[
+                          {
+                            label: "Inquiry Dashboard",
+                            icon: ChartNoAxesCombined,
+                            href: "/inquiries",
+                          },
+                          {
+                            label: "All Inquiries",
+                            icon: MessageSquareText,
+                            href: "/inquiries/list",
+                          },
+                          {
+                            label: "Follow-ups",
+                            icon: CalendarDays,
+                            href: "/inquiries/followups",
+                          },
+                          {
+                            label: "Inquiry Reports",
+                            icon: ChartNoAxesCombined,
+                            href: "/inquiries/reports",
+                          },
+                          {
+                            label: "Inquiry Settings",
+                            icon: Settings,
+                            href: "/inquiries/settings",
+                          },
+                        ].filter((entry) => {
+                          const key = permissionKeyForPath(
+                            entry.href,
+                            "inquiries",
+                          );
+                          return !key || !deniedPermissionKeys.includes(key);
+                        })}
+                        pathname={pathname}
+                        compact={isSidebarCollapsed && !isMobileNavOpen}
+                        onNavigate={() => setIsMobileNavOpen(false)}
+                      />
+                    );
+                  if (item.href === "/leave")
+                    return (
+                      <SidebarNavGroup
+                        key={item.href}
+                        label="Leave Management"
+                        icon={CalendarDays}
+                        items={[
+                          {
+                            label: "Requests & Approvals",
+                            icon: CalendarDays,
+                            href: "/leave",
+                          },
+                          {
+                            label: "Leave Balances",
+                            icon: UsersRound,
+                            href: "/leave/balances",
+                          },
+                          ...(canAccessWorkspaceArea(
+                            role,
+                            "leave-settings",
+                            grantedPermissionKeys,
+                          )
+                            ? [
+                                {
+                                  label: "Leave Settings",
+                                  icon: Settings,
+                                  href: "/leave/settings",
+                                },
+                              ]
+                            : []),
+                          {
+                            label: "Reports & Analytics",
+                            icon: ChartNoAxesCombined,
+                            href: "/leave/reports",
+                          },
+                        ].filter((entry) => {
+                          const area = workspaceAreaForPath(entry.href);
+                          const key = area
+                            ? permissionKeyForPath(entry.href, area)
+                            : undefined;
+                          return !key || !deniedPermissionKeys.includes(key);
+                        })}
+                        pathname={pathname}
+                        compact={isSidebarCollapsed && !isMobileNavOpen}
+                        onNavigate={() => setIsMobileNavOpen(false)}
+                      />
+                    );
+                  const profileHref =
+                    role === "SUPER_ADMIN" ? "/my-profile" : "/me";
+                  const parentHref =
+                    item.href === "/me/security"
+                      ? profileHref
+                      : item.href === "/system/password-reset-requests"
+                        ? "/system/users"
+                        : undefined;
+                  if (
+                    parentHref &&
+                    group.items.some((entry) => entry.href === parentHref)
+                  )
+                    return null;
+                  const childHref =
+                    item.href === profileHref
+                      ? "/me/security"
+                      : item.href === "/system/users"
+                        ? "/system/password-reset-requests"
+                        : undefined;
+                  const child = group.items.find(
+                    (entry) => entry.href === childHref,
+                  );
+                  if (item.href && child?.href)
+                    return (
+                      <SidebarNavGroup
+                        key={item.label}
+                        label={item.label}
+                        icon={item.icon}
+                        items={[
+                          {
+                            ...item,
+                            label:
+                              item.href === profileHref
+                                ? "Profile details"
+                                : "Manage accounts",
+                            href: item.href,
+                          },
+                          ...(item.href === profileHref
+                            ? [
+                                {
+                                  label: "Official Business",
+                                  icon: CalendarDays,
+                                  href: "/attendance/official-business",
+                                },
+                              ]
+                            : []),
+                          { ...child, href: child.href },
+                        ].filter((entry) => {
+                          const area = workspaceAreaForPath(entry.href!);
+                          const key = area
+                            ? permissionKeyForPath(entry.href!, area)
+                            : undefined;
+                          return !key || !deniedPermissionKeys.includes(key);
+                        })}
+                        pathname={pathname}
+                        compact={isSidebarCollapsed && !isMobileNavOpen}
+                        onNavigate={() => setIsMobileNavOpen(false)}
+                      />
+                    );
                   return (
-                  <SidebarNavItem
-                    key={item.label}
-                    active={Boolean(item.href && (
-                      item.href === pathname ||
-                      (item.href !== "/" && pathname.startsWith(`${item.href}/`)) ||
-                      (role === "SUPER_ADMIN" && item.href === "/my-profile" && pathname === "/me")
-                    ))}
-                    compact={isSidebarCollapsed && !isMobileNavOpen}
-                    current={Boolean(item.href && (
-                      item.href === pathname ||
-                      (role === "SUPER_ADMIN" && item.href === "/my-profile" && pathname === "/me")
-                    ))}
-                    href={item.href}
-                    icon={item.icon}
-                    label={item.label}
-                    onNavigate={() => setIsMobileNavOpen(false)}
-                  />
-                );})}
+                    <SidebarNavItem
+                      key={item.label}
+                      active={Boolean(
+                        item.href &&
+                        (item.href === pathname ||
+                          (item.href !== "/" &&
+                            pathname.startsWith(`${item.href}/`)) ||
+                          (role === "SUPER_ADMIN" &&
+                            item.href === "/my-profile" &&
+                            pathname === "/me")),
+                      )}
+                      compact={isSidebarCollapsed && !isMobileNavOpen}
+                      current={Boolean(
+                        item.href &&
+                        (item.href === pathname ||
+                          (role === "SUPER_ADMIN" &&
+                            item.href === "/my-profile" &&
+                            pathname === "/me")),
+                      )}
+                      href={item.href}
+                      icon={item.icon}
+                      label={item.label}
+                      onNavigate={() => setIsMobileNavOpen(false)}
+                    />
+                  );
+                })}
               </ul>
             </div>
           ))}
@@ -420,15 +640,18 @@ export default function AppShell({
         aria-valuemax={MAX_SIDEBAR_WIDTH}
         aria-valuemin={COLLAPSED_SIDEBAR_WIDTH}
         aria-valuenow={sidebarWidth}
-        aria-valuetext={isSidebarCollapsed ? "Icons only" : `${sidebarWidth} pixels wide`}
+        aria-valuetext={
+          isSidebarCollapsed ? "Icons only" : `${sidebarWidth} pixels wide`
+        }
         className="sidebar-resize-handle"
         onKeyDown={(event) => {
           let nextWidth: number;
           switch (event.key) {
             case "ArrowLeft":
-              nextWidth = sidebarWidthRef.current <= MIN_SIDEBAR_WIDTH
-                ? COLLAPSED_SIDEBAR_WIDTH
-                : sidebarWidthRef.current - 16;
+              nextWidth =
+                sidebarWidthRef.current <= MIN_SIDEBAR_WIDTH
+                  ? COLLAPSED_SIDEBAR_WIDTH
+                  : sidebarWidthRef.current - 16;
               break;
             case "ArrowRight":
               nextWidth = isSidebarCollapsed
@@ -504,12 +727,16 @@ export default function AppShell({
 
           <div className="topbar-actions">
             <FullscreenButton />
-            <WorkspaceNotifications canReviewResets={role === "SUPER_ADMIN" || role === "IT_ADMIN"} />
+            <WorkspaceNotifications
+              canReviewResets={role === "SUPER_ADMIN" || role === "IT_ADMIN"}
+            />
             <IconActionButton
               className="sign-out-button"
               aria-haspopup="dialog"
               aria-expanded={isLogoutDialogOpen}
-              aria-controls={isLogoutDialogOpen ? "logout-confirmation-dialog" : undefined}
+              aria-controls={
+                isLogoutDialogOpen ? "logout-confirmation-dialog" : undefined
+              }
               aria-busy={isLoggingOut}
               disabled={isLoggingOut}
               showLabel
@@ -533,43 +760,43 @@ export default function AppShell({
           aria-describedby="logout-dialog-description"
           id="logout-confirmation-dialog"
           presentation="center"
-            aria-labelledby="logout-dialog-title"
+          aria-labelledby="logout-dialog-title"
           className="logout-modal"
           busy={isLoggingOut}
           initialFocusRef={logoutCancelButtonRef}
           onClose={() => setIsLogoutDialogOpen(false)}
         >
-            <div className="logout-modal-heading">
-              <span className="logout-modal-icon" aria-hidden="true">
-                <LogOut size={18} />
-              </span>
-              <div>
-                <h2 id="logout-dialog-title">Sign out of Mavic?</h2>
-                <p id="logout-dialog-description">
-                  You will need to sign in again to access your workspace.
-                </p>
-              </div>
+          <div className="logout-modal-heading">
+            <span className="logout-modal-icon" aria-hidden="true">
+              <LogOut size={18} />
+            </span>
+            <div>
+              <h2 id="logout-dialog-title">Sign out of Mavic?</h2>
+              <p id="logout-dialog-description">
+                You will need to sign in again to access your workspace.
+              </p>
             </div>
-            <form className="logout-modal-actions" onSubmit={handleLogout}>
-              <button
-                className="logout-cancel-button"
-                disabled={isLoggingOut}
-                onClick={() => {
-                  setIsLogoutDialogOpen(false);
-                }}
-                ref={logoutCancelButtonRef}
-                type="button"
-              >
-                Cancel
-              </button>
-              <button
-                className="logout-confirm-button"
-                disabled={isLoggingOut}
-                type="submit"
-              >
-                {isLoggingOut ? "Signing out..." : "Sign out"}
-              </button>
-            </form>
+          </div>
+          <form className="logout-modal-actions" onSubmit={handleLogout}>
+            <button
+              className="logout-cancel-button"
+              disabled={isLoggingOut}
+              onClick={() => {
+                setIsLogoutDialogOpen(false);
+              }}
+              ref={logoutCancelButtonRef}
+              type="button"
+            >
+              Cancel
+            </button>
+            <button
+              className="logout-confirm-button"
+              disabled={isLoggingOut}
+              type="submit"
+            >
+              {isLoggingOut ? "Signing out..." : "Sign out"}
+            </button>
+          </form>
         </Modal>
       )}
     </div>

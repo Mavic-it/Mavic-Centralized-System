@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { LoadingFields } from "./content-loading";
 
 import { FieldLabel } from "./field-label";
@@ -68,7 +69,7 @@ export function AccountBranchDialog({
       <div className={styles.modalHeader}>
         <h2 id={titleId}>Change employee branch</h2>
       </div>
-      <form className={styles.accountForm} onSubmit={submit}>
+      <FormLayout className={styles.accountForm} onSubmit={submit}>
         <p>
           {account.name} — {account.branch}
         </p>
@@ -170,7 +171,7 @@ export function AccountBranchDialog({
             {save.isPending ? "Saving…" : "Save branch"}
           </button>
         </div>
-      </form>
+      </FormLayout>
     </Modal>
   );
 }

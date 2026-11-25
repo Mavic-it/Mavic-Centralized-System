@@ -1,3 +1,4 @@
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { Modal } from "../../components/ui/modal";
 import { LoaderCircle, Trash2, X } from "lucide-react";
 import { IconActionButton } from "../../components/icon-action-button";
@@ -40,7 +41,7 @@ export function BranchDeleteDialog({
         />
       </div>
 
-      <form className="branch-form" onSubmit={onSubmit}>
+      <FormLayout className="branch-form" onSubmit={onSubmit}>
         <p className="branch-delete-warning">
           This permanently deletes the branch. Branches with employees, rooms,
           reservations, or other linked records cannot be deleted; deactivate
@@ -98,7 +99,7 @@ export function BranchDeleteDialog({
             )}
           </button>
         </div>
-      </form>
+      </FormLayout>
     </Modal>
   );
 }

@@ -52,7 +52,7 @@ export type BranchListFilter = {
 };
 
 export type CreateBranchInput = {
-  code: string;
+  code?: string;
   name: string;
   description?: string | null;
   address: string;
@@ -266,9 +266,13 @@ export class BranchService {
   }
 
   async create(input: CreateBranchInput, actorId?: string): Promise<Branch> {
-    const code = this.normalizeCode(input.code);
+    const explicitCode = input.code ? this.normalizeCode(input.code) : null;
     this.assertCoordinates(input.latitude, input.longitude);
     if (!this.dataSource) {
+      const code = explicitCode ?? this.availableCode(
+        this.codeBase(input.name),
+        new Set([...this.memoryBranches.values()].map((branch) => branch.code.toUpperCase())),
+      );
       if (
         Array.from(this.memoryBranches.values()).some(
           (branch) => branch.code === code,
@@ -301,66 +305,98 @@ export class BranchService {
 
     const id = randomUUID();
     const status = input.status ?? 'ACTIVE';
-    try {
-      return await this.dataSource.transaction(async (manager) => {
-        const rows = await manager.query<BranchRow[]>(
-          `INSERT INTO branches (
-             id, code, name, description, address, city, province, postal_code,
-             phone, email, manager_name, manager_user_id, latitude, longitude, status, is_active, created_at, updated_at
-           ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, NULL, $12, $13, $14, $15, now(), now())
-           RETURNING id, code, name, description, address, city, province,
-             postal_code AS "postalCode", phone, email,
-             manager_name AS "managerName", manager_user_id AS "managerUserId", latitude, longitude, status, is_active AS "isActive",
-             created_at AS "createdAt", updated_at AS "updatedAt"`,
-          [
-            id,
-            code,
-            input.name.trim(),
-            this.nullable(input.description),
-            input.address.trim(),
-            input.city.trim(),
-            this.nullable(input.province),
-            this.nullable(input.postalCode),
-            this.nullable(input.phone),
-            this.nullable(input.email)?.toLowerCase() ?? null,
-            this.nullable(input.managerName),
-            input.latitude ?? null,
-            input.longitude ?? null,
-            status,
-            status === 'ACTIVE',
-          ],
-        );
-        let branch: Branch = this.normalizeBranch(rows[0]);
-        await seedDefaultDepartments(manager, id);
-        if (input.managerUserId) {
-          const managerUser = await this.assignManagerUser(
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      try {
+        return await this.dataSource.transaction(async (manager) => {
+          if (!explicitCode) {
+            await manager.query(
+              'SELECT pg_advisory_xact_lock(hashtext($1))',
+              [this.codeBase(input.name)],
+            );
+          }
+          const code = explicitCode ?? await this.suggestCode(input.name, manager);
+          const rows = await manager.query<BranchRow[]>(
+            `INSERT INTO branches (
+               id, code, name, description, address, city, province, postal_code,
+               phone, email, manager_name, manager_user_id, latitude, longitude, status, is_active, created_at, updated_at
+             ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, NULL, $12, $13, $14, $15, now(), now())
+             RETURNING id, code, name, description, address, city, province,
+               postal_code AS "postalCode", phone, email,
+               manager_name AS "managerName", manager_user_id AS "managerUserId", latitude, longitude, status, is_active AS "isActive",
+               created_at AS "createdAt", updated_at AS "updatedAt"`,
+            [
+              id,
+              code,
+              input.name.trim(),
+              this.nullable(input.description),
+              input.address.trim(),
+              input.city.trim(),
+              this.nullable(input.province),
+              this.nullable(input.postalCode),
+              this.nullable(input.phone),
+              this.nullable(input.email)?.toLowerCase() ?? null,
+              this.nullable(input.managerName),
+              input.latitude ?? null,
+              input.longitude ?? null,
+              status,
+              status === 'ACTIVE',
+            ],
+          );
+          let branch: Branch = this.normalizeBranch(rows[0]);
+          await seedDefaultDepartments(manager, id);
+          if (input.managerUserId) {
+            const managerUser = await this.assignManagerUser(
+              manager,
+              id,
+              input.managerUserId,
+              actorId,
+            );
+            await manager.query(
+              `UPDATE branches SET manager_user_id = $2, manager_name = $3,
+                 updated_at = now() WHERE id = $1`,
+              [id, managerUser.id, managerUser.name],
+            );
+            const refreshed = await this.findInManager(manager, id);
+            if (!refreshed) throw new NotFoundException('Branch not found');
+            branch = refreshed;
+          }
+          await this.writeAudit(
             manager,
-            id,
-            input.managerUserId,
             actorId,
+            'BRANCH_CREATED',
+            branch.id,
+            null,
+            branch,
           );
-          await manager.query(
-            `UPDATE branches SET manager_user_id = $2, manager_name = $3,
-               updated_at = now() WHERE id = $1`,
-            [id, managerUser.id, managerUser.name],
-          );
-          const refreshed = await this.findInManager(manager, id);
-          if (!refreshed) throw new NotFoundException('Branch not found');
-          branch = refreshed;
-        }
-        await this.writeAudit(
-          manager,
-          actorId,
-          'BRANCH_CREATED',
-          branch.id,
-          null,
-          branch,
-        );
-        return branch;
-      });
-    } catch (error) {
-      this.rethrowCodeConflict(error);
+          return branch;
+        });
+      } catch (error) {
+        if (!explicitCode && this.isCodeConflict(error) && attempt < 2) continue;
+        this.rethrowCodeConflict(error);
+      }
     }
+    throw new ConflictException('Could not assign a unique branch code. Try again.');
+  }
+
+  async suggestCode(name: string, manager?: EntityManager): Promise<string> {
+    const base = this.codeBase(name);
+    const rows = !this.dataSource
+      ? [...this.memoryBranches.values()].map(({ code }) => ({ code }))
+      : await (manager ?? this.dataSource).query<Array<{ code: string }>>(
+          `SELECT code FROM branches
+           WHERE UPPER(code) = $1 OR LEFT(UPPER(code), $2) = $3`,
+          [base, base.length + 1, `${base}-`],
+        );
+    return this.availableCode(base, new Set(rows.map(({ code }) => code.toUpperCase())));
+  }
+
+  private availableCode(base: string, used: Set<string>): string {
+    if (!used.has(base)) return base;
+    for (let suffix = 2; suffix <= used.size + 2; suffix += 1) {
+      const candidate = `${base}-${suffix}`;
+      if (!used.has(candidate)) return candidate;
+    }
+    throw new ConflictException('Could not assign a unique branch code. Try again.');
   }
 
   async list(filter: BranchListFilter = {}): Promise<BranchListResult> {
@@ -878,6 +914,21 @@ export class BranchService {
     return code.trim().toUpperCase();
   }
 
+  private codeBase(name: string): string {
+    const trimmed = name.trim();
+    if (!trimmed || trimmed.length > 200) {
+      throw new BadRequestException('Branch name must be 1 to 200 characters');
+    }
+    const normalized = trimmed
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toUpperCase()
+      .replace(/[^A-Z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+    const base = normalized.slice(0, 40).replace(/-+$/g, '');
+    return base.length >= 2 ? base : base ? `BRANCH-${base}` : 'BRANCH';
+  }
+
   private nullable(value: string | null | undefined): string | null {
     return typeof value === 'string' ? value.trim() || null : null;
   }
@@ -915,14 +966,29 @@ export class BranchService {
   }
 
   private rethrowCodeConflict(error: unknown): never {
-    if (
-      typeof error === 'object' &&
-      error !== null &&
-      'code' in error &&
-      (error as { code?: unknown }).code === '23505'
-    ) {
+    if (this.isCodeConflict(error)) {
       throw new ConflictException('Branch code already exists');
     }
     throw error;
+  }
+
+  private isCodeConflict(error: unknown): boolean {
+    if (
+      typeof error !== 'object' ||
+      error === null ||
+      !('code' in error) ||
+      (error as { code?: unknown }).code !== '23505'
+    ) {
+      return false;
+    }
+    const constraint =
+      'constraint' in error
+        ? (error as { constraint?: unknown }).constraint
+        : undefined;
+    return (
+      constraint === undefined ||
+      constraint === 'branches_code_key' ||
+      constraint === 'branches_code_upper_uidx'
+    );
   }
 }

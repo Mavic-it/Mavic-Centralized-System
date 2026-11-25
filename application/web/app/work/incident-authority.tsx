@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { LoadingList } from "../components/content-loading";
 
 import { FieldLabel } from "../components/field-label";
@@ -89,7 +90,7 @@ export function IncidentAuthority() {
         <p>No eligible accounts in your branch scope.</p>
       )}
       {!!accounts.data?.length && (
-        <form onSubmit={submit} className={css.form}>
+        <FormLayout onSubmit={submit} className={css.form}>
           <fieldset disabled={busy}>
             <label>
               <FieldLabel required={true}>Account</FieldLabel>
@@ -116,7 +117,7 @@ export function IncidentAuthority() {
               {busy ? "Saving…" : "Update authority"}
             </button>
           </fieldset>
-        </form>
+        </FormLayout>
       )}
     </details>
   );

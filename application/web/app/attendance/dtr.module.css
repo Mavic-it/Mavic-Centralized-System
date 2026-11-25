@@ -22,16 +22,16 @@
 .card h3 {
   color: var(--ws-text);
   margin: 0 0 10px;
-  font-size: 18px;
+  font-size: var(--app-header-size);
   font-weight: 600;
   letter-spacing: -0.025em;
 }
 .header h2 {
-  font-size: 22px;
+  font-size: var(--app-header-size);
 }
 .eyebrow {
-  color: var(--ws-brand);
-  font-size: 10px;
+  color: var(--primary-dark);
+  font-size: calc(10px * var(--app-text-scale, 1));
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -67,7 +67,7 @@
   min-width: 0;
   max-width: 100%;
   font: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   box-sizing: border-box;
   width: 100%;
 }
@@ -77,7 +77,7 @@
 }
 .field label,
 .field > span {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 500;
   color: var(--ws-muted);
 }
@@ -94,7 +94,7 @@
   color: var(--ws-text);
   cursor: pointer;
   font: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   font-weight: 550;
 }
 .button:hover:not(:disabled) {
@@ -136,7 +136,7 @@
 }
 .tabs .button[aria-pressed="true"] {
   border-bottom-color: var(--ws-brand);
-  color: var(--ws-brand);
+  color: var(--primary-dark);
   background: var(--ws-brand-soft);
 }
 .metrics {
@@ -158,14 +158,14 @@
 .metric strong {
   display: block;
   color: var(--ws-text);
-  font-size: 30px;
+  font-size: calc(30px * var(--app-text-scale, 1));
   font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 1.2;
   font-variant-numeric: tabular-nums;
 }
 .metric span {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   color: var(--ws-muted);
   line-height: 1.5;
 }
@@ -187,13 +187,13 @@
 }
 .statsDetails summary {
   color: var(--ws-text);
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   cursor: pointer;
   min-height: 28px;
 }
 .statsDetails summary span {
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   margin-left: 10px;
 }
 .statsDetails[open] .metrics {
@@ -215,7 +215,7 @@
   z-index: 3;
 }
 .previewScroll thead th {
-  background: #f5f7fa;
+  background: var(--surface-subtle);
 }
 .previewScroll .outputTable {
   border-collapse: separate;
@@ -228,7 +228,7 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   white-space: nowrap;
 }
 .table th,
@@ -239,7 +239,7 @@
   vertical-align: middle;
 }
 .table thead th {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 600;
   letter-spacing: 0.015em;
   color: var(--ws-muted);
@@ -259,7 +259,7 @@
 .table caption {
   text-align: left;
   padding: 14px 16px;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   color: var(--ws-muted);
   border-bottom: 1px solid var(--ws-border);
   white-space: normal;
@@ -280,20 +280,20 @@
   background: var(--ws-danger-soft);
   padding: 12px 14px;
   border-radius: 8px;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   line-height: 1.6;
 }
 .notice {
   background: var(--ws-warning-soft);
   padding: 14px 16px;
   color: var(--ws-warning);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.7;
   border-radius: 8px;
   margin: 0;
 }
 .muted {
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   line-height: 1.7;
   color: var(--ws-muted);
 }
@@ -314,14 +314,14 @@
   background: var(--ws-brand-soft);
 }
 .drop svg {
-  color: var(--ws-brand);
+  color: var(--primary-dark);
   background: var(--ws-brand-soft);
   padding: 12px;
   border-radius: 12px;
   box-sizing: content-box;
 }
 .drop label {
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   font-weight: 550;
   color: var(--ws-text);
 }
@@ -329,7 +329,7 @@
   width: 100%;
   max-width: 320px;
   min-width: 0;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   color: var(--ws-muted);
 }
 .drop input::file-selector-button {
@@ -364,7 +364,7 @@
   background: var(--ws-subtle);
   border-radius: 8px;
   padding: 16px;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   color: var(--ws-text);
 }
 .skeleton {
@@ -408,7 +408,7 @@
   font-weight: 600;
 }
 .status {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   color: var(--ws-muted);
   margin-top: 5px;
 }
@@ -418,7 +418,7 @@
   border-radius: 6px;
   background: var(--ws-success-soft);
   color: var(--ws-success);
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 500;
 }
 .statusPill[data-warning="true"] {
@@ -432,10 +432,10 @@
   padding: 56px 20px;
   text-align: center;
   color: var(--ws-muted);
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
 }
 .empty strong {
-  font-size: 15px;
+  font-size: calc(15px * var(--app-text-scale, 1));
   font-weight: 550;
   color: var(--ws-text);
 }
@@ -448,7 +448,7 @@
 .workspace summary {
   cursor: pointer;
   color: var(--ws-muted);
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   min-height: 28px;
 }
 .workspace fieldset {
@@ -458,7 +458,7 @@
   border-radius: 8px;
 }
 .workspace legend {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   color: var(--ws-muted);
   padding: 0 6px;
 }
@@ -489,7 +489,7 @@
   }
   .tabs .button {
     flex: 1 1 auto;
-    font-size: 12px;
+    font-size: calc(12px * var(--app-text-scale, 1));
     padding: 10px 12px;
   }
 }
@@ -502,7 +502,7 @@
     padding: 16px 14px;
   }
   .metric strong {
-    font-size: 27px;
+    font-size: calc(27px * var(--app-text-scale, 1));
   }
   .card {
     padding: 20px 16px;
@@ -565,7 +565,7 @@
   background: transparent;
   color: var(--ws-muted);
   font: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   font-weight: 550;
   padding: 10px 13px;
   min-height: 40px;
@@ -578,7 +578,7 @@
 }
 .workflowNav button[aria-pressed="true"] {
   background: var(--ws-brand-soft);
-  color: var(--ws-brand);
+  color: var(--primary-dark);
 }
 .workflowTools {
   display: flex;
@@ -597,14 +597,14 @@
   border-radius: 7px;
   min-height: 38px;
   list-style: none;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .toolsMenu summary::-webkit-details-marker {
   display: none;
 }
 .toolsMenu summary[data-active="true"],
 .toolsMenu[open] summary {
-  color: var(--ws-brand);
+  color: var(--primary-dark);
   background: var(--ws-brand-soft);
 }
 .toolsOptions {
@@ -625,7 +625,7 @@
   background: transparent;
   color: var(--ws-text);
   font: inherit;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   padding: 12px;
   text-align: left;
   border-radius: 6px;
@@ -665,13 +665,13 @@
   font: inherit;
 }
 .primaryMetrics .metric strong {
-  font-size: 28px;
+  font-size: calc(28px * var(--app-text-scale, 1));
 }
 .primaryMetrics .reviewMetric {
   cursor: pointer;
 }
 .reviewMetric small {
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   color: var(--ws-muted);
 }
 .primaryMetrics .reviewMetric[aria-pressed="true"],
@@ -690,7 +690,7 @@
 }
 .summaryPanel .statsDetails summary {
   min-height: 24px;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 24px;
 }
 .summaryPanel .statsDetails .metric {
@@ -701,10 +701,10 @@
   gap: 5px;
 }
 .summaryPanel .statsDetails .metric strong {
-  font-size: 21px;
+  font-size: calc(21px * var(--app-text-scale, 1));
 }
 .calculationBasis {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.7;
   color: var(--ws-muted);
   margin: 14px 0 3px;
@@ -718,23 +718,23 @@
 }
 .recordsHeader h3 {
   margin: 0 0 4px;
-  font-size: 16px;
+  font-size: var(--app-header-size);
 }
 .recordsHeader p {
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   color: var(--ws-muted);
   margin: 0;
 }
 .recordsCount {
   color: var(--ws-text);
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   font-weight: 650;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 .recordsCount span {
   color: var(--ws-muted);
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 400;
 }
 .recordsToolbar {
@@ -772,7 +772,7 @@
   background: transparent;
   color: var(--ws-text);
   font: inherit;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .recordsSearch input:focus-visible,
 .recordSort select:focus-visible {
@@ -815,7 +815,7 @@
   background: transparent;
   color: var(--ws-muted);
   font: inherit;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 550;
   cursor: pointer;
   white-space: nowrap;
@@ -827,11 +827,11 @@
 }
 .recordFilters button span {
   color: var(--ws-muted);
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   font-variant-numeric: tabular-nums;
 }
 .recordFilters button[aria-pressed="true"] span {
-  color: var(--ws-brand);
+  color: var(--primary-dark);
 }
 .recordSort {
   display: flex;
@@ -854,7 +854,7 @@
   background: transparent;
   color: var(--ws-text);
   font: inherit;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 .screenReaderOnly {
   position: absolute;
@@ -869,7 +869,7 @@
 }
 .outputTable[data-compact="true"] {
   min-width: 1080px;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .outputTable[data-compact="true"] th,
 .outputTable[data-compact="true"] td {
@@ -907,8 +907,8 @@
   display: inline-flex;
   align-items: center;
   min-height: 22px;
-  color: var(--ws-brand) !important;
-  font-size: 10px !important;
+  color: var(--primary-dark) !important;
+  font-size: calc(10px * var(--app-text-scale, 1)) !important;
   font-weight: 550;
 }
 .recordDetailPanel {
@@ -928,12 +928,12 @@
   display: grid;
   gap: 2px;
   color: var(--ws-text);
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   line-height: 1.4;
 }
 .recordDetailPanel strong {
   color: var(--ws-muted);
-  font-size: 9px;
+  font-size: calc(9px * var(--app-text-scale, 1));
   font-weight: 550;
 }
 .recordDetailPanel .recordException {
@@ -945,7 +945,7 @@
 .recordAction {
   min-height: 31px;
   padding: 5px 9px;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 
 /* Guided DTR import and payroll-style calculated output. */
@@ -969,7 +969,7 @@
   min-width: 0;
   padding: 0 8px;
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 500;
 }
 .importSteps li:not(:last-child)::after {
@@ -995,10 +995,10 @@
   height: 34px;
   border: 3px solid var(--ws-surface);
   border-radius: 50%;
-  background: #eef1f5;
+  background: var(--surface-muted);
   color: var(--ws-muted);
   font-variant-numeric: tabular-nums;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 650;
   box-shadow: 0 0 0 1px var(--ws-border);
   transition: background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
@@ -1061,22 +1061,22 @@
   height: 34px;
   border-radius: 10px;
   background: var(--ws-brand-soft);
-  color: var(--ws-brand);
-  font-size: 11px;
+  color: var(--primary-dark);
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
 .importCardHeading h3 {
   margin: 0;
   color: var(--ws-text);
-  font-size: 15px;
+  font-size: var(--app-header-size);
   font-weight: 650;
   letter-spacing: -0.02em;
 }
 .importCardHeading p {
   margin: 5px 0 0;
   color: var(--ws-muted);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   line-height: 1.5;
 }
 .importDrop {
@@ -1129,7 +1129,7 @@
   border: 1px solid var(--ws-border);
   border-radius: 11px;
   background: var(--ws-surface);
-  color: var(--ws-brand);
+  color: var(--primary-dark);
 }
 .importDropCopy {
   display: grid;
@@ -1138,12 +1138,12 @@
 }
 .importDropCopy strong {
   color: var(--ws-text);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 600;
 }
 .importDropCopy small {
   color: var(--ws-muted);
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 .importBrowse {
   margin-left: auto;
@@ -1152,7 +1152,7 @@
   border-radius: 8px;
   background: var(--ws-surface);
   color: var(--ws-text);
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 600;
   white-space: nowrap;
 }
@@ -1165,7 +1165,7 @@
   border: 1px solid var(--ws-border);
   border-radius: 9px;
   background: var(--ws-surface);
-  color: var(--ws-brand);
+  color: var(--primary-dark);
 }
 .importSelectedFile > span {
   display: grid;
@@ -1176,14 +1176,14 @@
 .importSelectedFile strong {
   overflow: hidden;
   color: var(--ws-text);
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .importSelectedFile small {
   color: var(--ws-muted);
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
 }
 .importSelectedFile button {
   display: grid;
@@ -1209,7 +1209,7 @@
 }
 .importAdvanced summary {
   color: var(--ws-muted);
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 550;
 }
 .cutoffChoices {
@@ -1225,7 +1225,7 @@
   margin-bottom: 8px;
   padding: 0;
   color: var(--ws-muted);
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 550;
 }
 .cutoffChoices label {
@@ -1262,13 +1262,13 @@
 }
 .cutoffChoices strong {
   color: var(--ws-text);
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   font-weight: 650;
   font-variant-numeric: tabular-nums;
 }
 .cutoffChoices small {
   color: var(--ws-muted);
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   line-height: 1.4;
 }
 .cutoffSummary {
@@ -1282,12 +1282,12 @@
   border-radius: 9px;
   background: var(--ws-subtle);
   color: var(--ws-text);
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-variant-numeric: tabular-nums;
 }
 .cutoffSummary span {
   color: var(--ws-muted);
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
 }
 .cutoffSummary strong {
   color: var(--ws-text);
@@ -1309,14 +1309,14 @@
 }
 .identitySummary strong {
   color: var(--ws-text);
-  font-size: 18px;
+  font-size: calc(18px * var(--app-text-scale, 1));
   line-height: 1.2;
   font-weight: 650;
   font-variant-numeric: tabular-nums;
 }
 .identitySummary span {
   color: var(--ws-muted);
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   line-height: 1.35;
 }
 .identitySummary [data-tone="success"] strong {
@@ -1333,7 +1333,7 @@
   padding-inline: 15px;
 }
 .importAction span:last-child {
-  font-size: 18px;
+  font-size: calc(18px * var(--app-text-scale, 1));
   line-height: 1;
 }
 .matchBadge {
@@ -1341,7 +1341,7 @@
   align-items: center;
   gap: 6px;
   color: var(--ws-success);
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 550;
 }
 .matchBadge[data-warning="true"] {
@@ -1371,7 +1371,7 @@
   display: block;
   margin-top: 4px;
   color: var(--ws-muted);
-  font-size: 10px;
+  font-size: calc(10px * var(--app-text-scale, 1));
   font-weight: 400;
   text-align: inherit;
 }
@@ -1380,8 +1380,8 @@
 }
 .outputTable .outputTotal,
 .outputTable > tbody > .outputTotal {
-  background: #d9e7f8;
-  color: #243d5b;
+  background: var(--surface-subtle);
+  color: var(--text-primary);
   font-weight: 650;
 }
 .outputTable .outputTotal th,
@@ -1390,7 +1390,7 @@
   border-bottom: 0;
 }
 .outputTable .outputTotal th:first-child {
-  background: #d9e7f8;
+  background: var(--surface-subtle);
   z-index: 1;
 }
 .outputTable td:has(.statusPill) {
@@ -1401,7 +1401,7 @@
 .outputTable td .error {
   margin-top: 6px;
   padding: 7px 9px;
-  font-size: 11px;
+  font-size: calc(11px * var(--app-text-scale, 1));
 }
 .reviewExportGrid {
   display: grid;
@@ -1452,7 +1452,7 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
   .importStepLabel {
-    font-size: 10px;
+    font-size: calc(10px * var(--app-text-scale, 1));
   }
   .importCards {
     grid-template-columns: 1fr;
@@ -1468,7 +1468,7 @@
   }
   .workflowNav button {
     flex: 1;
-    font-size: 12px;
+    font-size: calc(12px * var(--app-text-scale, 1));
     padding: 10px 8px;
     gap: 5px;
   }
@@ -1542,7 +1542,7 @@
   }
   .importBrowse {
     padding: 7px 8px;
-    font-size: 10px;
+    font-size: calc(10px * var(--app-text-scale, 1));
   }
   .importDropLabel {
     gap: 9px;
@@ -1611,7 +1611,7 @@
 .importStepButton:disabled { cursor: not-allowed; }
 .importStepButton:disabled .importStepLabel { opacity: .65; }
 .importStepButton:focus-visible { outline: 2px solid var(--ws-brand); outline-offset: 4px; border-radius: 6px; }
-.importCurrentStep { margin: 16px 0 0; color: var(--ws-text); font-size: 13px; font-weight: 600; text-align: center; }
+.importCurrentStep { margin: 16px 0 0; color: var(--ws-text); font-size: calc(13px * var(--app-text-scale, 1)); font-weight: 600; text-align: center; }
 .importIdentityScroll { max-height: min(55vh, 520px); overflow: auto; }
 .importIdentityScroll thead { position: sticky; top: 0; z-index: 1; }
 .importFlow h3:focus { outline: none; }

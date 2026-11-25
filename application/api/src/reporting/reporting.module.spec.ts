@@ -12,12 +12,12 @@ describe('MSPACES reporting module', () => {
       amount: 12,
       label: 'Active employees',
     });
-    controller.record('rooms', {
+    await controller.record('rooms', {
       branchId: 'branch-1',
       amount: 8,
       label: 'Available rooms',
     });
-    controller.record('inventory', {
+    await controller.record('inventory', {
       branchId: 'branch-1',
       amount: 240,
       label: 'Inventory units',

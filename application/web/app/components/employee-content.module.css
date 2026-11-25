@@ -13,7 +13,7 @@
   min-width: 0;
 }
 .heading h2 {
-  font-size: 18px;
+  font-size: var(--app-header-size);
   font-weight: 650;
   margin: 0;
   color: var(--ws-text, #172033);
@@ -25,11 +25,11 @@
   height: 44px;
   border-radius: 13px;
   flex-shrink: 0;
-  color: var(--ws-brand, #c22d32);
-  background: var(--ws-brand-soft, #fff0f2);
+  color: var(--primary-dark);
+  background: var(--ws-brand-soft, var(--primary-soft));
 }
 .description {
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   color: var(--ws-muted, #64748b);
   line-height: 1.6;
   margin: 5px 0 0;
@@ -47,12 +47,12 @@
 .form textarea {
   min-height: 42px;
   padding: 10px 12px;
-  border: 1px solid var(--ws-border, #e2e8f0);
+  border: 1px solid var(--ws-border, var(--border));
   border-radius: 10px;
-  background: white;
+  background: var(--surface);
   color: var(--ws-text, #172033);
   font: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
   max-width: 100%;
 }
 .toolbar input {
@@ -67,14 +67,14 @@
   gap: 7px;
   min-height: 40px;
   padding: 9px 14px;
-  border: 1px solid var(--ws-border, #e2e8f0);
+  border: 1px solid var(--ws-border, var(--border));
   border-radius: 10px;
   font: inherit;
-  font-size: 12px;
+  font-size: calc(12px * var(--app-text-scale, 1));
   font-weight: 600;
   cursor: pointer;
   text-decoration: none;
-  background: #fff;
+  background: var(--surface);
   color: var(--ws-text, #172033);
   transition:
     background 0.16s,
@@ -87,7 +87,7 @@
   border-color: transparent;
 }
 .button:hover {
-  background: #f5f7fa;
+  background: var(--surface-subtle);
   box-shadow: 0 2px 6px #17203308;
 }
 .primary:hover {
@@ -103,10 +103,10 @@
   cursor: not-allowed;
 }
 .surface {
-  border: 1px solid var(--ws-border, #e2e8f0);
+  border: 1px solid var(--ws-border, var(--border));
   border-radius: 16px;
   padding: 22px;
-  background: linear-gradient(125deg, #fff, #f8fafc);
+  background: linear-gradient(125deg, var(--surface), var(--surface-subtle));
   min-width: 0;
 }
 .contactGrid {
@@ -126,19 +126,19 @@
   display: grid;
   place-items: center;
   border-radius: 20px;
-  background: #fff0f2;
-  color: #b42332;
-  font-size: 21px;
+  background: var(--surface-muted);
+  color: var(--primary-dark);
+  font-size: calc(21px * var(--app-text-scale, 1));
   font-weight: 650;
   flex-shrink: 0;
 }
 .person h3 {
-  font-size: 19px;
+  font-size: var(--app-header-size);
   margin: 0 0 6px;
 }
 .eyebrow {
-  font-size: 10px;
-  color: #64748b;
+  font-size: calc(10px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin: 0 0 8px;
@@ -149,18 +149,18 @@
   gap: 6px;
   border-radius: 20px;
   padding: 5px 9px;
-  background: #eef2f6;
-  color: #526177;
-  font-size: 11px;
+  background: var(--surface-muted);
+  color: var(--text-secondary);
+  font-size: calc(11px * var(--app-text-scale, 1));
   font-weight: 550;
 }
 .positive {
-  background: #eaf7f1;
-  color: #14745b;
+  background: var(--success);
+  color: var(--status-success);
 }
 .warning {
-  background: #fff4e5;
-  color: #94610b;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
 }
 .recordList {
   list-style: none;
@@ -170,7 +170,7 @@
   gap: 12px;
 }
 .record {
-  border: 1px solid var(--ws-border, #e2e8f0);
+  border: 1px solid var(--ws-border, var(--border));
   border-radius: 14px;
   padding: 18px;
   transition:
@@ -189,7 +189,7 @@
   flex-wrap: wrap;
 }
 .record h3 {
-  font-size: 15px;
+  font-size: var(--app-header-size);
   margin: 8px 0;
   overflow-wrap: anywhere;
 }
@@ -198,7 +198,7 @@
   text-decoration: none;
 }
 .record h3 a:hover {
-  color: var(--ws-brand, #c22d32);
+  color: var(--primary-dark);
   text-decoration: underline;
 }
 .meta {
@@ -206,8 +206,8 @@
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
-  color: #64748b;
-  font-size: 12px;
+  color: var(--text-secondary);
+  font-size: calc(12px * var(--app-text-scale, 1));
 }
 .actions {
   display: flex;
@@ -217,7 +217,7 @@
 }
 .form {
   margin-top: 18px;
-  background: #f8fafc;
+  background: var(--surface-subtle);
   border-radius: 12px;
   padding: 18px;
 }
@@ -228,15 +228,15 @@
   min-width: 0;
 }
 .form legend {
-  font-size: 14px;
+  font-size: calc(14px * var(--app-text-scale, 1));
   font-weight: 600;
   margin-bottom: 14px;
 }
 .form label {
   display: grid;
   gap: 7px;
-  font-size: 12px;
-  color: #526177;
+  font-size: calc(12px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
   margin-bottom: 14px;
 }
 .form textarea {
@@ -250,31 +250,31 @@
   align-items: center;
   gap: 12px;
   padding-top: 20px;
-  font-size: 12px;
-  color: #64748b;
+  font-size: calc(12px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
 }
 .empty {
   display: grid;
   justify-items: center;
   text-align: center;
   gap: 10px;
-  background: #f8fafc;
-  border: 1px dashed #d7dee7;
+  background: var(--surface-subtle);
+  border: 1px dashed var(--border);
   border-radius: 14px;
   padding: 32px 20px;
-  color: #64748b;
-  font-size: 13px;
+  color: var(--text-secondary);
+  font-size: calc(13px * var(--app-text-scale, 1));
 }
 .notice {
-  background: #edf8f3;
-  color: #176b50;
+  background: var(--success);
+  color: var(--status-success);
   padding: 12px 16px;
   border-radius: 10px;
-  font-size: 13px;
+  font-size: calc(13px * var(--app-text-scale, 1));
 }
 .reference {
-  font-size: 10px;
-  color: #64748b;
+  font-size: calc(10px * var(--app-text-scale, 1));
+  color: var(--text-secondary);
   overflow-wrap: anywhere;
 }
 :is(
@@ -285,7 +285,7 @@
   .form select,
   .form textarea
 ):focus-visible {
-  outline: 2px solid var(--ws-brand, #c22d32);
+  outline: 2px solid var(--ws-brand, var(--focus-ring));
   outline-offset: 3px;
 }
 @media (max-width: 640px) {
@@ -297,10 +297,10 @@
     padding: 16px;
   }
   .person h3 {
-    font-size: 17px;
+    font-size: var(--app-header-size);
   }
   .heading h2 {
-    font-size: 16px;
+    font-size: var(--app-header-size);
   }
 }
 @media (prefers-reduced-motion: reduce) {

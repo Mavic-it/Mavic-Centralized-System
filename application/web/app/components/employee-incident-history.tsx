@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { FieldLabel } from "./field-label";
 import {
   FileWarning,
@@ -229,7 +230,7 @@ export function EmployeeIncidentHistory({
                     )}
                   </div>
                   {editing === item.id && (
-                    <form
+                    <FormLayout
                       className={ui.form}
                       onSubmit={(event) => {
                         event.preventDefault();
@@ -286,7 +287,7 @@ export function EmployeeIncidentHistory({
                           Cancel
                         </button>
                       </fieldset>
-                    </form>
+                    </FormLayout>
                   )}
                 </div>
               </li>

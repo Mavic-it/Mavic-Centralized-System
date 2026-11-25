@@ -1,4 +1,5 @@
 "use client";
+import { FormLayout } from "@/app/components/ui/form-layout";
 import { RequiredMark } from "../components/required-mark";
 import { useEffect, useRef, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -880,7 +881,7 @@ export function DtrImport({
               busy={busy}
               onClose={() => setEditing(null)}
             >
-              <form
+              <FormLayout
                 className={styles.card}
                 aria-label="Change preview attendance day"
                 onSubmit={(event) => {
@@ -982,7 +983,7 @@ export function DtrImport({
                 >
                   Cancel
                 </button>
-              </form>
+              </FormLayout>
             </Modal>
           )}
         </section>
