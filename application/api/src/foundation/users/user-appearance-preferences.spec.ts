@@ -34,7 +34,7 @@ describe('UserService appearance preferences', () => {
     expect(query.mock.calls[0][0]).toContain('WHERE user_id = $1');
     expect(query.mock.calls[0][1]).toEqual(['user-a']);
     expect(query.mock.calls[1][0]).toContain('ON CONFLICT (user_id) DO UPDATE');
-    expect(query.mock.calls[1][1]).toEqual(['user-b', 'system', 'purple', 'default', 'default', 'default', 'comfortable']);
+    expect(query.mock.calls[1][1]).toEqual(['user-b', 'light', 'purple', 'default', 'default', 'default', 'comfortable']);
   });
 
   it('removes only the requested user override on reset', async () => {
