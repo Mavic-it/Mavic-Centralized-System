@@ -1,9 +1,9 @@
 "use client";
 
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithRef } from "react";
 import styles from "./form-layout.module.css";
 
-type FormLayoutProps = ComponentPropsWithoutRef<"form"> & {
+type FormLayoutProps = ComponentPropsWithRef<"form"> & {
   density?: "standard" | "compact";
   frame?: "standard" | "flush";
 };
